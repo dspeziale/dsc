@@ -50,30 +50,44 @@ const Admin = () => {
             setLoading(true);
 
             // Fetch contacts
+            console.log('Fetching contacts...');
             const contactsRes = await fetch('/api/admin/contacts', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
+            console.log('Contacts response:', contactsRes.status);
             const contactsData = await contactsRes.json();
             if (contactsRes.ok) {
-                setContacts(contactsData.contacts);
+                console.log('Contacts received:', contactsData.contacts?.length || 0);
+                setContacts(contactsData.contacts || []);
+            } else {
+                console.error('Contacts error:', contactsData);
             }
 
             // Fetch analytics
+            console.log('Fetching visits...');
             const visitsRes = await fetch('/api/admin/visits', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
+            console.log('Visits response:', visitsRes.status);
             const visitsData = await visitsRes.json();
             if (visitsRes.ok) {
-                setStats(visitsData.stats);
-                setPageStats(visitsData.pageStats);
+                console.log('Visits data received:', visitsData);
+                setStats(visitsData.stats || { total_visits: 0, unique_visitors: 0, pages_visited: 0 });
+                setPageStats(visitsData.pageStats || []);
+            } else {
+                console.error('Visits error:', visitsData);
+                setStats({ total_visits: 0, unique_visitors: 0, pages_visited: 0 });
+                setPageStats([]);
             }
 
         } catch (error) {
             console.error('Error fetching admin data:', error);
+            setStats({ total_visits: 0, unique_visitors: 0, pages_visited: 0 });
+            setPageStats([]);
         } finally {
             setLoading(false);
         }
@@ -194,8 +208,8 @@ const Admin = () => {
                             <button
                                 onClick={() => setActiveTab('contacts')}
                                 className={`flex-1 px-6 py-4 font-semibold transition-colors duration-300 ${activeTab === 'contacts'
-                                        ? 'bg-accent text-white'
-                                        : 'text-gray-600 hover:bg-gray-50'
+                                    ? 'bg-accent text-white'
+                                    : 'text-gray-600 hover:bg-gray-50'
                                     }`}
                             >
                                 <FileText size={20} className="inline mr-2" />
@@ -204,8 +218,8 @@ const Admin = () => {
                             <button
                                 onClick={() => setActiveTab('analytics')}
                                 className={`flex-1 px-6 py-4 font-semibold transition-colors duration-300 ${activeTab === 'analytics'
-                                        ? 'bg-accent text-white'
-                                        : 'text-gray-600 hover:bg-gray-50'
+                                    ? 'bg-accent text-white'
+                                    : 'text-gray-600 hover:bg-gray-50'
                                     }`}
                             >
                                 <TrendingUp size={20} className="inline mr-2" />
