@@ -1,10 +1,21 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Shield } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+
+  // Safely get auth context with fallback
+  let isAuthenticated = false;
+  try {
+    const auth = useAuth();
+    isAuthenticated = auth?.isAuthenticated || false;
+  } catch (error) {
+    // AuthContext not available, user not authenticated
+    isAuthenticated = false;
+  }
 
   const navItems = [
     { path: '/', label: 'Home' },
@@ -13,6 +24,11 @@ const Header = () => {
     { path: '/progetti', label: 'Progetti' },
     { path: '/contatti', label: 'Contatti' },
   ];
+
+  // Add Admin link if authenticated
+  const allNavItems = isAuthenticated
+    ? [...navItems, { path: '/admin', label: 'Admin', icon: Shield }]
+    : navItems;
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -30,7 +46,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:block">
             <ul className="flex items-center gap-8">
-              {navItems.map((item) => (
+              {allNavItems.map((item) => (
                 <li key={item.path}>
                   <Link
                     to={item.path}
@@ -62,19 +78,19 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         <nav
-          className={`md:hidden overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-64 pb-4' : 'max-h-0'
+          className={`md:hidden overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-96 pb-4' : 'max-h-0'
             }`}
         >
-          <ul className="flex flex-col gap-4">
-            {navItems.map((item) => (
+          <ul className="flex flex-col gap-4 pt-4">
+            {allNavItems.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
+                  onClick={() => setIsMenuOpen(false)}
                   className={`block font-bold uppercase tracking-wide text-sm transition-colors duration-300 ${isActive(item.path)
                     ? 'text-accent'
                     : 'text-gray-700 hover:text-accent'
                     }`}
-                  onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </Link>
