@@ -75,6 +75,12 @@
   border: 2px solid rgba(39, 174, 96, 0.3);
 }
 
+.form-message.error {
+  background: rgba(231, 76, 60, 0.1);
+  color: #c0392b;
+  border: 2px solid rgba(231, 76, 60, 0.3);
+}
+
 /* Contact Form */
 .contact-form {
   display: flex;

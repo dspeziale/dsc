@@ -14,6 +14,7 @@ const Contatti = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -25,48 +26,68 @@ const Contatti = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
 
-    // Simula invio form
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setIsSubmitting(false);
-    setSubmitStatus('success');
-    setFormData({
-      nome: '',
-      email: '',
-      telefono: '',
-      azienda: '',
-      servizio: '',
-      messaggio: '',
-    });
+      const data = await response.json();
 
-    setTimeout(() => setSubmitStatus('idle'), 5000);
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          nome: '',
+          email: '',
+          telefono: '',
+          azienda: '',
+          servizio: '',
+          messaggio: '',
+        });
+        setTimeout(() => setSubmitStatus('idle'), 5000);
+      } else {
+        setSubmitStatus('error');
+        setErrorMessage(data.error || 'Errore durante l\'invio del messaggio');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+      setErrorMessage('Errore di connessione. Riprova piu tardi.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: <Mail size={24} />,
       title: 'Email',
-      content: 'dsconsulting-italy@gmail.com',
-      link: 'mailto:dsconsulting-italy@gmail.com',
+      content: 'info@dsconsulting.it',
+      link: 'mailto:info@dsconsulting.it',
     },
     {
       icon: <Phone size={24} />,
       title: 'Telefono',
-      content: '+39 352 015 0489',
-      link: 'tel:+393520150489',
+      content: '+39 123 456 7890',
+      link: 'tel:+391234567890',
     },
     {
       icon: <MapPin size={24} />,
       title: 'Indirizzo',
-      content: 'Via Carlo Arturo Jemolo, 283, Roma',
+      content: 'Via Roma 123, 20121 Milano',
       link: '#',
     },
     {
       icon: <Clock size={24} />,
       title: 'Orari',
       content: 'Lun - Ven: 9:00 - 18:00',
-      link: '#',  
+      link: '#',
     },
   ];
 
@@ -93,6 +114,12 @@ const Contatti = () => {
               {submitStatus === 'success' && (
                 <div className="form-message success">
                   Messaggio inviato con successo! Ti contatteremo presto.
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="form-message error">
+                  {errorMessage}
                 </div>
               )}
 
