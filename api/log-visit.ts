@@ -1,8 +1,4 @@
-import { put, list } from '@vercel/blob';
-
-export const config = {
-  runtime: 'edge',
-};
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 interface VisitLog {
   ip: string;
@@ -12,83 +8,78 @@ interface VisitLog {
   referer: string;
 }
 
-export default async function handler(request: Request) {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json',
-  };
+// In-memory storage for visit logs
+// In production, consider using a database or analytics service
+const visits: VisitLog[] = [];
 
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 200, headers });
+export default async function handler(
+  req: VercelRequest,
+  res: VercelResponse
+) {
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
 
-  if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405,
-      headers,
-    });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const body = await request.json();
+    const { page } = req.body;
 
     // Get IP from headers (Vercel forwards the real IP)
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-      || request.headers.get('x-real-ip')
+    const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim()
+      || (req.headers['x-real-ip'] as string)
+      || req.socket.remoteAddress
       || 'unknown';
 
-    const userAgent = request.headers.get('user-agent') || 'unknown';
-    const referer = request.headers.get('referer') || 'direct';
+    const userAgent = req.headers['user-agent'] || 'unknown';
+    const referer = req.headers['referer'] || 'direct';
 
     const visitLog: VisitLog = {
       ip,
       timestamp: new Date().toISOString(),
       userAgent,
-      page: body.page || '/',
+      page: page || '/',
       referer,
     };
-
-    // Read existing logs
-    const blobName = 'visits.json';
-    let visits: VisitLog[] = [];
-
-    try {
-      const { blobs } = await list({ prefix: blobName });
-      if (blobs.length > 0) {
-        const response = await fetch(blobs[0].url);
-        visits = await response.json();
-      }
-    } catch {
-      // File doesn't exist yet, start with empty array
-      visits = [];
-    }
 
     // Add new visit
     visits.push(visitLog);
 
-    // Keep only last 1000 visits to avoid blob size issues
+    // Keep only last 1000 visits to avoid memory issues
     if (visits.length > 1000) {
-      visits = visits.slice(-1000);
+      visits.shift(); // Remove oldest visit
     }
 
-    // Save updated logs
-    await put(blobName, JSON.stringify(visits, null, 2), {
-      access: 'public',
-      addRandomSuffix: false,
+    // Log to console (visible in Vercel logs)
+    console.log('Page visit logged:', visitLog);
+
+    // TODO: For production, consider integrating with analytics services:
+    // - Google Analytics
+    // - Plausible Analytics
+    // - Umami
+    // - Vercel Analytics (built-in)
+    // 
+    // Or store in a database:
+    // - Vercel Postgres
+    // - MongoDB Atlas
+    // - Supabase
+
+    return res.status(200).json({
+      success: true,
+      logged: visitLog
     });
 
-    return new Response(JSON.stringify({ success: true, logged: visitLog }), {
-      status: 200,
-      headers,
-    });
   } catch (error) {
     console.error('Error logging visit:', error);
-    return new Response(JSON.stringify({ error: 'Failed to log visit' }), {
-      status: 500,
-      headers,
+    return res.status(500).json({
+      error: 'Failed to log visit'
     });
   }
 }

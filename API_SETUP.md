@@ -1,19 +1,31 @@
-# API Contact Form - Setup Guide
+# API Functions - Setup Guide
 
 ## Overview
 
-The contact form API is now configured as a **Node.js Serverless Function** compatible with Vercel deployment.
+The project includes two **Node.js Serverless Functions** compatible with Vercel deployment:
+
+1. **Contact Form API** (`/api/contact`) - Handles contact form submissions
+2. **Visit Logger API** (`/api/log-visit`) - Tracks page visits for analytics
+
+Both APIs have been converted from Edge Functions to standard Node.js runtime to avoid deployment issues.
 
 ## Current Status
 
-✅ **Working**: The API accepts form submissions and validates data
-✅ **Logging**: All submissions are logged to Vercel console
+✅ **Working**: Both APIs accept requests and validate data
+✅ **Logging**: All submissions/visits are logged to Vercel console
 ⚠️ **Storage**: Currently using in-memory storage (resets on each deployment)
-⏳ **Email**: Email notifications not yet configured
+⏳ **Email**: Email notifications not yet configured (contact form only)
+⏳ **Analytics**: Consider using Vercel Analytics or third-party service
 
-## File Location
+## File Locations
 
-`api/contact.ts` - Serverless function endpoint
+- `api/contact.ts` - Contact form endpoint
+- `api/log-visit.ts` - Visit tracking endpoint
+
+---
+
+# Contact Form API (`/api/contact`)
+
 
 ## How It Works
 
@@ -81,7 +93,56 @@ To receive email notifications when users submit the contact form, you need to i
 3. **Add to Vercel**: `MAILGUN_API_KEY`, `MAILGUN_DOMAIN`
 4. **Install**: `npm install mailgun.js`
 
-## Database Integration (Optional)
+---
+
+# Visit Logger API (`/api/log-visit`)
+
+## How It Works
+
+1. Component `VisitLogger` calls `/api/log-visit` on page load
+2. API captures IP, user agent, page, and referrer
+3. Visit is logged to console and stored in-memory
+4. Keeps last 1000 visits to prevent memory issues
+
+## Analytics Integration (Recommended)
+
+Instead of building custom analytics, consider using:
+
+### Option 1: Vercel Analytics (Recommended)
+- **Free tier available**
+- **Zero configuration** - just enable in Vercel dashboard
+- **Privacy-friendly** - GDPR compliant
+- **Real-time data**
+
+Enable in: Vercel Dashboard → Project → Analytics → Enable
+
+### Option 2: Plausible Analytics
+- Open-source, privacy-focused
+- No cookies, GDPR compliant
+- Simple dashboard
+- Paid service or self-hosted
+
+### Option 3: Google Analytics 4
+- Free and comprehensive
+- Requires cookie consent
+- More complex setup
+
+### Option 4: Umami
+- Open-source alternative
+- Self-hosted or cloud
+- Privacy-focused
+
+## Disabling Visit Logging
+
+If you prefer to use Vercel Analytics or another service, you can remove the visit logger:
+
+1. Delete `api/log-visit.ts`
+2. Remove `<VisitLogger />` from `App.tsx`
+3. Remove `src/components/VisitLogger.tsx` (if exists)
+
+---
+
+# Database Integration (Optional)
 
 For persistent storage of contact messages:
 
