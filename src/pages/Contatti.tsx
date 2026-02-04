@@ -59,7 +59,7 @@ const Contatti = () => {
     {
       icon: <MapPin size={24} />,
       title: 'Indirizzo',
-      content: 'Via Carlo ARturo Jemolo, 283, Roma',
+      content: 'Via Carlo Arturo Jemolo, 283, Roma',
       link: '#',
     },
     {
