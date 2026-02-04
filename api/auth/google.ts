@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import * as jwt from 'jwt-simple';
+import jwt from 'jwt-simple';
 
 export default async function handler(
     req: VercelRequest,

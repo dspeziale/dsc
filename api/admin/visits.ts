@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { neon } from '@neondatabase/serverless';
-import * as jwt from 'jwt-simple';
+import jwt from 'jwt-simple';
 
 // Middleware to verify JWT token
 function verifyToken(req: VercelRequest): { email: string } | null {
