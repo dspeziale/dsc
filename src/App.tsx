@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Servizi from './pages/Servizi';
 import ChiSiamo from './pages/ChiSiamo';
+import Progetti from './pages/Progetti';
 import Contatti from './pages/Contatti';
 
 // Component to log visits on route change
@@ -44,6 +45,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/servizi" element={<Servizi />} />
         <Route path="/chi-siamo" element={<ChiSiamo />} />
+        <Route path="/progetti" element={<Progetti />} />
         <Route path="/contatti" element={<Contatti />} />
       </Routes>
       <Footer />

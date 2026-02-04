@@ -1,20 +1,17 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { neon } from '@neondatabase/serverless';
 
 interface ContactMessage {
-  id: string;
+  id?: number;
   nome: string;
   email: string;
   telefono: string;
   azienda: string;
   servizio: string;
   messaggio: string;
-  timestamp: string;
   ip: string;
+  timestamp?: string;
 }
-
-// In-memory storage (for demo purposes)
-// In production, you should use a database or external storage
-const messages: ContactMessage[] = [];
 
 export default async function handler(
   req: VercelRequest,
@@ -57,30 +54,32 @@ export default async function handler(
       || req.socket.remoteAddress
       || 'unknown';
 
-    const contactMessage: ContactMessage = {
-      id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      nome,
-      email,
-      telefono: telefono || '',
-      azienda: azienda || '',
-      servizio: servizio || '',
-      messaggio,
-      timestamp: new Date().toISOString(),
-      ip,
-    };
+    // Connect to Neon database
+    const sql = neon(process.env.DATABASE_URL!);
 
-    // Store message (in-memory for now)
-    messages.push(contactMessage);
+    // Insert contact message into database
+    const result = await sql`
+      INSERT INTO contacts (nome, email, telefono, azienda, servizio, messaggio, ip)
+      VALUES (${nome}, ${email}, ${telefono || ''}, ${azienda || ''}, ${servizio || ''}, ${messaggio}, ${ip})
+      RETURNING id, timestamp
+    `;
+
+    const contactId = result[0].id;
+    const timestamp = result[0].timestamp;
 
     // Log to console (visible in Vercel logs)
-    console.log('New contact form submission:', contactMessage);
+    console.log('New contact form submission:', {
+      id: contactId,
+      nome,
+      email,
+      timestamp,
+    });
 
-    // TODO: Integrate with email service
+    // TODO: Send email notification
     // You can add email sending here using services like:
     // - Resend (recommended for Vercel)
     // - SendGrid
     // - Mailgun
-    // - AWS SES
     // 
     // Example with Resend:
     // import { Resend } from 'resend';
@@ -95,7 +94,7 @@ export default async function handler(
     return res.status(200).json({
       success: true,
       message: 'Messaggio ricevuto con successo. Ti contatteremo presto!',
-      id: contactMessage.id
+      id: contactId
     });
 
   } catch (error) {

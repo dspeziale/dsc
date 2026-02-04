@@ -1,16 +1,14 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { neon } from '@neondatabase/serverless';
 
 interface VisitLog {
+  id?: number;
   ip: string;
-  timestamp: string;
+  timestamp?: string;
   userAgent: string;
   page: string;
   referer: string;
 }
-
-// In-memory storage for visit logs
-// In production, consider using a database or analytics service
-const visits: VisitLog[] = [];
 
 export default async function handler(
   req: VercelRequest,
@@ -41,35 +39,27 @@ export default async function handler(
     const userAgent = req.headers['user-agent'] || 'unknown';
     const referer = req.headers['referer'] || 'direct';
 
-    const visitLog: VisitLog = {
+    // Connect to Neon database
+    const sql = neon(process.env.DATABASE_URL!);
+
+    // Insert visit log into database
+    const result = await sql`
+      INSERT INTO visits (ip, user_agent, page, referer)
+      VALUES (${ip}, ${userAgent}, ${page || '/'}, ${referer})
+      RETURNING id, timestamp
+    `;
+
+    const visitLog = {
+      id: result[0].id,
       ip,
-      timestamp: new Date().toISOString(),
+      timestamp: result[0].timestamp,
       userAgent,
       page: page || '/',
       referer,
     };
 
-    // Add new visit
-    visits.push(visitLog);
-
-    // Keep only last 1000 visits to avoid memory issues
-    if (visits.length > 1000) {
-      visits.shift(); // Remove oldest visit
-    }
-
     // Log to console (visible in Vercel logs)
     console.log('Page visit logged:', visitLog);
-
-    // TODO: For production, consider integrating with analytics services:
-    // - Google Analytics
-    // - Plausible Analytics
-    // - Umami
-    // - Vercel Analytics (built-in)
-    // 
-    // Or store in a database:
-    // - Vercel Postgres
-    // - MongoDB Atlas
-    // - Supabase
 
     return res.status(200).json({
       success: true,
