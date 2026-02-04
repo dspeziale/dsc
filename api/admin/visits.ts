@@ -62,11 +62,18 @@ export default async function handler(
 
         console.log('Fetching visits with params:', { limitNum, offsetNum, daysNum });
 
+        // Calculate the date threshold in JavaScript
+        const dateThreshold = new Date();
+        dateThreshold.setDate(dateThreshold.getDate() - daysNum);
+        const dateString = dateThreshold.toISOString();
+
+        console.log('Date threshold:', dateString);
+
         // Fetch visits from database
         const visits = await sql`
       SELECT id, ip, user_agent, page, referer, timestamp
       FROM visits
-      WHERE timestamp >= NOW() - INTERVAL '${daysNum} days'
+      WHERE timestamp >= ${dateString}
       ORDER BY timestamp DESC
       LIMIT ${limitNum}
       OFFSET ${offsetNum}
@@ -81,7 +88,7 @@ export default async function handler(
         COUNT(DISTINCT ip) as unique_visitors,
         COUNT(DISTINCT page) as pages_visited
       FROM visits
-      WHERE timestamp >= NOW() - INTERVAL '${daysNum} days'
+      WHERE timestamp >= ${dateString}
     `;
 
         console.log('Stats calculated:', stats[0]);
@@ -93,7 +100,7 @@ export default async function handler(
         COUNT(*) as visits,
         COUNT(DISTINCT ip) as unique_visitors
       FROM visits
-      WHERE timestamp >= NOW() - INTERVAL '${daysNum} days'
+      WHERE timestamp >= ${dateString}
       GROUP BY page
       ORDER BY visits DESC
     `;
@@ -107,7 +114,7 @@ export default async function handler(
         COUNT(*) as visits,
         COUNT(DISTINCT ip) as unique_visitors
       FROM visits
-      WHERE timestamp >= NOW() - INTERVAL '${daysNum} days'
+      WHERE timestamp >= ${dateString}
       GROUP BY DATE(timestamp)
       ORDER BY date DESC
     `;
