@@ -53,7 +53,7 @@ const Footer = () => {
               </li>
               <li>
                 <MapPin size={18} />
-                <span>Via Carlo ARturo Jemolo, 283, Roma</span>
+                <span>Via Carlo Arturo Jemolo, 283, Roma</span>
               </li>
             </ul>
           </div>
