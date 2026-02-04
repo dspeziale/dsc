@@ -47,26 +47,26 @@ const Contatti = () => {
     {
       icon: <Mail size={24} />,
       title: 'Email',
-      content: 'info@dsconsulting.it',
-      link: 'mailto:info@dsconsulting.it',
+      content: 'dsconsulting-italy@gmail.com',
+      link: 'mailto:dsconsulting-italy@gmail.com',
     },
     {
       icon: <Phone size={24} />,
       title: 'Telefono',
-      content: '+39 123 456 7890',
-      link: 'tel:+391234567890',
+      content: '+39 352 015 0489',
+      link: 'tel:+393520150489',
     },
     {
       icon: <MapPin size={24} />,
       title: 'Indirizzo',
-      content: 'Via Roma 123, 20121 Milano',
+      content: 'Via Carlo ARturo Jemolo, 283, Roma',
       link: '#',
     },
     {
       icon: <Clock size={24} />,
       title: 'Orari',
       content: 'Lun - Ven: 9:00 - 18:00',
-      link: '#',
+      link: '#',  
     },
   ];
 
