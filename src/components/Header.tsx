@@ -23,7 +23,7 @@ const Header = () => {
             <span className="text-3xl font-bold text-primary group-hover:text-accent transition-colors duration-300">
               DS
             </span>
-            <span className="text-xl font-normal text-gray-600">Consulting</span>
+            <span className="text-3xl font-bold text-primary group-hover:text-accent transition-colors duration-300">Consulting</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -34,8 +34,8 @@ const Header = () => {
                   <Link
                     to={item.path}
                     className={`font-bold uppercase tracking-wide text-sm transition-colors duration-300 relative group ${isActive(item.path)
-                        ? 'text-accent'
-                        : 'text-gray-700 hover:text-accent'
+                      ? 'text-accent'
+                      : 'text-gray-700 hover:text-accent'
                       }`}
                   >
                     {item.label}
@@ -70,8 +70,8 @@ const Header = () => {
                 <Link
                   to={item.path}
                   className={`block font-bold uppercase tracking-wide text-sm transition-colors duration-300 ${isActive(item.path)
-                      ? 'text-accent'
-                      : 'text-gray-700 hover:text-accent'
+                    ? 'text-accent'
+                    : 'text-gray-700 hover:text-accent'
                     }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
