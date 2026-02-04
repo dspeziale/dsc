@@ -1,8 +1,4 @@
-import { put, list } from '@vercel/blob';
-
-export const config = {
-  runtime: 'edge',
-};
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 interface ContactMessage {
   id: string;
@@ -16,91 +12,96 @@ interface ContactMessage {
   ip: string;
 }
 
-export default async function handler(request: Request) {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json',
-  };
+// In-memory storage (for demo purposes)
+// In production, you should use a database or external storage
+const messages: ContactMessage[] = [];
 
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 200, headers });
+export default async function handler(
+  req: VercelRequest,
+  res: VercelResponse
+) {
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
 
-  if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405,
-      headers,
-    });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const body = await request.json();
+    const { nome, email, telefono, azienda, servizio, messaggio } = req.body;
 
     // Validate required fields
-    if (!body.nome || !body.email || !body.messaggio) {
-      return new Response(JSON.stringify({ error: 'Campi obbligatori mancanti' }), {
-        status: 400,
-        headers,
+    if (!nome || !email || !messaggio) {
+      return res.status(400).json({
+        error: 'Nome, email e messaggio sono campi obbligatori'
       });
     }
 
-    // Get IP
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-      || request.headers.get('x-real-ip')
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        error: 'Indirizzo email non valido'
+      });
+    }
+
+    // Get IP address
+    const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim()
+      || (req.headers['x-real-ip'] as string)
+      || req.socket.remoteAddress
       || 'unknown';
 
     const contactMessage: ContactMessage = {
       id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      nome: body.nome,
-      email: body.email,
-      telefono: body.telefono || '',
-      azienda: body.azienda || '',
-      servizio: body.servizio || '',
-      messaggio: body.messaggio,
+      nome,
+      email,
+      telefono: telefono || '',
+      azienda: azienda || '',
+      servizio: servizio || '',
+      messaggio,
       timestamp: new Date().toISOString(),
       ip,
     };
 
-    // Read existing messages
-    const blobName = 'contacts.json';
-    let messages: ContactMessage[] = [];
-
-    try {
-      const { blobs } = await list({ prefix: blobName });
-      if (blobs.length > 0) {
-        const response = await fetch(blobs[0].url);
-        messages = await response.json();
-      }
-    } catch {
-      // File doesn't exist yet
-      messages = [];
-    }
-
-    // Add new message
+    // Store message (in-memory for now)
     messages.push(contactMessage);
 
-    // Save updated messages
-    await put(blobName, JSON.stringify(messages, null, 2), {
-      access: 'public',
-      addRandomSuffix: false,
+    // Log to console (visible in Vercel logs)
+    console.log('New contact form submission:', contactMessage);
+
+    // TODO: Integrate with email service
+    // You can add email sending here using services like:
+    // - Resend (recommended for Vercel)
+    // - SendGrid
+    // - Mailgun
+    // - AWS SES
+    // 
+    // Example with Resend:
+    // import { Resend } from 'resend';
+    // const resend = new Resend(process.env.RESEND_API_KEY);
+    // await resend.emails.send({
+    //   from: 'noreply@dsconsulting.it',
+    //   to: 'info@dsconsulting.it',
+    //   subject: `Nuovo contatto da ${nome}`,
+    //   html: `<p><strong>Nome:</strong> ${nome}</p>...`
+    // });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Messaggio ricevuto con successo. Ti contatteremo presto!',
+      id: contactMessage.id
     });
 
-    return new Response(JSON.stringify({
-      success: true,
-      message: 'Messaggio ricevuto con successo',
-      id: contactMessage.id
-    }), {
-      status: 200,
-      headers,
-    });
   } catch (error) {
-    console.error('Error saving contact:', error);
-    return new Response(JSON.stringify({ error: 'Errore nel salvataggio del messaggio' }), {
-      status: 500,
-      headers,
+    console.error('Error processing contact form:', error);
+    return res.status(500).json({
+      error: 'Errore del server. Riprova più tardi.'
     });
   }
 }
