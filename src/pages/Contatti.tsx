@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from 'react';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
-import './Contatti.css';
 
 const Contatti = () => {
   const [formData, setFormData] = useState({
@@ -58,7 +57,7 @@ const Contatti = () => {
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitStatus('error');
-      setErrorMessage('Errore di connessione. Riprova piu tardi.');
+      setErrorMessage('Errore di connessione. Riprova più tardi.');
     } finally {
       setIsSubmitting(false);
     }
@@ -92,41 +91,46 @@ const Contatti = () => {
   ];
 
   return (
-    <main className="contatti">
-      <section className="page-header">
-        <div className="container">
-          <h1 className="page-title">Contattaci</h1>
-          <p className="page-subtitle">
+    <main className="pt-20">
+      {/* Page Header */}
+      <section className="relative bg-gradient-to-br from-primary to-primary-dark text-white py-20">
+        <div className="container text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Contattaci</h1>
+          <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
             Siamo pronti ad ascoltare le tue esigenze e proporti la soluzione migliore
           </p>
         </div>
       </section>
 
-      <section className="contact-section section">
+      {/* Contact Section */}
+      <section className="section bg-white">
         <div className="container">
-          <div className="contact-grid">
-            <div className="contact-form-wrapper">
-              <h2>Richiedi informazioni</h2>
-              <p>
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div>
+              <h2 className="text-3xl font-bold text-primary mb-4">Richiedi informazioni</h2>
+              <p className="text-gray-600 mb-8">
                 Compila il form e ti risponderemo entro 24 ore lavorative.
               </p>
 
               {submitStatus === 'success' && (
-                <div className="form-message success">
+                <div className="mb-6 p-4 bg-success/10 border border-success/20 rounded-lg text-success">
                   Messaggio inviato con successo! Ti contatteremo presto.
                 </div>
               )}
 
               {submitStatus === 'error' && (
-                <div className="form-message error">
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">
                   {errorMessage}
                 </div>
               )}
 
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="nome">Nome e Cognome *</label>
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="nome" className="block text-sm font-bold text-gray-700 mb-2">
+                      Nome e Cognome *
+                    </label>
                     <input
                       type="text"
                       id="nome"
@@ -135,10 +139,13 @@ const Contatti = () => {
                       onChange={handleChange}
                       required
                       placeholder="Mario Rossi"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
                     />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Email *</label>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2">
+                      Email *
+                    </label>
                     <input
                       type="email"
                       id="email"
@@ -147,13 +154,16 @@ const Contatti = () => {
                       onChange={handleChange}
                       required
                       placeholder="mario@esempio.it"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
                     />
                   </div>
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="telefono">Telefono</label>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="telefono" className="block text-sm font-bold text-gray-700 mb-2">
+                      Telefono
+                    </label>
                     <input
                       type="tel"
                       id="telefono"
@@ -161,10 +171,13 @@ const Contatti = () => {
                       value={formData.telefono}
                       onChange={handleChange}
                       placeholder="+39 123 456 7890"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
                     />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="azienda">Azienda</label>
+                  <div>
+                    <label htmlFor="azienda" className="block text-sm font-bold text-gray-700 mb-2">
+                      Azienda
+                    </label>
                     <input
                       type="text"
                       id="azienda"
@@ -172,17 +185,21 @@ const Contatti = () => {
                       value={formData.azienda}
                       onChange={handleChange}
                       placeholder="Nome azienda"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
                     />
                   </div>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="servizio">Servizio di interesse</label>
+                <div>
+                  <label htmlFor="servizio" className="block text-sm font-bold text-gray-700 mb-2">
+                    Servizio di interesse
+                  </label>
                   <select
                     id="servizio"
                     name="servizio"
                     value={formData.servizio}
                     onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
                   >
                     <option value="">Seleziona un servizio</option>
                     <option value="web">Sviluppo Web</option>
@@ -194,8 +211,10 @@ const Contatti = () => {
                   </select>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="messaggio">Messaggio *</label>
+                <div>
+                  <label htmlFor="messaggio" className="block text-sm font-bold text-gray-700 mb-2">
+                    Messaggio *
+                  </label>
                   <textarea
                     id="messaggio"
                     name="messaggio"
@@ -204,41 +223,54 @@ const Contatti = () => {
                     required
                     rows={5}
                     placeholder="Descrivi brevemente il tuo progetto o le tue esigenze..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300 resize-none"
                   ></textarea>
                 </div>
 
-                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                <button
+                  type="submit"
+                  className="btn btn-primary w-full md:w-auto"
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? 'Invio in corso...' : 'Invia messaggio'}
                   {!isSubmitting && <Send size={18} />}
                 </button>
               </form>
             </div>
 
-            <div className="contact-info-wrapper">
-              <h2>Informazioni di contatto</h2>
-              <p>
+            {/* Contact Info */}
+            <div>
+              <h2 className="text-3xl font-bold text-primary mb-4">Informazioni di contatto</h2>
+              <p className="text-gray-600 mb-8">
                 Puoi contattarci anche direttamente attraverso i seguenti canali.
               </p>
 
-              <div className="contact-info-list">
+              <div className="space-y-4 mb-8">
                 {contactInfo.map((info, index) => (
                   <a
                     key={index}
                     href={info.link}
-                    className="contact-info-item"
+                    className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl hover:bg-accent/5 hover:border-accent/20 border border-transparent transition-all duration-300 group"
                   >
-                    <div className="info-icon">{info.icon}</div>
-                    <div className="info-content">
-                      <span className="info-title">{info.title}</span>
-                      <span className="info-text">{info.content}</span>
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
+                      {info.icon}
+                    </div>
+                    <div>
+                      <span className="block text-sm font-bold text-gray-500 mb-1">
+                        {info.title}
+                      </span>
+                      <span className="text-lg text-gray-800 font-semibold">
+                        {info.content}
+                      </span>
                     </div>
                   </a>
                 ))}
               </div>
 
-              <div className="map-placeholder">
-                <MapPin size={48} />
-                <p>Via Roma 123, Milano</p>
+              {/* Map Placeholder */}
+              <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-12 text-center">
+                <MapPin size={48} className="mx-auto text-gray-400 mb-4" />
+                <p className="text-gray-600 font-semibold">Via Roma 123, Milano</p>
               </div>
             </div>
           </div>

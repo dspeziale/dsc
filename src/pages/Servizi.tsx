@@ -9,7 +9,6 @@ import {
   Shield,
   ArrowRight,
 } from 'lucide-react';
-import './Servizi.css';
 
 const Servizi = () => {
   const services = [
@@ -17,7 +16,7 @@ const Servizi = () => {
       icon: <Monitor size={40} />,
       title: 'Sviluppo Web',
       description:
-        'Creiamo applicazioni web moderne e performanti utilizzando le tecnologie piu avanzate come React, Vue, Node.js e molto altro.',
+        'Creiamo applicazioni web moderne e performanti utilizzando le tecnologie più avanzate come React, Vue, Node.js e molto altro.',
       features: [
         'Single Page Applications (SPA)',
         'E-commerce personalizzati',
@@ -106,7 +105,7 @@ const Servizi = () => {
     {
       step: '04',
       title: 'Testing',
-      description: 'Testiamo accuratamente per garantire qualita e sicurezza.',
+      description: 'Testiamo accuratamente per garantire qualità e sicurezza.',
     },
     {
       step: '05',
@@ -121,29 +120,33 @@ const Servizi = () => {
   ];
 
   return (
-    <main className="servizi">
-      <section className="page-header">
-        <div className="container">
-          <h1 className="page-title">I Nostri Servizi</h1>
-          <p className="page-subtitle">
+    <main className="pt-20">
+      {/* Page Header */}
+      <section className="relative bg-gradient-to-br from-primary to-primary-dark text-white py-20">
+        <div className="container text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">I Nostri Servizi</h1>
+          <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
             Soluzioni tecnologiche complete per ogni esigenza aziendale
           </p>
         </div>
       </section>
 
-      <section className="services-list section">
+      {/* Services Grid */}
+      <section className="section bg-white">
         <div className="container">
-          <div className="services-grid">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="service-item card">
-                <div className="service-icon">{service.icon}</div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <ul className="service-features">
+              <div key={index} className="card group">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-accent to-accent-dark rounded-2xl text-white mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                  {service.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-primary mb-3">{service.title}</h3>
+                <p className="text-gray-600 leading-relaxed mb-6">{service.description}</p>
+                <ul className="space-y-2">
                   {service.features.map((feature, i) => (
-                    <li key={i}>
-                      <Shield size={14} />
-                      {feature}
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                      <Shield size={16} className="text-success mt-0.5 flex-shrink-0" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -153,33 +156,43 @@ const Servizi = () => {
         </div>
       </section>
 
-      <section className="process section">
+      {/* Process Section */}
+      <section className="section bg-gradient-to-br from-gray-50 to-orange-50">
         <div className="container">
           <h2 className="section-title">Il Nostro Processo</h2>
           <p className="section-subtitle">
             Un approccio strutturato per garantire il successo del tuo progetto
           </p>
-          <div className="process-grid">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {process.map((item, index) => (
-              <div key={index} className="process-item">
-                <span className="process-step">{item.step}</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
+              <div
+                key={index}
+                className="relative bg-white p-8 rounded-2xl shadow-custom hover:shadow-custom-lg transition-all duration-300 hover:-translate-y-2 border-t-4 border-accent"
+              >
+                <span className="absolute -top-6 left-8 inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent to-secondary text-white font-bold text-xl rounded-full shadow-lg">
+                  {item.step}
+                </span>
+                <h3 className="text-xl font-bold text-primary mb-3 mt-4">{item.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="services-cta section">
+      {/* CTA Section */}
+      <section className="section bg-white">
         <div className="container">
-          <div className="cta-box">
-            <h2>Hai un progetto in mente?</h2>
-            <p>
+          <div className="bg-gradient-to-br from-accent to-accent-dark rounded-3xl p-12 md:p-16 text-center text-white shadow-custom-lg">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Hai un progetto in mente?</h2>
+            <p className="text-lg md:text-xl opacity-95 mb-8 max-w-2xl mx-auto">
               Parliamone insieme. Analizziamo le tue esigenze e troviamo la
               soluzione migliore per te.
             </p>
-            <Link to="/contatti" className="btn btn-primary">
+            <Link
+              to="/contatti"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-accent font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl uppercase tracking-wide"
+            >
               Richiedi una consulenza
               <ArrowRight size={20} />
             </Link>
