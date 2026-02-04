@@ -45,15 +45,15 @@ const Footer = () => {
             <ul>
               <li>
                 <Mail size={18} />
-                <span>info@dsconsulting.it</span>
+                <span>dsconsulting-italy@gmail.com</span>
               </li>
               <li>
                 <Phone size={18} />
-                <span>+39 123 456 7890</span>
+                <span>+39 352 015 0489</span>
               </li>
               <li>
                 <MapPin size={18} />
-                <span>Via Roma 123, Milano</span>
+                <span>Via Carlo ARturo Jemolo, 283, Roma</span>
               </li>
             </ul>
           </div>

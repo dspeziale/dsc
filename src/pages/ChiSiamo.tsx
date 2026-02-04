@@ -32,22 +32,22 @@ const ChiSiamo = () => {
 
   const team = [
     {
-      name: 'Marco Rossi',
+      name: 'Daniele Speziale',
       role: 'CEO & Founder',
-      description: 'Oltre 15 anni di esperienza nel settore IT e nella gestione di progetti software.',
+      description: 'Oltre 35 anni di esperienza nel settore IT e nella gestione di progetti software.',
     },
     {
-      name: 'Laura Bianchi',
+      name: 'Fabrizio Manni',
       role: 'CTO',
-      description: 'Esperta di architetture software e tecnologie cloud con background in aziende multinazionali.',
+      description: 'Esperto di architetture software e tecnologie cloud con background in aziende multinazionali.',
     },
     {
-      name: 'Giuseppe Verdi',
+      name: 'Claudio Rapisardi',
       role: 'Lead Developer',
-      description: 'Full-stack developer specializzato in React, Node.js e sviluppo mobile.',
+      description: 'Full-stack developer specializzato in Python, React, Node.js e sviluppo mobile.',
     },
     {
-      name: 'Anna Neri',
+      name: 'Anna Graminini',
       role: 'UX/UI Designer',
       description: 'Designer con focus su user experience e interfacce intuitive e accessibili.',
     },
