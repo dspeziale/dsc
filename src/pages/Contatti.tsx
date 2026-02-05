@@ -67,8 +67,8 @@ const Contatti = () => {
     {
       icon: <Mail size={24} />,
       title: 'Email',
-      content: 'dsconsulting-italy@gmail.com',
-      link: 'mailto:dsconsulting-italy@gmail.com',
+      content: 'dsconsulting.italy@gmail.com',
+      link: 'mailto:dsconsulting.italy@gmail.com',
     },
     {
       icon: <Phone size={24} />,
