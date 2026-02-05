@@ -228,7 +228,7 @@ const Admin = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/');
     };
 
     const formatDate = (dateString: string) => {
