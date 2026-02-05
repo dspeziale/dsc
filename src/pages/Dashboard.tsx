@@ -232,10 +232,10 @@ const Dashboard = () => {
                         <div className="mt-6 pt-6 border-t border-gray-50">
                             <div className="flex justify-between items-center mb-2">
                                 <span className="text-sm font-medium text-gray-500">Browser Dominante</span>
-                                <span className="text-sm font-bold text-primary">{data?.browserStats[0]?.name || 'N/A'}</span>
+                                <span className="text-sm font-bold text-primary">{data?.browserStats?.[0]?.name || 'N/A'}</span>
                             </div>
                             <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
-                                <div className="bg-accent h-1.5 rounded-full" style={{ width: '75%' }}></div>
+                                <div className="bg-accent h-1.5 rounded-full" style={{ width: data?.browserStats?.[0] ? '75%' : '0%' }}></div>
                             </div>
                         </div>
                     </div>
@@ -247,7 +247,7 @@ const Dashboard = () => {
                             Top Paesi
                         </h3>
                         <div className="space-y-4">
-                            {data?.countryStats.slice(0, 5).map((country, idx) => (
+                            {(data?.countryStats || []).slice(0, 5).map((country, idx) => (
                                 <div key={country.code || idx}>
                                     <div className="flex justify-between mb-1 text-sm">
                                         <span className="flex items-center gap-2">
@@ -258,7 +258,7 @@ const Dashboard = () => {
                                     <div className="w-full bg-gray-50 rounded-full h-2 overflow-hidden">
                                         <div
                                             className="bg-primary h-full transition-all duration-1000"
-                                            style={{ width: `${(country.value / (data.countryStats[0]?.value || 1)) * 100}%` }}
+                                            style={{ width: `${(country.value / (data?.countryStats?.[0]?.value || 1)) * 100}%` }}
                                         ></div>
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@ const Dashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-50">
-                                    {data?.recentActivity.map((activity) => (
+                                    {(data?.recentActivity || []).map((activity) => (
                                         <tr key={activity.id} className="group hover:bg-gray-50/50 transition-colors">
                                             <td className="py-4">
                                                 <div className="flex items-center gap-3">

@@ -54,9 +54,10 @@ const Header = () => {
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    className={`font-bold uppercase tracking-wide text-2xl transition-colors duration-300 relative group ${isActive(item.path)
-                      ? 'text-accent'
-                      : 'text-gray-700 hover:text-accent'
+                    className={`font-bold uppercase tracking-wide transition-colors duration-300 relative group ${isAuthenticated ? 'text-xl' : 'text-2xl'
+                      } ${isActive(item.path)
+                        ? 'text-accent'
+                        : 'text-gray-700 hover:text-accent'
                       }`}
                   >
                     {item.label}
@@ -94,7 +95,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         <nav
-          className={`md:hidden overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-96 pb-4' : 'max-h-0'
+          className={`md:hidden overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-[500px] pb-4' : 'max-h-0'
             }`}
         >
           <ul className="flex flex-col gap-4 pt-4">
