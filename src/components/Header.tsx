@@ -8,17 +8,9 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Safely get auth context with fallback
-  let isAuthenticated = false;
-  let logout = () => { };
-  try {
-    const auth = useAuth();
-    isAuthenticated = auth?.isAuthenticated || false;
-    logout = auth?.logout || (() => { });
-  } catch (error) {
-    // AuthContext not available, user not authenticated
-    isAuthenticated = false;
-  }
+  const auth = useAuth();
+  const isAuthenticated = auth?.isAuthenticated || false;
+  const logout = auth?.logout || (() => { });
 
   const handleLogout = () => {
     setIsMenuOpen(false);

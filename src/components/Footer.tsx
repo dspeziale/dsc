@@ -7,6 +7,7 @@ const Footer = () => {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
 
   useEffect(() => {
+    /*
     const fetchVisitorCount = async () => {
       try {
         const response = await fetch('/api/visitor-count');
@@ -20,6 +21,7 @@ const Footer = () => {
     };
 
     fetchVisitorCount();
+    */
   }, []);
 
   return (
