@@ -1,21 +1,30 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Shield } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, Shield, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Safely get auth context with fallback
   let isAuthenticated = false;
+  let logout = () => { };
   try {
     const auth = useAuth();
     isAuthenticated = auth?.isAuthenticated || false;
+    logout = auth?.logout || (() => { });
   } catch (error) {
     // AuthContext not available, user not authenticated
     isAuthenticated = false;
   }
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsMenuOpen(false);
+  };
 
   const navItems = [
     { path: '/', label: 'Home' },
@@ -63,6 +72,18 @@ const Header = () => {
                   </Link>
                 </li>
               ))}
+              {isAuthenticated && (
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="font-bold uppercase tracking-wide text-sm transition-colors duration-300 relative group text-gray-700 hover:text-accent flex items-center gap-2"
+                  >
+                    <LogOut size={16} />
+                    Logout
+                    <span className="absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 w-0 group-hover:w-full" />
+                  </button>
+                </li>
+              )}
             </ul>
           </nav>
 
@@ -96,6 +117,17 @@ const Header = () => {
                 </Link>
               </li>
             ))}
+            {isAuthenticated && (
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="block font-bold uppercase tracking-wide text-sm transition-colors duration-300 text-gray-700 hover:text-accent flex items-center gap-2"
+                >
+                  <LogOut size={16} />
+                  Logout
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
