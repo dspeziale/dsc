@@ -12,6 +12,7 @@ import Progetti from './pages/Progetti';
 import Contatti from './pages/Contatti';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import Dashboard from './pages/Dashboard';
 
 // Component to log visits on route change
 function VisitLogger() {
@@ -62,6 +63,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Admin />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
                 </ProtectedRoute>
               }
             />

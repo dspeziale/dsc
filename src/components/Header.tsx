@@ -37,9 +37,9 @@ const Header = () => {
     { path: '/contatti', label: 'Contatti' },
   ];
 
-  // Add Admin link if authenticated, Login link if not
+  // Add Dashboard and Admin links if authenticated, Login link if not
   const allNavItems = isAuthenticated
-    ? [...navItems, { path: '/admin', label: 'Admin', icon: Shield }]
+    ? [...navItems, { path: '/admin/dashboard', label: 'Dashboard', icon: Shield }, { path: '/admin', label: 'Admin', icon: Shield }]
     : [...navItems, { path: '/login', label: 'Login', icon: Shield }];
 
   const isActive = (path: string) => location.pathname === path;

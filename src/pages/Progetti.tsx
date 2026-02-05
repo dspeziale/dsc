@@ -4,7 +4,7 @@ const Progetti = () => {
     const projects = [
         {
             title: 'DS Tracker',
-            description: 'PiattaformaSistema avanzato di tracciamento GPS per la gestione della tua flotta in tempo reale.',
+            description: 'Sistema avanzato di tracciamento GPS per la gestione della tua flotta in tempo reale.',
             image: 'https://www.digitalmatter.com/hubfs/Imported_Blog_Media/Blog-Post-image-17-1.jpg',
             tags: ['React', 'Node.js', 'Postgres', 'Vite'],
             date: '2025',
