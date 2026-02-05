@@ -118,94 +118,77 @@ export default async function handler(
 
         console.log('Stats calculated:', stats[0]);
 
-        // Get IP visit statistics with network description and geolocation
+        // Get IP visit statistics grouped by network owner (ISP/Organization)
         const { ipLimit = '50', ipOffset = '0' } = req.query;
         const ipLimitNum = parseInt(ipLimit as string);
         const ipOffsetNum = parseInt(ipOffset as string);
 
         const ipStats = await sql`
       SELECT 
-        v.ip,
+        COALESCE(i.isp, i.organization, 'Sconosciuto') as network_owner,
+        i.asn,
+        i.country,
+        i.country_code,
+        COUNT(DISTINCT v.ip) as unique_ips,
         COUNT(*) as visits,
         MIN(v.timestamp) as first_visit,
         MAX(v.timestamp) as last_visit,
-        i.country,
-        i.country_code,
-        i.region,
-        i.city,
-        i.isp,
-        i.organization,
-        i.asn,
-        i.timezone
+        STRING_AGG(DISTINCT v.ip, ', ' ORDER BY v.ip) as ip_list
       FROM visits v
       LEFT JOIN ip_lookups i ON v.ip = i.ip
       WHERE v.timestamp >= ${dateString}
-      GROUP BY v.ip, i.country, i.country_code, i.region, i.city, i.isp, i.organization, i.asn, i.timezone
+      GROUP BY i.isp, i.organization, i.asn, i.country, i.country_code
       ORDER BY visits DESC
       LIMIT ${ipLimitNum}
       OFFSET ${ipOffsetNum}
     `;
 
-        // Get total count of unique IPs
-        const ipCountResult = await sql`
-      SELECT COUNT(DISTINCT ip) as total
-      FROM visits
-      WHERE timestamp >= ${dateString}
+        // Get total count of unique network owners
+        const ownerCountResult = await sql`
+      SELECT COUNT(DISTINCT COALESCE(i.isp, i.organization, 'Sconosciuto')) as total
+      FROM visits v
+      LEFT JOIN ip_lookups i ON v.ip = i.ip
+      WHERE v.timestamp >= ${dateString}
     `;
-        const totalIps = parseInt(ipCountResult[0].total);
+        const totalIps = parseInt(ownerCountResult[0].total);
 
         // Add network description based on geolocation or IP ranges
         const ipStatsWithNetwork = ipStats.map((stat: any) => {
-            const ip = stat.ip;
-            let networkDescription = 'Rete Pubblica';
+            let networkDescription = stat.network_owner;
 
-            // Priority 1: Use ISP name from IPWhois
-            if (stat.isp) {
-                networkDescription = stat.isp;
-                // Add ASN if available for better identification
-                if (stat.asn) {
-                    networkDescription += ` (${stat.asn})`;
-                }
+            // Add ASN if available
+            if (stat.asn) {
+                networkDescription += ` (${stat.asn})`;
             }
-            // Priority 2: Use organization name
-            else if (stat.organization) {
-                networkDescription = stat.organization;
-                if (stat.asn) {
-                    networkDescription += ` (${stat.asn})`;
-                }
-            }
-            // Priority 3: Use country/city
-            else if (stat.country) {
-                networkDescription = `${stat.country}${stat.city ? ` - ${stat.city}` : ''}`;
-            }
-            // Fallback: IP range detection
-            else {
-                if (ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.')) {
-                    networkDescription = 'Rete Privata/Locale';
-                } else if (ip.startsWith('151.') || ip.startsWith('93.') || ip.startsWith('79.')) {
-                    networkDescription = 'Provider Italiano (Telecom/Fastweb/Wind)';
-                } else if (ip.startsWith('2.') || ip.startsWith('5.')) {
-                    networkDescription = 'Provider Europeo';
-                } else if (ip.startsWith('8.8.') || ip.startsWith('1.1.')) {
-                    networkDescription = 'DNS Pubblico (Google/Cloudflare)';
-                } else if (ip === 'unknown' || ip === '::1' || ip === '127.0.0.1') {
-                    networkDescription = 'Localhost/Sconosciuto';
+
+            // Fallback for unknown networks
+            if (networkDescription === 'Sconosciuto' || !networkDescription) {
+                // Try to identify by IP pattern from the list
+                const firstIp = stat.ip_list?.split(',')[0]?.trim();
+                if (firstIp) {
+                    if (firstIp.startsWith('192.168.') || firstIp.startsWith('10.') || firstIp.startsWith('172.')) {
+                        networkDescription = 'Rete Privata/Locale';
+                    } else if (firstIp.startsWith('151.') || firstIp.startsWith('93.') || firstIp.startsWith('79.')) {
+                        networkDescription = 'Provider Italiano';
+                    } else if (firstIp.startsWith('2.') || firstIp.startsWith('5.')) {
+                        networkDescription = 'Provider Europeo';
+                    } else {
+                        networkDescription = 'Rete Pubblica';
+                    }
                 }
             }
 
             return {
-                ip: stat.ip,
+                network_owner: stat.network_owner,
+                network_description: networkDescription,
+                asn: stat.asn,
+                country: stat.country,
+                country_code: stat.country_code,
+                unique_ips: stat.unique_ips,
                 visits: stat.visits,
                 first_visit: stat.first_visit,
                 last_visit: stat.last_visit,
-                country: stat.country,
-                country_code: stat.country_code,
-                region: stat.region,
-                city: stat.city,
-                isp: stat.isp,
-                organization: stat.organization,
-                timezone: stat.timezone,
-                network_description: networkDescription
+                ip_list: stat.ip_list
             };
         });
 

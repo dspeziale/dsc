@@ -66,11 +66,6 @@ const Admin = () => {
         ipSearch: '',
         searchText: ''
     });
-    const [contactsPage, setContactsPage] = useState(1);
-    const [contactsTotal, setContactsTotal] = useState(0);
-    const [ipStatsPage, setIpStatsPage] = useState(1);
-    const [ipStatsTotal, setIpStatsTotal] = useState(0);
-    const ITEMS_PER_PAGE = 20;
 
     useEffect(() => {
         fetchData();
@@ -92,8 +87,6 @@ const Admin = () => {
 
             // Fetch contacts
             console.log('Fetching contacts...');
-            queryParams.append('limit', ITEMS_PER_PAGE.toString());
-            queryParams.append('offset', ((contactsPage - 1) * ITEMS_PER_PAGE).toString());
             const contactsRes = await fetch(`/api/admin/contacts?${queryParams.toString()}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
