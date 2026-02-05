@@ -29,10 +29,18 @@ interface VisitStats {
 }
 
 interface IpStat {
-    ip: string;
+    network_owner?: string;
+    network_description: string;
+    asn?: string;
+    countries?: string;
+    country_codes?: string;
+    unique_ips: number;
     visits: number;
     first_visit: string;
     last_visit: string;
+    ip_list?: string;
+    // Legacy fields for backward compatibility
+    ip?: string;
     country?: string;
     country_code?: string;
     region?: string;
@@ -40,7 +48,6 @@ interface IpStat {
     isp?: string;
     organization?: string;
     timezone?: string;
-    network_description: string;
 }
 
 interface DailyStat {
@@ -48,6 +55,16 @@ interface DailyStat {
     visits: number;
     unique_visitors: number;
 }
+
+// Helper function to convert country code to flag emoji
+const getFlagEmoji = (countryCode: string): string => {
+    if (!countryCode || countryCode.length !== 2) return '';
+    const codePoints = countryCode
+        .toUpperCase()
+        .split('')
+        .map(char => 127397 + char.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+};
 
 const Admin = () => {
     const { user, token, logout } = useAuth();

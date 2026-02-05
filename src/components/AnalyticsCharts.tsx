@@ -7,9 +7,20 @@ interface DailyStat {
 }
 
 interface IpStat {
-    ip: string;
-    visits: number;
+    network_owner?: string;
     network_description: string;
+    asn?: string;
+    countries?: string;
+    country_codes?: string;
+    unique_ips: number;
+    visits: number;
+    first_visit: string;
+    last_visit: string;
+    ip_list?: string;
+    // Legacy fields for backward compatibility
+    ip?: string;
+    country?: string;
+    country_code?: string;
 }
 
 interface AnalyticsChartsProps {
@@ -71,14 +82,14 @@ const AnalyticsCharts = ({ dailyStats, ipStats }: AnalyticsChartsProps) => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-                {/* Top IPs Bar Chart */}
+                {/* Top Network Owners Bar Chart */}
                 <div className="bg-white rounded-xl p-6 shadow-md">
-                    <h3 className="text-xl font-bold text-primary mb-4">Top 10 Indirizzi IP</h3>
+                    <h3 className="text-xl font-bold text-primary mb-4">Top 10 Intestatari Rete</h3>
                     <ResponsiveContainer width="100%" height={300}>
                         <BarChart data={topIps}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis
-                                dataKey="ip"
+                                dataKey="network_description"
                                 angle={-45}
                                 textAnchor="end"
                                 height={100}
