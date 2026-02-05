@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {
     Mail, Phone, Building2, Calendar, MapPin, LogOut,
-    Users, Eye, FileText, TrendingUp, Download, BarChart3
+    Users, Eye, FileText, TrendingUp, Download, BarChart3, RefreshCw
 } from 'lucide-react';
 import FilterPanel from '../components/FilterPanel';
 import type { FilterState } from '../components/FilterPanel';
@@ -57,6 +57,7 @@ const Admin = () => {
     const [ipStats, setIpStats] = useState<IpStat[]>([]);
     const [dailyStats, setDailyStats] = useState<DailyStat[]>([]);
     const [loading, setLoading] = useState(true);
+    const [refreshingIps, setRefreshingIps] = useState(false);
     const [activeTab, setActiveTab] = useState<'contacts' | 'analytics' | 'charts'>('contacts');
     const [filters, setFilters] = useState<FilterState>({
         startDate: '',
@@ -177,6 +178,34 @@ const Admin = () => {
             }
         } catch (error) {
             console.error('Error exporting data:', error);
+        }
+    };
+
+    const handleRefreshIps = async () => {
+        if (!token || refreshingIps) return;
+
+        try {
+            setRefreshingIps(true);
+            const res = await fetch('/api/admin/refresh-ips', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                alert(`✓ Refresh completato!\n\nTotale IP: ${data.total}\nSuccesso: ${data.successful}\nFalliti: ${data.failed}`);
+                // Refresh data to show updated info
+                fetchData();
+            } else {
+                alert('Errore durante il refresh degli IP');
+            }
+        } catch (error) {
+            console.error('Error refreshing IPs:', error);
+            alert('Errore durante il refresh degli IP');
+        } finally {
+            setRefreshingIps(false);
         }
     };
 
@@ -411,7 +440,15 @@ const Admin = () => {
 
                         {activeTab === 'analytics' && (
                             <div className="space-y-6">
-                                <div className="flex justify-end mb-4">
+                                <div className="flex justify-between items-center mb-4">
+                                    <button
+                                        onClick={handleRefreshIps}
+                                        disabled={refreshingIps}
+                                        className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        <RefreshCw size={18} className={refreshingIps ? 'animate-spin' : ''} />
+                                        {refreshingIps ? 'Aggiornamento...' : 'Aggiorna Dati IP'}
+                                    </button>
                                     <button
                                         onClick={() => handleExport('visits')}
                                         className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
