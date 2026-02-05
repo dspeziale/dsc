@@ -458,7 +458,7 @@ const Admin = () => {
                                     </button>
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-primary mb-4">Connessioni per Indirizzo IP</h3>
+                                    <h3 className="text-xl font-bold text-primary mb-4">Connessioni per Intestatario Rete</h3>
                                     {ipStats.length === 0 ? (
                                         <p className="text-center text-gray-500 py-8">Nessuna connessione registrata</p>
                                     ) : (
@@ -466,8 +466,9 @@ const Admin = () => {
                                             <table className="w-full">
                                                 <thead>
                                                     <tr className="border-b-2 border-gray-200">
-                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Indirizzo IP</th>
-                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Descrizione Rete</th>
+                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Intestatario Rete</th>
+                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Paesi</th>
+                                                        <th className="text-center py-3 px-4 font-semibold text-gray-700">IP Unici</th>
                                                         <th className="text-center py-3 px-4 font-semibold text-gray-700">Visite</th>
                                                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Prima Visita</th>
                                                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Ultima Visita</th>
@@ -477,24 +478,30 @@ const Admin = () => {
                                                     {ipStats.map((ipStat, index) => (
                                                         <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                                                             <td className="py-3 px-4">
-                                                                <div className="flex items-center gap-2">
-                                                                    {ipStat.country_code && (
-                                                                        <span className="text-xl" title={ipStat.country}>
-                                                                            {String.fromCodePoint(...ipStat.country_code.toUpperCase().split('').map(c => 127397 + c.charCodeAt(0)))}
-                                                                        </span>
-                                                                    )}
-                                                                    <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono">{ipStat.ip}</code>
-                                                                </div>
-                                                            </td>
-                                                            <td className="py-3 px-4">
                                                                 <div className="text-gray-700">
                                                                     <div className="font-medium">{ipStat.network_description}</div>
-                                                                    {(ipStat.city || ipStat.region) && (
-                                                                        <div className="text-xs text-gray-500 mt-1">
-                                                                            {ipStat.city}{ipStat.city && ipStat.region ? ', ' : ''}{ipStat.region}
+                                                                    {ipStat.ip_list && (
+                                                                        <div className="text-xs text-gray-400 mt-1" title={ipStat.ip_list}>
+                                                                            {ipStat.ip_list.length > 60
+                                                                                ? `${ipStat.ip_list.substring(0, 60)}...`
+                                                                                : ipStat.ip_list}
                                                                         </div>
                                                                     )}
                                                                 </div>
+                                                            </td>
+                                                            <td className="py-3 px-4">
+                                                                <div className="flex items-center gap-1">
+                                                                    {ipStat.country_codes && ipStat.country_codes.split(', ').map((code, idx) => (
+                                                                        <span key={idx} className="text-xl" title={ipStat.countries?.split(', ')[idx]}>
+                                                                            {getFlagEmoji(code)}
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            </td>
+                                                            <td className="py-3 px-4 text-center">
+                                                                <span className="inline-block bg-blue-100 text-blue-700 font-medium px-3 py-1 rounded-full text-sm">
+                                                                    {ipStat.unique_ips}
+                                                                </span>
                                                             </td>
                                                             <td className="py-3 px-4 text-center">
                                                                 <span className="inline-block bg-accent/10 text-accent font-bold px-3 py-1 rounded-full">

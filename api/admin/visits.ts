@@ -127,8 +127,8 @@ export default async function handler(
       SELECT 
         COALESCE(i.isp, i.organization, 'Sconosciuto') as network_owner,
         i.asn,
-        i.country,
-        i.country_code,
+        STRING_AGG(DISTINCT i.country_code, ', ' ORDER BY i.country_code) as country_codes,
+        STRING_AGG(DISTINCT i.country, ', ' ORDER BY i.country) as countries,
         COUNT(DISTINCT v.ip) as unique_ips,
         COUNT(*) as visits,
         MIN(v.timestamp) as first_visit,
@@ -137,7 +137,7 @@ export default async function handler(
       FROM visits v
       LEFT JOIN ip_lookups i ON v.ip = i.ip
       WHERE v.timestamp >= ${dateString}
-      GROUP BY i.isp, i.organization, i.asn, i.country, i.country_code
+      GROUP BY i.isp, i.organization, i.asn
       ORDER BY visits DESC
       LIMIT ${ipLimitNum}
       OFFSET ${ipOffsetNum}
@@ -182,8 +182,8 @@ export default async function handler(
                 network_owner: stat.network_owner,
                 network_description: networkDescription,
                 asn: stat.asn,
-                country: stat.country,
-                country_code: stat.country_code,
+                countries: stat.countries,
+                country_codes: stat.country_codes,
                 unique_ips: stat.unique_ips,
                 visits: stat.visits,
                 first_visit: stat.first_visit,
