@@ -131,11 +131,12 @@ export default async function handler(
         i.city,
         i.isp,
         i.organization,
+        i.asn,
         i.timezone
       FROM visits v
       LEFT JOIN ip_lookups i ON v.ip = i.ip
       WHERE v.timestamp >= ${dateString}
-      GROUP BY v.ip, i.country, i.country_code, i.region, i.city, i.isp, i.organization, i.timezone
+      GROUP BY v.ip, i.country, i.country_code, i.region, i.city, i.isp, i.organization, i.asn, i.timezone
       ORDER BY visits DESC
     `;
 
@@ -144,13 +145,27 @@ export default async function handler(
             const ip = stat.ip;
             let networkDescription = 'Rete Pubblica';
 
-            // Use geolocation data if available
-            if (stat.isp || stat.organization) {
-                networkDescription = stat.isp || stat.organization;
-            } else if (stat.country) {
+            // Priority 1: Use ISP name from IPWhois
+            if (stat.isp) {
+                networkDescription = stat.isp;
+                // Add ASN if available for better identification
+                if (stat.asn) {
+                    networkDescription += ` (${stat.asn})`;
+                }
+            }
+            // Priority 2: Use organization name
+            else if (stat.organization) {
+                networkDescription = stat.organization;
+                if (stat.asn) {
+                    networkDescription += ` (${stat.asn})`;
+                }
+            }
+            // Priority 3: Use country/city
+            else if (stat.country) {
                 networkDescription = `${stat.country}${stat.city ? ` - ${stat.city}` : ''}`;
-            } else {
-                // Fallback to IP range detection
+            }
+            // Fallback: IP range detection
+            else {
                 if (ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.')) {
                     networkDescription = 'Rete Privata/Locale';
                 } else if (ip.startsWith('151.') || ip.startsWith('93.') || ip.startsWith('79.')) {

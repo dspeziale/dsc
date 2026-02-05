@@ -27,19 +27,38 @@ function verifyToken(req: VercelRequest): { email: string } | null {
     }
 }
 
-interface IpApiResponse {
+interface IpWhoisResponse {
     ip: string;
+    success: boolean;
+    type?: string;
+    continent?: string;
+    continent_code?: string;
     country?: string;
     country_code?: string;
+    country_flag?: string;
+    country_capital?: string;
+    country_phone?: string;
+    country_neighbours?: string;
     region?: string;
     city?: string;
     latitude?: number;
     longitude?: number;
+    asn?: string;
     org?: string;
+    isp?: string;
     timezone?: string;
+    timezone_name?: string;
+    timezone_dstOffset?: string;
+    timezone_gmtOffset?: string;
+    timezone_gmt?: string;
+    currency?: string;
+    currency_code?: string;
+    currency_symbol?: string;
+    currency_rates?: number;
+    currency_plural?: string;
 }
 
-async function lookupIpGeolocation(ip: string): Promise<IpApiResponse | null> {
+async function lookupIpGeolocation(ip: string): Promise<IpWhoisResponse | null> {
     // Skip lookup for localhost and private IPs
     if (ip === 'unknown' || ip === '::1' || ip === '127.0.0.1' ||
         ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.')) {
@@ -47,7 +66,9 @@ async function lookupIpGeolocation(ip: string): Promise<IpApiResponse | null> {
     }
 
     try {
-        const response = await fetch(`https://ipapi.co/${ip}/json/`, {
+        // IPWhois.io free tier: 10,000 requests/month
+        // No API key required for free tier
+        const response = await fetch(`https://ipwhois.app/json/${ip}`, {
             headers: {
                 'User-Agent': 'DS-Consulting-Admin/1.0'
             }
@@ -58,25 +79,15 @@ async function lookupIpGeolocation(ip: string): Promise<IpApiResponse | null> {
             return null;
         }
 
-        const data = await response.json();
+        const data: IpWhoisResponse = await response.json();
 
         // Check for error in response
-        if (data.error) {
-            console.error(`IP lookup error for ${ip}:`, data.reason);
+        if (!data.success) {
+            console.error(`IP lookup error for ${ip}: Request failed`);
             return null;
         }
 
-        return {
-            ip: data.ip,
-            country: data.country_name,
-            country_code: data.country_code,
-            region: data.region,
-            city: data.city,
-            latitude: data.latitude,
-            longitude: data.longitude,
-            org: data.org,
-            timezone: data.timezone
-        };
+        return data;
     } catch (error) {
         console.error(`Error looking up IP ${ip}:`, error);
         return null;
@@ -150,10 +161,11 @@ export default async function handler(
                 ip, country, country_code, region, city, 
                 latitude, longitude, isp, organization, timezone
             ) VALUES (
-                ${ip}, ${geoData.country}, ${geoData.country_code}, 
-                ${geoData.region}, ${geoData.city}, ${geoData.latitude}, 
-                ${geoData.longitude}, ${geoData.org}, ${geoData.org}, 
-                ${geoData.timezone}
+                ${ip}, ${geoData.country || null}, ${geoData.country_code || null}, 
+                ${geoData.region || null}, ${geoData.city || null}, 
+                ${geoData.latitude || null}, ${geoData.longitude || null}, 
+                ${geoData.isp || null}, ${geoData.org || null}, 
+                ${geoData.timezone || null}
             )
             ON CONFLICT (ip) DO UPDATE SET
                 country = EXCLUDED.country,
@@ -176,8 +188,9 @@ export default async function handler(
             city: geoData.city,
             latitude: geoData.latitude,
             longitude: geoData.longitude,
-            isp: geoData.org,
+            isp: geoData.isp,
             organization: geoData.org,
+            asn: geoData.asn,
             timezone: geoData.timezone,
             cached: false
         });
