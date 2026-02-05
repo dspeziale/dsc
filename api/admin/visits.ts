@@ -88,42 +88,21 @@ export default async function handler(
 
         console.log('Date range:', { dateString, endDateString });
 
-        // Build WHERE conditions for IP filtering
-        let ipCondition = '';
-        if (ipSearch && typeof ipSearch === 'string') {
-            ipCondition = ` AND ip LIKE '%${ipSearch}%'`;
-        }
-
-        if (networkType && typeof networkType === 'string') {
-            switch (networkType) {
-                case 'private':
-                    ipCondition += ` AND (ip LIKE '192.168.%' OR ip LIKE '10.%' OR ip LIKE '172.%')`;
-                    break;
-                case 'public':
-                    ipCondition += ` AND ip NOT LIKE '192.168.%' AND ip NOT LIKE '10.%' AND ip NOT LIKE '172.%'`;
-                    break;
-                case 'italian':
-                    ipCondition += ` AND (ip LIKE '151.%' OR ip LIKE '93.%' OR ip LIKE '79.%')`;
-                    break;
-                case 'european':
-                    ipCondition += ` AND (ip LIKE '2.%' OR ip LIKE '5.%')`;
-                    break;
-            }
-        }
-
-        // Fetch visits from database with filters
-        const visitsQuery = `
+        // Fetch visits from database with filters using proper parameterized queries
+        const visits = await sql`
             SELECT id, ip, user_agent, page, referer, timestamp
             FROM visits
-            WHERE timestamp >= '${dateString}' 
-            AND timestamp <= '${endDateString}'
-            ${ipCondition}
+            WHERE timestamp >= ${dateString} 
+            AND timestamp <= ${endDateString}
+            ${ipSearch && typeof ipSearch === 'string' ? sql`AND ip ILIKE ${'%' + ipSearch + '%'}` : sql``}
+            ${networkType === 'private' ? sql`AND (ip LIKE '192.168.%' OR ip LIKE '10.%' OR ip LIKE '172.%')` : sql``}
+            ${networkType === 'public' ? sql`AND ip NOT LIKE '192.168.%' AND ip NOT LIKE '10.%' AND ip NOT LIKE '172.%'` : sql``}
+            ${networkType === 'italian' ? sql`AND (ip LIKE '151.%' OR ip LIKE '93.%' OR ip LIKE '79.%')` : sql``}
+            ${networkType === 'european' ? sql`AND (ip LIKE '2.%' OR ip LIKE '5.%')` : sql``}
             ORDER BY timestamp DESC
             LIMIT ${limitNum}
             OFFSET ${offsetNum}
         `;
-
-        const visits = await sql.unsafe(visitsQuery);
 
         console.log('Visits fetched:', visits.length);
 
