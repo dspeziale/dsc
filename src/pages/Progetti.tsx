@@ -7,7 +7,7 @@ const Progetti = () => {
             description: 'PiattaformaSistema avanzato di tracciamento GPS per la gestione della tua flotta in tempo reale.',
             image: 'https://www.digitalmatter.com/hubfs/Imported_Blog_Media/Blog-Post-image-17-1.jpg',
             tags: ['React', 'Node.js', 'Postgres', 'Vite'],
-            date: '2024',
+            date: '2025',
             demoUrl: 'https://dstracker.vercel.app/',
             githubUrl: '#',
         },
