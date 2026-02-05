@@ -3,12 +3,12 @@ import { ExternalLink, Github, Calendar, Tag } from 'lucide-react';
 const Progetti = () => {
     const projects = [
         {
-            title: 'E-Commerce Platform',
-            description: 'Piattaforma e-commerce completa con gestione prodotti, carrello e pagamenti integrati.',
-            image: 'https://via.placeholder.com/600x400/2d3e50/ffffff?text=E-Commerce+Platform',
+            title: 'DS Tracker',
+            description: 'PiattaformaSistema avanzato di tracciamento GPS per la gestione della tua flotta in tempo reale.',
+            image: 'https://www.digitalmatter.com/hubfs/Imported_Blog_Media/Blog-Post-image-17-1.jpg',
             tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
             date: '2024',
-            demoUrl: '#',
+            demoUrl: 'https://dstracker.vercel.app/',
             githubUrl: '#',
         },
         {
