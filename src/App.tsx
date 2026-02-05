@@ -12,6 +12,7 @@ import Progetti from './pages/Progetti';
 import Contatti from './pages/Contatti';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import Dashboard from './pages/Dashboard';
 
 
 // Component to log visits on route change
@@ -19,7 +20,6 @@ function VisitLogger() {
   const location = useLocation();
 
   useEffect(() => {
-    /*
     const logVisit = async () => {
       try {
         await fetch('/api/log-visit', {
@@ -38,7 +38,6 @@ function VisitLogger() {
     };
 
     logVisit();
-    */
   }, [location.pathname]);
 
   return null;
@@ -65,6 +64,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Admin />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
                 </ProtectedRoute>
               }
             />
