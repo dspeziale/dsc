@@ -71,7 +71,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             ORDER BY value DESC
         `;
 
-        // 4. Recent Activity (Last 10 visits)
+        // 4. Network Type Distribution (Last 7 days)
+        const networkStats = await sql`
+            SELECT 
+                CASE 
+                    WHEN ip LIKE '10.%' OR ip LIKE '172.16.%' OR ip LIKE '172.17.%' OR ip LIKE '172.18.%' OR ip LIKE '172.19.%' OR ip LIKE '172.20.%' OR ip LIKE '172.21.%' OR ip LIKE '172.22.%' OR ip LIKE '172.23.%' OR ip LIKE '172.24.%' OR ip LIKE '172.25.%' OR ip LIKE '172.26.%' OR ip LIKE '172.27.%' OR ip LIKE '172.28.%' OR ip LIKE '172.29.%' OR ip LIKE '172.30.%' OR ip LIKE '172.31.%' OR ip LIKE '192.168.%' OR ip = '::1' OR ip = '127.0.0.1' THEN 'Privata'
+                    WHEN i.country_code = 'IT' THEN 'Italiana'
+                    WHEN i.country_code IN ('AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU', 'IE', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK') THEN 'Europea'
+                    ELSE 'Pubblica'
+                END as name,
+                COUNT(*) as value
+            FROM visits v
+            LEFT JOIN ip_lookups i ON v.ip = i.ip
+            WHERE v.timestamp >= NOW() - INTERVAL '7 days'
+            GROUP BY name
+            ORDER BY value DESC
+        `;
+
+        // 5. Recent Activity (Last 10 visits)
         const recentActivity = await sql`
             SELECT 
                 v.id,
@@ -90,6 +107,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             hourlyStats,
             countryStats,
             browserStats,
+            networkStats,
             recentActivity
         });
 

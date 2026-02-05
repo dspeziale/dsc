@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import {
     TrendingUp, Globe, Monitor, Activity,
-    ArrowLeft, RefreshCw, LayoutDashboard
+    Shield, ArrowLeft, RefreshCw, LayoutDashboard
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
@@ -40,6 +40,7 @@ interface AnalyticsData {
     hourlyStats: HourlyStat[];
     countryStats: CountryStat[];
     browserStats: BrowserStat[];
+    networkStats: BrowserStat[]; // Reusing BrowserStat since it's just name/value
     recentActivity: ActivityItem[];
 }
 
@@ -208,20 +209,54 @@ const Dashboard = () => {
                             <Monitor size={22} className="text-accent" />
                             Tecnologia
                         </h3>
-                        <div className="h-[250px] w-full">
+                        <div className="h-[200px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
                                         data={data?.browserStats}
                                         cx="50%"
                                         cy="50%"
-                                        innerRadius={60}
-                                        outerRadius={80}
+                                        innerRadius={50}
+                                        outerRadius={70}
                                         paddingAngle={5}
                                         dataKey="value"
                                     >
-                                        {data?.browserStats.map((_, index) => (
+                                        {(data?.browserStats || []).map((_, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
+                        <div className="mt-4 pt-4 border-t border-gray-50">
+                            <div className="flex justify-between items-center mb-1">
+                                <span className="text-sm font-medium text-gray-500">Browser Dominante</span>
+                                <span className="text-sm font-bold text-primary">{data?.browserStats?.[0]?.name || 'N/A'}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Network Type Distribution */}
+                    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+                        <h3 className="text-xl font-bold text-primary flex items-center gap-2 mb-6">
+                            <Shield size={22} className="text-accent" />
+                            Tipo di Rete
+                        </h3>
+                        <div className="h-[200px] w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie
+                                        data={data?.networkStats}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={50}
+                                        outerRadius={70}
+                                        paddingAngle={5}
+                                        dataKey="value"
+                                    >
+                                        {(data?.networkStats || []).map((_, index) => (
+                                            <Cell key={`cell-net-${index}`} fill={COLORS[(index + 2) % COLORS.length]} />
                                         ))}
                                     </Pie>
                                     <Tooltip />
@@ -229,16 +264,8 @@ const Dashboard = () => {
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
-                        <div className="mt-6 pt-6 border-t border-gray-50">
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="text-sm font-medium text-gray-500">Browser Dominante</span>
-                                <span className="text-sm font-bold text-primary">{data?.browserStats?.[0]?.name || 'N/A'}</span>
-                            </div>
-                            <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
-                                <div className="bg-accent h-1.5 rounded-full" style={{ width: data?.browserStats?.[0] ? '75%' : '0%' }}></div>
-                            </div>
-                        </div>
                     </div>
+
 
                     {/* Geographic Bar Chart */}
                     <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
