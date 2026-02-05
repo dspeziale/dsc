@@ -54,30 +54,76 @@ export default async function handler(
         const sql = neon(process.env.DATABASE_URL!);
 
         // Get query parameters
-        const { limit = '100', offset = '0', days = '30' } = req.query;
+        const {
+            limit = '100',
+            offset = '0',
+            days = '30',
+            startDate,
+            endDate,
+            networkType,
+            ipSearch
+        } = req.query;
 
         const limitNum = parseInt(limit as string);
         const offsetNum = parseInt(offset as string);
         const daysNum = parseInt(days as string);
 
-        console.log('Fetching visits with params:', { limitNum, offsetNum, daysNum });
+        console.log('Fetching visits with params:', {
+            limitNum, offsetNum, daysNum, startDate, endDate, networkType, ipSearch
+        });
 
-        // Calculate the date threshold in JavaScript
-        const dateThreshold = new Date();
-        dateThreshold.setDate(dateThreshold.getDate() - daysNum);
-        const dateString = dateThreshold.toISOString();
+        // Calculate the date threshold
+        let dateString: string;
+        if (startDate && typeof startDate === 'string') {
+            dateString = new Date(startDate).toISOString();
+        } else {
+            const dateThreshold = new Date();
+            dateThreshold.setDate(dateThreshold.getDate() - daysNum);
+            dateString = dateThreshold.toISOString();
+        }
 
-        console.log('Date threshold:', dateString);
+        const endDateString = endDate && typeof endDate === 'string'
+            ? new Date(endDate).toISOString()
+            : new Date().toISOString();
 
-        // Fetch visits from database
-        const visits = await sql`
-      SELECT id, ip, user_agent, page, referer, timestamp
-      FROM visits
-      WHERE timestamp >= ${dateString}
-      ORDER BY timestamp DESC
-      LIMIT ${limitNum}
-      OFFSET ${offsetNum}
-    `;
+        console.log('Date range:', { dateString, endDateString });
+
+        // Build WHERE conditions for IP filtering
+        let ipCondition = '';
+        if (ipSearch && typeof ipSearch === 'string') {
+            ipCondition = ` AND ip LIKE '%${ipSearch}%'`;
+        }
+
+        if (networkType && typeof networkType === 'string') {
+            switch (networkType) {
+                case 'private':
+                    ipCondition += ` AND (ip LIKE '192.168.%' OR ip LIKE '10.%' OR ip LIKE '172.%')`;
+                    break;
+                case 'public':
+                    ipCondition += ` AND ip NOT LIKE '192.168.%' AND ip NOT LIKE '10.%' AND ip NOT LIKE '172.%'`;
+                    break;
+                case 'italian':
+                    ipCondition += ` AND (ip LIKE '151.%' OR ip LIKE '93.%' OR ip LIKE '79.%')`;
+                    break;
+                case 'european':
+                    ipCondition += ` AND (ip LIKE '2.%' OR ip LIKE '5.%')`;
+                    break;
+            }
+        }
+
+        // Fetch visits from database with filters
+        const visitsQuery = `
+            SELECT id, ip, user_agent, page, referer, timestamp
+            FROM visits
+            WHERE timestamp >= '${dateString}' 
+            AND timestamp <= '${endDateString}'
+            ${ipCondition}
+            ORDER BY timestamp DESC
+            LIMIT ${limitNum}
+            OFFSET ${offsetNum}
+        `;
+
+        const visits = await sql.unsafe(visitsQuery);
 
         console.log('Visits fetched:', visits.length);
 
@@ -93,19 +139,69 @@ export default async function handler(
 
         console.log('Stats calculated:', stats[0]);
 
-        // Get page visit counts
-        const pageStats = await sql`
+        // Get IP visit statistics with network description and geolocation
+        const ipStats = await sql`
       SELECT 
-        page,
+        v.ip,
         COUNT(*) as visits,
-        COUNT(DISTINCT ip) as unique_visitors
-      FROM visits
-      WHERE timestamp >= ${dateString}
-      GROUP BY page
+        MIN(v.timestamp) as first_visit,
+        MAX(v.timestamp) as last_visit,
+        i.country,
+        i.country_code,
+        i.region,
+        i.city,
+        i.isp,
+        i.organization,
+        i.timezone
+      FROM visits v
+      LEFT JOIN ip_lookups i ON v.ip = i.ip
+      WHERE v.timestamp >= ${dateString}
+      GROUP BY v.ip, i.country, i.country_code, i.region, i.city, i.isp, i.organization, i.timezone
       ORDER BY visits DESC
     `;
 
-        console.log('Page stats:', pageStats.length);
+        // Add network description based on geolocation or IP ranges
+        const ipStatsWithNetwork = ipStats.map((stat: any) => {
+            const ip = stat.ip;
+            let networkDescription = 'Rete Pubblica';
+
+            // Use geolocation data if available
+            if (stat.isp || stat.organization) {
+                networkDescription = stat.isp || stat.organization;
+            } else if (stat.country) {
+                networkDescription = `${stat.country}${stat.city ? ` - ${stat.city}` : ''}`;
+            } else {
+                // Fallback to IP range detection
+                if (ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.')) {
+                    networkDescription = 'Rete Privata/Locale';
+                } else if (ip.startsWith('151.') || ip.startsWith('93.') || ip.startsWith('79.')) {
+                    networkDescription = 'Provider Italiano (Telecom/Fastweb/Wind)';
+                } else if (ip.startsWith('2.') || ip.startsWith('5.')) {
+                    networkDescription = 'Provider Europeo';
+                } else if (ip.startsWith('8.8.') || ip.startsWith('1.1.')) {
+                    networkDescription = 'DNS Pubblico (Google/Cloudflare)';
+                } else if (ip === 'unknown' || ip === '::1' || ip === '127.0.0.1') {
+                    networkDescription = 'Localhost/Sconosciuto';
+                }
+            }
+
+            return {
+                ip: stat.ip,
+                visits: stat.visits,
+                first_visit: stat.first_visit,
+                last_visit: stat.last_visit,
+                country: stat.country,
+                country_code: stat.country_code,
+                region: stat.region,
+                city: stat.city,
+                isp: stat.isp,
+                organization: stat.organization,
+                timezone: stat.timezone,
+                network_description: networkDescription
+            };
+        });
+
+        console.log('IP stats:', ipStatsWithNetwork.length);
 
         // Get visits by date
         const dailyStats = await sql`
@@ -124,7 +220,7 @@ export default async function handler(
         return res.status(200).json({
             visits,
             stats: stats[0],
-            pageStats,
+            ipStats: ipStatsWithNetwork,
             dailyStats,
             limit: limitNum,
             offset: offsetNum,

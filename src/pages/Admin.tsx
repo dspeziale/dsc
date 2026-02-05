@@ -3,8 +3,12 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {
     Mail, Phone, Building2, Calendar, MapPin, LogOut,
-    Users, Eye, FileText, TrendingUp
+    Users, Eye, FileText, TrendingUp, Download, BarChart3
 } from 'lucide-react';
+import FilterPanel from '../components/FilterPanel';
+import type { FilterState } from '../components/FilterPanel';
+import NotificationBadge from '../components/NotificationBadge';
+import AnalyticsCharts from '../components/AnalyticsCharts';
 
 interface Contact {
     id: number;
@@ -24,8 +28,23 @@ interface VisitStats {
     pages_visited: number;
 }
 
-interface PageStat {
-    page: string;
+interface IpStat {
+    ip: string;
+    visits: number;
+    first_visit: string;
+    last_visit: string;
+    country?: string;
+    country_code?: string;
+    region?: string;
+    city?: string;
+    isp?: string;
+    organization?: string;
+    timezone?: string;
+    network_description: string;
+}
+
+interface DailyStat {
+    date: string;
     visits: number;
     unique_visitors: number;
 }
@@ -35,9 +54,17 @@ const Admin = () => {
     const navigate = useNavigate();
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [stats, setStats] = useState<VisitStats | null>(null);
-    const [pageStats, setPageStats] = useState<PageStat[]>([]);
+    const [ipStats, setIpStats] = useState<IpStat[]>([]);
+    const [dailyStats, setDailyStats] = useState<DailyStat[]>([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<'contacts' | 'analytics'>('contacts');
+    const [activeTab, setActiveTab] = useState<'contacts' | 'analytics' | 'charts'>('contacts');
+    const [filters, setFilters] = useState<FilterState>({
+        startDate: '',
+        endDate: '',
+        networkType: '',
+        ipSearch: '',
+        searchText: ''
+    });
 
     useEffect(() => {
         fetchData();
@@ -49,9 +76,17 @@ const Admin = () => {
         try {
             setLoading(true);
 
+            // Build query params from filters
+            const queryParams = new URLSearchParams();
+            if (filters.startDate) queryParams.append('startDate', filters.startDate);
+            if (filters.endDate) queryParams.append('endDate', filters.endDate);
+            if (filters.networkType) queryParams.append('networkType', filters.networkType);
+            if (filters.ipSearch) queryParams.append('ipSearch', filters.ipSearch);
+            if (filters.searchText) queryParams.append('searchText', filters.searchText);
+
             // Fetch contacts
             console.log('Fetching contacts...');
-            const contactsRes = await fetch('/api/admin/contacts', {
+            const contactsRes = await fetch(`/api/admin/contacts?${queryParams.toString()}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -67,7 +102,7 @@ const Admin = () => {
 
             // Fetch analytics
             console.log('Fetching visits...');
-            const visitsRes = await fetch('/api/admin/visits', {
+            const visitsRes = await fetch(`/api/admin/visits?${queryParams.toString()}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -77,19 +112,71 @@ const Admin = () => {
             if (visitsRes.ok) {
                 console.log('Visits data received:', visitsData);
                 setStats(visitsData.stats || { total_visits: 0, unique_visitors: 0, pages_visited: 0 });
-                setPageStats(visitsData.pageStats || []);
+                setIpStats(visitsData.ipStats || []);
+                setDailyStats(visitsData.dailyStats || []);
             } else {
                 console.error('Visits error:', visitsData);
                 setStats({ total_visits: 0, unique_visitors: 0, pages_visited: 0 });
-                setPageStats([]);
+                setIpStats([]);
             }
 
         } catch (error) {
             console.error('Error fetching admin data:', error);
             setStats({ total_visits: 0, unique_visitors: 0, pages_visited: 0 });
-            setPageStats([]);
+            setIpStats([]);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleApplyFilters = () => {
+        fetchData();
+    };
+
+    const handleResetFilters = () => {
+        setFilters({
+            startDate: '',
+            endDate: '',
+            networkType: '',
+            ipSearch: '',
+            searchText: ''
+        });
+        // Fetch data will be triggered by useEffect when filters change
+        setTimeout(() => fetchData(), 100);
+    };
+
+    const handleExport = async (type: 'visits' | 'contacts') => {
+        if (!token) return;
+
+        try {
+            const queryParams = new URLSearchParams();
+            queryParams.append('type', type);
+            queryParams.append('format', 'csv');
+            if (filters.startDate) queryParams.append('startDate', filters.startDate);
+            if (filters.endDate) queryParams.append('endDate', filters.endDate);
+            if (filters.networkType) queryParams.append('networkType', filters.networkType);
+            if (filters.ipSearch) queryParams.append('ipSearch', filters.ipSearch);
+            if (filters.searchText) queryParams.append('searchText', filters.searchText);
+
+            const res = await fetch(`/api/admin/export?${queryParams.toString()}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (res.ok) {
+                const blob = await res.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${type}_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            }
+        } catch (error) {
+            console.error('Error exporting data:', error);
         }
     };
 
@@ -138,16 +225,29 @@ const Admin = () => {
                                 <p className="opacity-90">Benvenuto, {user?.name}</p>
                             </div>
                         </div>
-                        <button
-                            onClick={handleLogout}
-                            className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-300"
-                        >
-                            <LogOut size={20} />
-                            <span>Logout</span>
-                        </button>
+                        <div className="flex items-center gap-4">
+                            {token && <NotificationBadge token={token} />}
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-300"
+                            >
+                                <LogOut size={20} />
+                                <span>Logout</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* Filter Panel */}
+            <FilterPanel
+                filters={filters}
+                onFilterChange={setFilters}
+                onApplyFilters={handleApplyFilters}
+                onResetFilters={handleResetFilters}
+                showIpFilter={activeTab === 'analytics'}
+                showNetworkFilter={activeTab === 'analytics'}
+            />
 
             {/* Stats Cards */}
             <div className="container py-8">
@@ -194,7 +294,7 @@ const Admin = () => {
                                 <TrendingUp size={24} className="text-purple-600" />
                             </div>
                             <div>
-                                <p className="text-sm text-gray-600">Pagine Visitate</p>
+                                <p className="text-sm text-gray-600">IP Unici</p>
                                 <p className="text-2xl font-bold text-primary">{stats?.pages_visited || 0}</p>
                             </div>
                         </div>
@@ -223,7 +323,17 @@ const Admin = () => {
                                     }`}
                             >
                                 <TrendingUp size={20} className="inline mr-2" />
-                                Analytics Pagine
+                                Connessioni IP
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('charts')}
+                                className={`flex-1 px-6 py-4 font-semibold transition-colors duration-300 ${activeTab === 'charts'
+                                    ? 'bg-accent text-white'
+                                    : 'text-gray-600 hover:bg-gray-50'
+                                    }`}
+                            >
+                                <BarChart3 size={20} className="inline mr-2" />
+                                Grafici
                             </button>
                         </div>
                     </div>
@@ -231,6 +341,15 @@ const Admin = () => {
                     <div className="p-6">
                         {activeTab === 'contacts' && (
                             <div className="space-y-4">
+                                <div className="flex justify-end mb-4">
+                                    <button
+                                        onClick={() => handleExport('contacts')}
+                                        className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
+                                    >
+                                        <Download size={18} />
+                                        Esporta CSV
+                                    </button>
+                                </div>
                                 {contacts.length === 0 ? (
                                     <p className="text-center text-gray-500 py-8">Nessun messaggio ricevuto</p>
                                 ) : (
@@ -292,26 +411,73 @@ const Admin = () => {
 
                         {activeTab === 'analytics' && (
                             <div className="space-y-6">
+                                <div className="flex justify-end mb-4">
+                                    <button
+                                        onClick={() => handleExport('visits')}
+                                        className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
+                                    >
+                                        <Download size={18} />
+                                        Esporta CSV
+                                    </button>
+                                </div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-primary mb-4">Visite per Pagina</h3>
-                                    <div className="space-y-3">
-                                        {pageStats.map((page, index) => (
-                                            <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                                                <div className="flex-1">
-                                                    <p className="font-semibold text-gray-800">{page.page}</p>
-                                                    <p className="text-sm text-gray-600">
-                                                        {page.unique_visitors} visitatori unici
-                                                    </p>
-                                                </div>
-                                                <div className="text-right">
-                                                    <p className="text-2xl font-bold text-accent">{page.visits}</p>
-                                                    <p className="text-sm text-gray-600">visite</p>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    <h3 className="text-xl font-bold text-primary mb-4">Connessioni per Indirizzo IP</h3>
+                                    {ipStats.length === 0 ? (
+                                        <p className="text-center text-gray-500 py-8">Nessuna connessione registrata</p>
+                                    ) : (
+                                        <div className="overflow-x-auto">
+                                            <table className="w-full">
+                                                <thead>
+                                                    <tr className="border-b-2 border-gray-200">
+                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Indirizzo IP</th>
+                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Descrizione Rete</th>
+                                                        <th className="text-center py-3 px-4 font-semibold text-gray-700">Visite</th>
+                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Prima Visita</th>
+                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Ultima Visita</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {ipStats.map((ipStat, index) => (
+                                                        <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                                            <td className="py-3 px-4">
+                                                                <div className="flex items-center gap-2">
+                                                                    {ipStat.country_code && (
+                                                                        <span className="text-xl" title={ipStat.country}>
+                                                                            {String.fromCodePoint(...ipStat.country_code.toUpperCase().split('').map(c => 127397 + c.charCodeAt(0)))}
+                                                                        </span>
+                                                                    )}
+                                                                    <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono">{ipStat.ip}</code>
+                                                                </div>
+                                                            </td>
+                                                            <td className="py-3 px-4">
+                                                                <div className="text-gray-700">
+                                                                    <div className="font-medium">{ipStat.network_description}</div>
+                                                                    {(ipStat.city || ipStat.region) && (
+                                                                        <div className="text-xs text-gray-500 mt-1">
+                                                                            {ipStat.city}{ipStat.city && ipStat.region ? ', ' : ''}{ipStat.region}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </td>
+                                                            <td className="py-3 px-4 text-center">
+                                                                <span className="inline-block bg-accent/10 text-accent font-bold px-3 py-1 rounded-full">
+                                                                    {ipStat.visits}
+                                                                </span>
+                                                            </td>
+                                                            <td className="py-3 px-4 text-sm text-gray-600">{formatDate(ipStat.first_visit)}</td>
+                                                            <td className="py-3 px-4 text-sm text-gray-600">{formatDate(ipStat.last_visit)}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
+                        )}
+
+                        {activeTab === 'charts' && (
+                            <AnalyticsCharts dailyStats={dailyStats} ipStats={ipStats} />
                         )}
                     </div>
                 </div>

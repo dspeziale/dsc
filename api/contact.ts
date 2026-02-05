@@ -67,6 +67,23 @@ export default async function handler(
     const contactId = result[0].id;
     const timestamp = result[0].timestamp;
 
+    // Create notification for new contact
+    try {
+      await sql`
+        INSERT INTO notifications (type, title, message, data, is_read)
+        VALUES (
+          'new_contact',
+          'Nuovo Contatto',
+          ${`Nuovo messaggio da ${nome} (${email})`},
+          ${JSON.stringify({ contact_id: contactId, nome, email, servizio })},
+          false
+        )
+      `;
+    } catch (notifError) {
+      console.error('Error creating notification:', notifError);
+      // Continue even if notification fails
+    }
+
     // Log to console (visible in Vercel logs)
     console.log('New contact form submission:', {
       id: contactId,
