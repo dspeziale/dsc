@@ -6,7 +6,7 @@ const Progetti = () => {
             title: 'DS Tracker',
             description: 'PiattaformaSistema avanzato di tracciamento GPS per la gestione della tua flotta in tempo reale.',
             image: 'https://www.digitalmatter.com/hubfs/Imported_Blog_Media/Blog-Post-image-17-1.jpg',
-            tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+            tags: ['React', 'Node.js', 'Postgres', 'Vite'],
             date: '2024',
             demoUrl: 'https://dstracker.vercel.app/',
             githubUrl: '#',
@@ -119,7 +119,7 @@ const Progetti = () => {
                                 {/* Links */}
                                 <div className="flex gap-4 pt-4 border-t border-gray-200">
                                     <a
-                                        href={project.demoUrl}
+                                        href={project.demoUrl} target="_blank"
                                         className="flex items-center gap-2 text-accent hover:text-accent-dark transition-colors duration-300"
                                     >
                                         <ExternalLink size={18} />
