@@ -21,9 +21,12 @@ const Header = () => {
   }
 
   const handleLogout = () => {
-    logout();
-    navigate('/');
     setIsMenuOpen(false);
+    navigate('/');
+    // Small delay to allow navigation to start before state change triggers ProtectedRoute redrect
+    setTimeout(() => {
+      logout();
+    }, 50);
   };
 
   const navItems = [

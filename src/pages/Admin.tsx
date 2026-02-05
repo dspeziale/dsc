@@ -227,8 +227,10 @@ const Admin = () => {
     };
 
     const handleLogout = () => {
-        logout();
         navigate('/');
+        setTimeout(() => {
+            logout();
+        }, 50);
     };
 
     const formatDate = (dateString: string) => {
