@@ -83,6 +83,8 @@ const Admin = () => {
         ipSearch: '',
         searchText: ''
     });
+    const [clearLogsDays, setClearLogsDays] = useState<number>(30);
+    const [clearingLogs, setClearingLogs] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -223,6 +225,38 @@ const Admin = () => {
             alert('Errore durante il refresh degli IP');
         } finally {
             setRefreshingIps(false);
+        }
+    };
+
+    const handleClearLogs = async () => {
+        if (!token) return;
+
+        const confirmClear = window.confirm(`Sei sicuro di voler eliminare tutti i log più vecchi di ${clearLogsDays} giorni? Questa azione non è reversibile.`);
+        if (!confirmClear) return;
+
+        try {
+            setClearingLogs(true);
+            const response = await fetch('/api/admin/clear-logs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({ days: clearLogsDays }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert(data.message || 'Log eliminati con successo');
+                fetchData(); // Refresh data
+            } else {
+                alert(data.error || 'Errore durante l\'eliminazione dei log');
+            }
+        } catch (error) {
+            console.error('Error clearing logs:', error);
+            alert('Errore durante l\'eliminazione dei log');
+        } finally {
+            setClearingLogs(false);
         }
     };
 
@@ -459,7 +493,7 @@ const Admin = () => {
 
                         {activeTab === 'analytics' && (
                             <div className="space-y-6">
-                                <div className="flex justify-between items-center mb-4">
+                                <div className="flex flex-wrap items-center gap-4 mb-4">
                                     <button
                                         onClick={handleRefreshIps}
                                         disabled={refreshingIps}
@@ -468,6 +502,28 @@ const Admin = () => {
                                         <RefreshCw size={18} className={refreshingIps ? 'animate-spin' : ''} />
                                         {refreshingIps ? 'Aggiornamento...' : 'Aggiorna Dati IP'}
                                     </button>
+
+                                    <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-lg">
+                                        <span className="text-sm text-gray-600 px-2 font-medium">Conserva ultimi</span>
+                                        <input
+                                            type="number"
+                                            value={clearLogsDays}
+                                            onChange={(e) => setClearLogsDays(Number(e.target.value))}
+                                            min="0"
+                                            className="w-16 px-2 py-1 rounded border border-gray-300 text-center font-bold"
+                                        />
+                                        <span className="text-sm text-gray-600 px-1 font-medium">giorni</span>
+                                        <button
+                                            onClick={handleClearLogs}
+                                            disabled={clearingLogs}
+                                            className="px-4 py-1.5 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors disabled:opacity-50 text-sm font-bold ml-1"
+                                        >
+                                            {clearingLogs ? 'Eliminazione...' : 'Cancella Log'}
+                                        </button>
+                                    </div>
+
+                                    <div className="flex-grow"></div>
+
                                     <button
                                         onClick={() => handleExport('visits')}
                                         className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
