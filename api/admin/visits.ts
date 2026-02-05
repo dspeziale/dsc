@@ -119,6 +119,10 @@ export default async function handler(
         console.log('Stats calculated:', stats[0]);
 
         // Get IP visit statistics with network description and geolocation
+        const { ipLimit = '50', ipOffset = '0' } = req.query;
+        const ipLimitNum = parseInt(ipLimit as string);
+        const ipOffsetNum = parseInt(ipOffset as string);
+
         const ipStats = await sql`
       SELECT 
         v.ip,
@@ -138,7 +142,17 @@ export default async function handler(
       WHERE v.timestamp >= ${dateString}
       GROUP BY v.ip, i.country, i.country_code, i.region, i.city, i.isp, i.organization, i.asn, i.timezone
       ORDER BY visits DESC
+      LIMIT ${ipLimitNum}
+      OFFSET ${ipOffsetNum}
     `;
+
+        // Get total count of unique IPs
+        const ipCountResult = await sql`
+      SELECT COUNT(DISTINCT ip) as total
+      FROM visits
+      WHERE timestamp >= ${dateString}
+    `;
+        const totalIps = parseInt(ipCountResult[0].total);
 
         // Add network description based on geolocation or IP ranges
         const ipStatsWithNetwork = ipStats.map((stat: any) => {
@@ -215,6 +229,7 @@ export default async function handler(
             visits,
             stats: stats[0],
             ipStats: ipStatsWithNetwork,
+            totalIps,
             dailyStats,
             limit: limitNum,
             offset: offsetNum,

@@ -54,21 +54,43 @@ export default async function handler(
         const sql = neon(process.env.DATABASE_URL!);
 
         // Get query parameters
-        const { limit = '50', offset = '0' } = req.query;
+        const { limit = '50', offset = '0', searchText } = req.query;
 
-        // Fetch contacts from database
-        const contacts = await sql`
-      SELECT id, nome, email, telefono, azienda, servizio, messaggio, ip, timestamp
-      FROM contacts
-      ORDER BY timestamp DESC
-      LIMIT ${parseInt(limit as string)}
-      OFFSET ${parseInt(offset as string)}
-    `;
+        // Build WHERE clause for search
+        let contacts, countResult;
 
-        // Get total count
-        const countResult = await sql`
-      SELECT COUNT(*) as total FROM contacts
-    `;
+        if (searchText && typeof searchText === 'string') {
+            contacts = await sql`
+                SELECT id, nome, email, telefono, azienda, servizio, messaggio, ip, timestamp
+                FROM contacts
+                WHERE nome ILIKE ${'%' + searchText + '%'}
+                OR email ILIKE ${'%' + searchText + '%'}
+                OR azienda ILIKE ${'%' + searchText + '%'}
+                ORDER BY timestamp DESC
+                LIMIT ${parseInt(limit as string)}
+                OFFSET ${parseInt(offset as string)}
+            `;
+
+            countResult = await sql`
+                SELECT COUNT(*) as total FROM contacts
+                WHERE nome ILIKE ${'%' + searchText + '%'}
+                OR email ILIKE ${'%' + searchText + '%'}
+                OR azienda ILIKE ${'%' + searchText + '%'}
+            `;
+        } else {
+            contacts = await sql`
+                SELECT id, nome, email, telefono, azienda, servizio, messaggio, ip, timestamp
+                FROM contacts
+                ORDER BY timestamp DESC
+                LIMIT ${parseInt(limit as string)}
+                OFFSET ${parseInt(offset as string)}
+            `;
+
+            countResult = await sql`
+                SELECT COUNT(*) as total FROM contacts
+            `;
+        }
+
         const total = parseInt(countResult[0].total);
 
         return res.status(200).json({
