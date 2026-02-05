@@ -1,12 +1,31 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Github, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Twitter, Users } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchVisitorCount = async () => {
+      try {
+        const response = await fetch('/api/visitor-count');
+        const data = await response.json();
+        if (response.ok) {
+          setVisitorCount(data.count);
+        }
+      } catch (error) {
+        console.debug('Failed to fetch visitor count:', error);
+      }
+    };
+
+    fetchVisitorCount();
+  }, []);
 
   return (
     <footer className="bg-gradient-to-br from-primary to-primary-dark text-white">
       <div className="container py-16">
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="space-y-4">
@@ -146,8 +165,20 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/10 text-center text-gray-400 text-sm">
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-sm">
           <p>&copy; {currentYear} DS Consulting. Tutti i diritti riservati.</p>
+
+          {visitorCount !== null && (
+            <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm group hover:bg-white/10 transition-all duration-300">
+              <div className="relative">
+                <Users size={16} className="text-accent" />
+                <span className="absolute inset-0 bg-accent/20 rounded-full animate-ping scale-150 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+              </div>
+              <span className="text-gray-300">
+                Visitatori unici oggi: <span className="text-white font-bold">{visitorCount}</span>
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </footer>
