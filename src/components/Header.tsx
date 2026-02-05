@@ -62,7 +62,7 @@ const Header = () => {
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    className={`font-bold uppercase tracking-wide text-sm transition-colors duration-300 relative group ${isActive(item.path)
+                    className={`font-bold uppercase tracking-wide text-3xl transition-colors duration-300 relative group ${isActive(item.path)
                       ? 'text-accent'
                       : 'text-gray-700 hover:text-accent'
                       }`}
@@ -79,7 +79,7 @@ const Header = () => {
                 <li>
                   <button
                     onClick={handleLogout}
-                    className="font-bold uppercase tracking-wide text-sm transition-colors duration-300 relative group text-gray-700 hover:text-accent flex items-center gap-2"
+                    className="font-bold uppercase tracking-wide text-3xl transition-colors duration-300 relative group text-gray-700 hover:text-accent flex items-center gap-2"
                   >
                     <LogOut size={16} />
                     Logout
@@ -111,7 +111,7 @@ const Header = () => {
                 <Link
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block font-bold uppercase tracking-wide text-sm transition-colors duration-300 ${isActive(item.path)
+                  className={`block font-bold uppercase tracking-wide text-3xl transition-colors duration-300 ${isActive(item.path)
                     ? 'text-accent'
                     : 'text-gray-700 hover:text-accent'
                     }`}
@@ -124,7 +124,7 @@ const Header = () => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="block font-bold uppercase tracking-wide text-sm transition-colors duration-300 text-gray-700 hover:text-accent flex items-center gap-2"
+                  className="block font-bold uppercase tracking-wide text-3xl transition-colors duration-300 text-gray-700 hover:text-accent flex items-center gap-2"
                 >
                   <LogOut size={16} />
                   Logout
