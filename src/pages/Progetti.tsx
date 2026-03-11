@@ -12,12 +12,12 @@ const Progetti = () => {
             githubUrl: '#',
         },
         {
-            title: 'Dashboard Analytics',
-            description: 'Dashboard interattiva per visualizzazione dati e analytics in tempo reale.',
-            image: 'https://via.placeholder.com/600x400/3498db/ffffff?text=Analytics+Dashboard',
+            title: 'Prego',
+            description: 'Applicazione per pregare le liturgie della Chiesa Cattolica.',
+            image: 'https://via.placeholder.com/600x400/3498db/ffffff?text=Prayer',
             tags: ['Vue.js', 'D3.js', 'PostgreSQL', 'WebSocket'],
-            date: '2024',
-            demoUrl: '#',
+            date: '2026',
+            demoUrl: 'https://prego.vercel.app',
             githubUrl: '#',
         },
         {
