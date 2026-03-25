@@ -9,7 +9,7 @@ const Progetti = () => {
             tags: ['React', 'Node.js', 'Postgres', 'Vite'],
             date: '2025',
             demoUrl: 'https://dstracker.vercel.app/',
-            githubUrl: '#',
+            githubUrl: '##',
         },
         {
             title: 'Prego',
