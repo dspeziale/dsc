@@ -40,7 +40,7 @@ const Progetti = () => {
         },
         {
             title: 'IAP',
-            description: 'Sistema di gestione presenze con timbrature.',
+            description: 'Sistema di gestione presenze.',
             image: 'https://via.placeholder.com/600x400/9b59b6/ffffff?text=Smart+Home',
             tags: ['Python', 'MQTT', 'Raspberry Pi', 'React'],
             date: '2023',
