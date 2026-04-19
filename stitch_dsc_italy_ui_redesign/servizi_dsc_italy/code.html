@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="" lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Inter:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-container-highest": "#dae2fd", "on-surface-variant": "#584237", "on-primary-fixed-variant": "#783200", "on-tertiary-fixed": "#1a1c1c", "on-error-container": "#93000a", "surface-variant": "#dae2fd", secondary: "#555f6d", surface: "#faf8ff", "on-tertiary": "#ffffff", "inverse-surface": "#283044", primary: "#9d4300", "on-secondary-container": "#596372", "on-primary": "#ffffff", tertiary: "#5d5f5f", "on-primary-fixed": "#341100", "surface-container": "#eaedff", "tertiary-fixed-dim": "#c6c6c7", "secondary-fixed-dim": "#bdc7d8", "error-container": "#ffdad6", outline: "#8c7164", "on-surface": "#131b2e", background: "#faf8ff", "inverse-on-surface": "#eef0ff", "surface-tint": "#9d4300", "surface-bright": "#faf8ff", "on-background": "#131b2e", "surface-dim": "#d2d9f4", "primary-fixed": "#ffdbca", "surface-container-low": "#f2f3ff", "secondary-fixed": "#d9e3f4", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#ffb690", "on-error": "#ffffff", "tertiary-fixed": "#e2e2e2", "on-secondary": "#ffffff", "tertiary-container": "#9a9b9b", "on-secondary-fixed": "#121c28", "primary-container": "#f97316", "on-secondary-fixed-variant": "#3e4755", "outline-variant": "#e0c0b1", "inverse-primary": "#ffb690", "on-tertiary-container": "#313333", "surface-container-high": "#e2e7ff", error: "#ba1a1a", "secondary-container": "#d6e0f1", "on-primary-container": "#582200", "on-tertiary-fixed-variant": "#454747"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, fontFamily: {headline: ["Space Grotesk"], body: ["Inter"], label: ["Inter"], display: "Space Grotesk"}}}};</script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(23, 31, 51, 0.6);
+      backdrop-filter: blur(20px);
+    }
+    .text-glow {
+      text-shadow: 0 0 15px rgba(255, 182, 144, 0.3);
+    }
+    .shadow-long-tail {
+      box-shadow: 0px 20px 40px rgba(6, 14, 32, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar Implementation -->
+<nav class="fixed top-0 w-full z-50 bg-[#0b1326]/60 backdrop-blur-md shadow-2xl shadow-[#060e20]/40">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-7xl mx-auto">
+<div class="text-2xl font-black text-slate-100 tracking-tighter font-headline">DSC Italy</div>
+<div class="hidden md:flex items-center gap-8 font-headline font-bold tracking-tight">
+<a class="text-slate-400 hover:text-slate-100 hover:opacity-80 transition-all duration-300" href="#">Home</a>
+<a class="text-orange-500 border-b-2 border-orange-500 pb-1 hover:opacity-80 transition-all duration-300" href="#">Services</a>
+<a class="text-slate-400 hover:text-slate-100 hover:opacity-80 transition-all duration-300" href="#">Projects</a>
+<a class="text-slate-400 hover:text-slate-100 hover:opacity-80 transition-all duration-300" href="#">About Us</a>
+<a class="text-slate-400 hover:text-slate-100 hover:opacity-80 transition-all duration-300" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-gradient-to-br from-primary-container to-primary text-on-primary-container px-6 py-2 rounded-lg font-bold hover:brightness-110 transition-all scale-95 active:scale-90">Login</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-32">
+<!-- Hero Section -->
+<header class="relative px-8 py-24 max-w-7xl mx-auto text-center overflow-hidden">
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.1)_0%,transparent_70%)] pointer-events-none"></div>
+<h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tight text-glow mb-8 leading-none">
+        I Nostri <span class="text-primary italic">Servizi</span>
+</h1>
+<p class="max-w-2xl mx-auto text-on-surface-variant text-lg md:text-xl font-light leading-relaxed">
+        Curiamo l'innovazione attraverso soluzioni tecnologiche complete, progettate per elevare il potenziale della tua visione digitale.
+      </p>
+</header>
+<!-- Main Service Sections (Alternating) -->
+<section class="space-y-32 px-8 max-w-7xl mx-auto">
+<!-- Sviluppo Web -->
+<div class="flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1 space-y-6 order-2 md:order-1">
+<div class="flex items-center gap-3 bg-secondary-container/30 w-fit px-4 py-1.5 rounded-full">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-sm font-headline font-bold text-primary tracking-widest uppercase">Expertise Core</span>
+</div>
+<h2 class="font-headline text-4xl font-bold text-slate-100">Sviluppo Web</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+            Realizziamo architetture web scalabili e performanti, dove il codice incontra l'eleganza editoriale. Ogni riga è scritta per garantire velocità, sicurezza e una SEO senza compromessi.
+          </p>
+<div class="flex flex-wrap gap-2 pt-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">REACT</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">NEXT.JS</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">TYPESCRIPT</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">NODE.JS</span>
+</div>
+</div>
+<div class="flex-1 order-1 md:order-2 w-full">
+<div class="relative aspect-video rounded-xl overflow-hidden shadow-long-tail bg-surface-container">
+<img alt="Sviluppo Web" class="object-cover w-full h-full opacity-80" data-alt="Modern web development environment with dark mode code editor and glowing UI elements on a high-end workstation display" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz9z2qeSJlFjn1vQhApmG3zFtkfvayuIDm1rfMctq7qSOmlRvs3GbqXpZd1o-TizP80BL8VVFnXFUmOtl5tzZXz0RfXUy3qSqa5XcKLyclLOxAMWMKTZIdhlmght86eY_QAynV4QXjmlRue6E2o9tQJqdWbQC2tFkQQ2Cpt-mvOWXhaCwSmhXFl0Oeh_IHh3r5oO8Fvhh-vv5ry7hAfycOa3dDamp8Ix5YrYq3PbRC562xQ224b1uhv6-cFFGTKduAOs3cQW4EaY6I"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+</div>
+</div>
+</div>
+<!-- App Mobile -->
+<div class="flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1 w-full">
+<div class="relative aspect-video rounded-xl overflow-hidden shadow-long-tail bg-surface-container">
+<img alt="App Mobile" class="object-cover w-full h-full opacity-80" data-alt="Conceptual mobile app interface design on high-end smartphones with vibrant accent colors and sophisticated dark theme layers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZSw4AJOoDy0knQ7PVRfjxrgLUXCPZdVJuAqHuM-g-P6QEteUeyMDxmhIVMWm1REvr3ygR-oyUnJqXfHiHztc6VshaIjFDd5RzocdIEecuAnGoYD1r219Vp9iAtyIwxrB5kZWsdmlxxJZJ3dczH2nRxaC1eKPdG7Y24AWZaOFXKcjPBB_btvCGWsIenqwn0VSkNzo5uvZvZSqcokQpenUQf_5dlrsBgeDOzNBM7Wpb5QyxEH1GtFDcYBnWi5ZFRt1wvfpolLWiQZPS"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+</div>
+</div>
+<div class="flex-1 space-y-6">
+<div class="flex items-center gap-3 bg-secondary-container/30 w-fit px-4 py-1.5 rounded-full">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-sm font-headline font-bold text-primary tracking-widest uppercase">Cross-Platform</span>
+</div>
+<h2 class="font-headline text-4xl font-bold text-slate-100">App Mobile</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+            Creiamo esperienze native e ibride che vivono nel palmo della mano. Focalizzandoci sulla fluidità delle animazioni e sull'integrazione hardware, portiamo il tuo brand ovunque.
+          </p>
+<div class="flex flex-wrap gap-2 pt-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">FLUTTER</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">REACT NATIVE</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">SWIFT</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">KOTLIN</span>
+</div>
+</div>
+</div>
+<!-- Soluzioni Hardware -->
+<div class="flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1 space-y-6 order-2 md:order-1">
+<div class="flex items-center gap-3 bg-secondary-container/30 w-fit px-4 py-1.5 rounded-full">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-sm font-headline font-bold text-primary tracking-widest uppercase">Industrial Tech</span>
+</div>
+<h2 class="font-headline text-4xl font-bold text-slate-100">Soluzioni Hardware</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+            Non solo software. Progettiamo e integriamo sistemi hardware su misura per l'automazione, il monitoraggio e l'Internet of Things, chiudendo il cerchio tra digitale e fisico.
+          </p>
+<div class="flex flex-wrap gap-2 pt-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">IOT</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">EMBEDDED C</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">ARDUINO</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded text-xs font-headline font-bold text-tertiary">CUSTOM PCB</span>
+</div>
+</div>
+<div class="flex-1 order-1 md:order-2 w-full">
+<div class="relative aspect-video rounded-xl overflow-hidden shadow-long-tail bg-surface-container">
+<img alt="Soluzioni Hardware" class="object-cover w-full h-full opacity-80" data-alt="Extreme close-up of high-end circuit board with glowing orange data traces and microprocessors in a dark laboratory setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcyU8FJqbY9Ws77jFuO0-Q0gnv7nG_powO6CoowVYwGe1sjr_iGreI1e1iISlW-fGUCEfYCJFchY1pLmWCA3OGD9K7LINvC0y-Wslrpcc9rpQMGIM85vQUQUus1kkhFYWA52_sfuzsNvGRUmauZHHwsePK5a5-gilyWrm8rrweYwzlIQNV2gglzNbMBvzok8lx2-cltSrUAl-wg0Y1UV_ObP5OfVEIKcyhvBIbuHK7VulO6poB6Xi06J2yIRL9MjaJElvOCBq5ZqQN"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Specialized Services Grid -->
+<section class="mt-48 px-8 max-w-7xl mx-auto">
+<div class="mb-16">
+<h2 class="font-headline text-3xl font-bold text-slate-100 mb-4">Specializzazioni</h2>
+<div class="h-1 w-24 bg-primary"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="glass-card p-8 rounded-xl border border-outline-variant/15 hover:bg-surface-container-high transition-all duration-300 group scale-100 hover:scale-[1.02]">
+<div class="mb-6 inline-flex p-3 rounded-lg bg-surface-container-lowest text-primary">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-slate-100 mb-4 group-hover:text-primary transition-colors">Consulenza IT</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">Analisi tecnica approfondita per ottimizzare processi esistenti e guidare la trasformazione digitale aziendale.</p>
+<a class="text-primary font-headline font-bold text-sm tracking-widest inline-flex items-center gap-2 group-hover:gap-4 transition-all" href="#">SCOPRI DI PIÙ <span class="material-symbols-outlined">arrow_forward</span></a>
+</div>
+<!-- Card 2 -->
+<div class="glass-card p-8 rounded-xl border border-outline-variant/15 hover:bg-surface-container-high transition-all duration-300 group scale-100 hover:scale-[1.02]">
+<div class="mb-6 inline-flex p-3 rounded-lg bg-surface-container-lowest text-primary">
+<span class="material-symbols-outlined text-3xl">cloud</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-slate-100 mb-4 group-hover:text-primary transition-colors">Cloud Solutions</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">Implementazione di architetture cloud-native resilienti, sicure e ottimizzate per costi e performance globali.</p>
+<a class="text-primary font-headline font-bold text-sm tracking-widest inline-flex items-center gap-2 group-hover:gap-4 transition-all" href="#">SCOPRI DI PIÙ <span class="material-symbols-outlined">arrow_forward</span></a>
+</div>
+<!-- Card 3 -->
+<div class="glass-card p-8 rounded-xl border border-outline-variant/15 hover:bg-surface-container-high transition-all duration-300 group scale-100 hover:scale-[1.02]">
+<div class="mb-6 inline-flex p-3 rounded-lg bg-surface-container-lowest text-primary">
+<span class="material-symbols-outlined text-3xl">brush</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-slate-100 mb-4 group-hover:text-primary transition-colors">UI/UX Design</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">Design centrato sull'utente che unisce estetica di lusso e funzionalità intuitiva per prodotti digitali memorabili.</p>
+<a class="text-primary font-headline font-bold text-sm tracking-widest inline-flex items-center gap-2 group-hover:gap-4 transition-all" href="#">SCOPRI DI PIÙ <span class="material-symbols-outlined">arrow_forward</span></a>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mt-48 px-8 max-w-5xl mx-auto">
+<div class="relative bg-surface-container-low rounded-3xl p-12 md:p-24 text-center overflow-hidden border border-outline-variant/15">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary-container/10 to-transparent opacity-50"></div>
+<div class="relative z-10">
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-slate-100 mb-8 leading-tight">
+            Hai un progetto in mente?<br/><span class="text-primary">Iniziamo a costruirlo.</span>
+</h2>
+<p class="text-on-surface-variant text-lg mb-12 max-w-xl mx-auto">
+            I nostri esperti sono pronti ad analizzare le tue necessità e proporre la migliore strategia tecnologica per il tuo business.
+          </p>
+<button class="bg-gradient-to-br from-primary-container to-primary text-on-primary-container px-10 py-5 rounded-xl font-bold text-lg hover:brightness-110 transition-all shadow-xl shadow-primary-container/20 scale-100 active:scale-95">
+            Richiedi una consulenza gratuita
+          </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Implementation -->
+<footer class="bg-[#131b2e] w-full">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-7xl mx-auto font-body text-sm leading-relaxed">
+<div class="space-y-6">
+<div class="text-xl font-bold text-slate-100 font-headline">DSC Italy</div>
+<p class="text-slate-500">Curating Digital Innovation.</p>
+<p class="text-slate-500">© 2024 DSC Italy. Tutti i diritti riservati.</p>
+</div>
+<div class="space-y-4">
+<h4 class="text-orange-500 font-semibold mb-4 uppercase tracking-widest text-xs">Azienda</h4>
+<nav class="flex flex-col gap-3">
+<a class="text-slate-500 hover:text-slate-200 transition-transform duration-200 hover:translate-x-1" href="#">About Us</a>
+<a class="text-slate-500 hover:text-slate-200 transition-transform duration-200 hover:translate-x-1" href="#">Portfolio</a>
+<a class="text-slate-500 hover:text-slate-200 transition-transform duration-200 hover:translate-x-1" href="#">Contact</a>
+</nav>
+</div>
+<div class="space-y-4">
+<h4 class="text-orange-500 font-semibold mb-4 uppercase tracking-widest text-xs">Legal</h4>
+<nav class="flex flex-col gap-3">
+<a class="text-slate-500 hover:text-slate-200 transition-transform duration-200 hover:translate-x-1" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-slate-200 transition-transform duration-200 hover:translate-x-1" href="#">Terms of Service</a>
+</nav>
+</div>
+<div class="space-y-4">
+<h4 class="text-orange-500 font-semibold mb-4 uppercase tracking-widest text-xs">Social</h4>
+<nav class="flex flex-col gap-3">
+<a class="text-slate-500 hover:text-slate-200 transition-transform duration-200 hover:translate-x-1" href="#">LinkedIn</a>
+<a class="text-slate-500 hover:text-slate-200 transition-transform duration-200 hover:translate-x-1" href="#">GitHub</a>
+</nav>
+</div>
+</div>
+</footer>
+</body></html>

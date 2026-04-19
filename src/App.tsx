@@ -10,6 +10,7 @@ import Servizi from './pages/Servizi';
 import ChiSiamo from './pages/ChiSiamo';
 import Progetti from './pages/Progetti';
 import Contatti from './pages/Contatti';
+import AiSecurity from './pages/AiSecurity';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
@@ -57,6 +58,7 @@ function App() {
             <Route path="/servizi" element={<Servizi />} />
             <Route path="/chi-siamo" element={<ChiSiamo />} />
             <Route path="/progetti" element={<Progetti />} />
+            <Route path="/ai-security" element={<AiSecurity />} />
             <Route path="/contatti" element={<Contatti />} />
             <Route path="/login" element={<Login />} />
             <Route

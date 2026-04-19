@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DSC Italy | Mobile Services &amp; Experience</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#d7e4ec",
+                    "on-primary-fixed": "#000000",
+                    "on-surface-variant": "#595c5e",
+                    "tertiary-fixed": "#e699fd",
+                    "primary-fixed-dim": "#ff5d1f",
+                    "surface-container": "#e5e8ec",
+                    "on-background": "#2c2f32",
+                    "background": "#f5f7fa",
+                    "on-error-container": "#570008",
+                    "secondary": "#515d64",
+                    "primary-fixed": "#ff794a",
+                    "tertiary-container": "#e699fd",
+                    "inverse-surface": "#0b0f11",
+                    "surface-tint": "#a73300",
+                    "tertiary-dim": "#76318d",
+                    "tertiary": "#833e9a",
+                    "surface": "#f5f7fa",
+                    "on-tertiary-fixed-variant": "#611b79",
+                    "on-secondary-fixed-variant": "#515d64",
+                    "secondary-fixed": "#d7e4ec",
+                    "on-tertiary-container": "#570e6f",
+                    "primary-container": "#ff794a",
+                    "on-tertiary": "#ffedfe",
+                    "inverse-primary": "#ff5710",
+                    "surface-container-high": "#dfe3e7",
+                    "error-container": "#fb5151",
+                    "on-primary": "#ffefeb",
+                    "on-primary-fixed-variant": "#561600",
+                    "tertiary-fixed-dim": "#d88cee",
+                    "surface-container-low": "#eef1f4",
+                    "on-error": "#ffefee",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#b31b25",
+                    "outline": "#74777a",
+                    "inverse-on-surface": "#9a9da0",
+                    "surface-variant": "#d9dde1",
+                    "primary": "#a73300",
+                    "on-tertiary-fixed": "#360049",
+                    "outline-variant": "#abadb0",
+                    "primary-fixed-dim": "#922c00",
+                    "secondary-dim": "#455158",
+                    "secondary-fixed-dim": "#c9d6de",
+                    "on-secondary": "#e8f5fd",
+                    "on-secondary-container": "#47545a",
+                    "surface-container-highest": "#d9dde1",
+                    "surface-dim": "#d0d5d9",
+                    "error-dim": "#9f0519",
+                    "surface-bright": "#f5f7fa",
+                    "on-secondary-fixed": "#354147",
+                    "on-primary-container": "#451000",
+                    "on-surface": "#2c2f32"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0px 20px 40px rgba(44, 47, 50, 0.04);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f5f7fa]/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#a73300]" data-icon="security">security</span>
+<span class="text-lg font-black tracking-tighter text-[#2c2f32] font-['Space_Grotesk'] uppercase">DSC Italy</span>
+</div>
+<button class="hover:opacity-70 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#2c2f32]" data-icon="menu">menu</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-lg mx-auto">
+<!-- Hero Editorial Section -->
+<section class="mb-12">
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold font-label tracking-widest uppercase">Current Role</span>
+</div>
+<h1 class="font-headline text-5xl font-black tracking-tighter leading-[0.9] text-on-background mb-6">
+                SENIOR AI<br/>AGENT<br/>ENGINEER
+            </h1>
+<div class="flex items-baseline gap-2 mb-8">
+<span class="text-primary font-bold font-headline text-xl">@</span>
+<span class="text-2xl font-headline font-bold text-on-surface tracking-tight">SiliconDev / TIM</span>
+</div>
+<p class="text-on-surface-variant leading-relaxed text-lg mb-8">
+                Architecting the next generation of autonomous intelligence for Italy's leading telecommunications infrastructure.
+            </p>
+</section>
+<!-- Image Block -->
+<div class="w-full h-64 bg-surface-container-low rounded-xl mb-12 overflow-hidden editorial-shadow">
+<img alt="Technical Editorial" class="w-full h-full object-cover grayscale mix-blend-multiply opacity-80" data-alt="Close-up of high-end server hardware with glowing orange fiber optic cables in a clean minimalist data center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7PRYNibs91cp4hG3gVAcQbq4mmpGel9XGwqQbNsY5zeNXfbFBszvMdxJ9Sb2IyTKxrBjLSDXW3S3Ig8Yuvr5i45MpCOrBSQLBrVVY-2pJPjkbZR9uuGkbAtycJxjPjWS-hN8Vq5ps82nlXkXvCVl9BU3y_1Rj8HMLZgnPq0hBa4v-jIuzBFMcU511VwXNxBoNrK-120KMHz0WD5PsY6N_Dy7ZhslTFuBwH4cdjeM9GEQuGW8_RpgYODt8RJjIdsu26Ak7tkAPTHXd"/>
+</div>
+<!-- Expertise Grid (Bento Style) -->
+<section class="mb-16">
+<h2 class="font-headline text-xs font-bold tracking-[0.2em] uppercase text-outline mb-8">Core Expertise</h2>
+<div class="grid grid-cols-1 gap-4">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl editorial-shadow">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="hub">hub</span>
+<h3 class="font-headline text-xl font-bold mb-2">Agentic AI</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">Multi-agent systems design using LangGraph and AutoGen for complex task decomposition.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl editorial-shadow">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="database">database</span>
+<h3 class="font-headline text-lg font-bold mb-1">RAG</h3>
+<p class="text-xs text-on-surface-variant">Advanced retrieval architectures with vector embeddings.</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl editorial-shadow">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="visibility">visibility</span>
+<h3 class="font-headline text-lg font-bold mb-1">YOLOv8</h3>
+<p class="text-xs text-on-surface-variant">Real-time object detection and spatial intelligence.</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-primary p-8 rounded-xl flex items-center justify-between text-on-primary">
+<div>
+<h3 class="font-headline text-xl font-bold mb-1">AI for Cybersecurity</h3>
+<p class="text-xs opacity-80 uppercase tracking-widest font-bold">Threat Detection &amp; Response</p>
+</div>
+<span class="material-symbols-outlined text-4xl" data-icon="shield_lock" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+</div>
+</div>
+</section>
+<!-- Technical Stack -->
+<section class="mb-16">
+<h2 class="font-headline text-xs font-bold tracking-[0.2em] uppercase text-outline mb-8">Technical Stack</h2>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold font-label text-on-surface">Python</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold font-label text-on-surface">PyTorch</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold font-label text-on-surface">TensorFlow</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold font-label text-on-surface">LangChain</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold font-label text-on-surface">FastAPI</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold font-label text-on-surface">Pinecone</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold font-label text-on-surface">Docker</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-xs font-bold font-label text-on-surface">Kubernetes</span>
+</div>
+</section>
+<!-- Services CTA -->
+<section class="mb-12 bg-surface-container-low p-8 rounded-xl border-l-4 border-primary">
+<h2 class="font-headline text-2xl font-bold mb-4">Inquiry for Services</h2>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">
+                Available for high-level consulting on AI transformation and specialized agentic implementations.
+            </p>
+<button class="bg-gradient-to-r from-[#a73300] to-[#ff794a] text-on-primary px-6 py-3 rounded text-[10px] uppercase font-bold tracking-widest active:scale-95 transition-all">
+                Download Technical CV
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-[#eef1f4] flex flex-col items-start gap-8 px-8 py-16 w-full max-w-7xl mx-auto">
+<div class="font-['Space_Grotesk'] font-bold text-[#2c2f32] text-xl">DSC Italy</div>
+<nav class="flex flex-col gap-4">
+<a class="text-[#a73300] font-bold underline underline-offset-4 font-['Inter'] text-sm tracking-tight transition-colors" href="#">LinkedIn</a>
+<a class="text-[#5f6368] font-['Inter'] text-sm tracking-tight hover:text-[#a73300] transition-colors" href="#">GitHub</a>
+<a class="text-[#5f6368] font-['Inter'] text-sm tracking-tight hover:text-[#a73300] transition-colors" href="#">ResearchGate</a>
+<a class="text-[#5f6368] font-['Inter'] text-sm tracking-tight hover:text-[#a73300] transition-colors" href="#">Privacy</a>
+</nav>
+<p class="text-[#5f6368] font-['Inter'] text-xs opacity-80">© 2024 DSC Italy. Senior AI &amp; Cybersecurity Engineer.</p>
+</footer>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#ffffff]/90 backdrop-blur-2xl border-t border-[#abadb0]/15 shadow-[0_-10px_30px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#5f6368] hover:bg-[#eef1f4] transition-all duration-300" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="grid_view">grid_view</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-widest font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#eef1f4] text-[#a73300] rounded-xl px-3 py-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="code">code</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-widest font-bold">Work</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#5f6368] hover:bg-[#eef1f4] transition-all duration-300" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="memory">memory</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-widest font-bold">Tech</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#5f6368] hover:bg-[#eef1f4] transition-all duration-300" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="mail">mail</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-widest font-bold">Reach</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html class="" lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DSC Italy | DS Consulting - Digital Innovation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-container-highest": "#dae2fd", "on-surface-variant": "#584237", "on-primary-fixed-variant": "#783200", "on-tertiary-fixed": "#1a1c1c", "on-error-container": "#93000a", "surface-variant": "#dae2fd", secondary: "#555f6d", surface: "#faf8ff", "on-tertiary": "#ffffff", "inverse-surface": "#283044", primary: "#9d4300", "on-secondary-container": "#596372", "on-primary": "#ffffff", tertiary: "#5d5f5f", "on-primary-fixed": "#341100", "surface-container": "#eaedff", "tertiary-fixed-dim": "#c6c6c7", "secondary-fixed-dim": "#bdc7d8", "error-container": "#ffdad6", outline: "#8c7164", "on-surface": "#131b2e", background: "#faf8ff", "inverse-on-surface": "#eef0ff", "surface-tint": "#9d4300", "surface-bright": "#faf8ff", "on-background": "#131b2e", "surface-dim": "#d2d9f4", "primary-fixed": "#ffdbca", "surface-container-low": "#f2f3ff", "secondary-fixed": "#d9e3f4", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#ffb690", "on-error": "#ffffff", "tertiary-fixed": "#e2e2e2", "on-secondary": "#ffffff", "tertiary-container": "#9a9b9b", "on-secondary-fixed": "#121c28", "primary-container": "#f97316", "on-secondary-fixed-variant": "#3e4755", "outline-variant": "#e0c0b1", "inverse-primary": "#ffb690", "on-tertiary-container": "#313333", "surface-container-high": "#e2e7ff", error: "#ba1a1a", "secondary-container": "#d6e0f1", "on-primary-container": "#582200", "on-tertiary-fixed-variant": "#454747"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, fontFamily: {headline: ["Space Grotesk"], body: ["Inter"], label: ["Inter"], display: "Space Grotesk"}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.1) 0%, rgba(11, 19, 38, 0) 70%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0b1326]/60 backdrop-blur-md shadow-2xl shadow-[#060e20]/40 transition-all duration-300">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-7xl mx-auto">
+<div class="text-2xl font-black text-slate-100 tracking-tighter font-headline">
+                DSC Italy
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-headline font-bold tracking-tight text-orange-500 border-b-2 border-orange-500 pb-1 hover:opacity-80 transition-all duration-300" href="#">Home</a>
+<a class="font-headline font-bold tracking-tight text-slate-400 hover:text-slate-100 hover:opacity-80 transition-all duration-300" href="#">Services</a>
+<a class="font-headline font-bold tracking-tight text-slate-400 hover:text-slate-100 hover:opacity-80 transition-all duration-300" href="#">Projects</a>
+<a class="font-headline font-bold tracking-tight text-slate-400 hover:text-slate-100 hover:opacity-80 transition-all duration-300" href="#">About Us</a>
+<a class="font-headline font-bold tracking-tight text-slate-400 hover:text-slate-100 hover:opacity-80 transition-all duration-300" href="#">Contact</a>
+</div>
+<button class="bg-gradient-to-br from-primary-container to-primary text-on-primary-container px-6 py-2 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all duration-300">
+                Login
+            </button>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
+<div class="absolute inset-0 z-0">
+<div class="absolute top-1/4 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 -left-20 w-96 h-96 bg-secondary/5 rounded-full blur-[120px]"></div>
+</div>
+<div class="max-w-7xl mx-auto px-8 w-full relative z-10">
+<div class="max-w-3xl">
+<h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tight leading-tight text-on-surface mb-8">
+                        Trasformiamo le tue idee in <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">soluzioni digitali</span>
+</h1>
+<p class="text-on-surface-variant text-lg md:text-xl leading-relaxed mb-12 max-w-2xl">
+                        DS Consulting è il tuo partner tecnologico per lo sviluppo di software web, applicazioni mobile e soluzioni hardware innovative.
+                    </p>
+<div class="flex flex-wrap gap-6">
+<button class="px-8 py-4 bg-gradient-to-br from-primary-container to-primary text-on-primary-container rounded-lg font-bold shadow-xl shadow-primary/20 hover:brightness-110 active:scale-95 transition-all duration-300">
+                            Richiedi un Preventivo
+                        </button>
+<button class="px-8 py-4 bg-surface-container border border-outline-variant/30 text-on-surface rounded-lg font-bold hover:bg-surface-container-high active:scale-95 transition-all duration-300">
+                            Scopri i Servizi
+                        </button>
+</div>
+</div>
+</div>
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-4/5 hidden lg:block opacity-40 mix-blend-screen pointer-events-none">
+<img alt="Tech Abstract" class="w-full h-full object-contain" data-alt="Futuristic cyber security interface with glowing circuit lines and binary code on a dark technological background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7NNBAYlxqqIouLIWHLeUqR-KB0XajJQyDx7Fpsb-NY79L1e55-kXZH9VK6a1D6Q45UlClj0d-ad6HA3Ns2HyN3vU-YPCJ3PJG7yjz5qkINR7ISVv7403BJu3wbbk79Z7Vhj2DhU1jlzPnQE9rFGWMacFxPoLmzl1eTyfwmU6QOmV-1AxB7oCAGFiyxpBEXecEl8YHHcHzm1KGKw6TD_cKaP3QrHIbGelCdHoMkVsfa9CnHap9_8ux3m8GWEjLoAOdFyh-rl_ilQvr"/>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-32 bg-surface-container-low relative">
+<div class="max-w-7xl mx-auto px-8">
+<div class="mb-20 text-center">
+<span class="text-primary font-headline font-bold tracking-widest uppercase text-sm">Le Nostre Competenze</span>
+<h2 class="font-headline text-4xl md:text-5xl font-bold mt-4 text-on-surface">I Nostri Servizi</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Service Card 1 -->
+<div class="group p-8 rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/10 transition-all duration-500 hover:-translate-y-2">
+<div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">language</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-4">Sviluppo Web</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">
+                            Creiamo piattaforme web scalabili, sicure e ad alte prestazioni, ottimizzate per ogni dispositivo e motore di ricerca.
+                        </p>
+<div class="flex items-center text-primary font-bold cursor-pointer group-hover:gap-2 transition-all">
+                            Scopri di più <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+</div>
+</div>
+<!-- Service Card 2 -->
+<div class="group p-8 rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/10 transition-all duration-500 hover:-translate-y-2">
+<div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">smartphone</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-4">App Mobile</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">
+                            Sviluppiamo applicazioni mobile native e cross-platform intuitive che offrono un'esperienza utente senza compromessi.
+                        </p>
+<div class="flex items-center text-primary font-bold cursor-pointer group-hover:gap-2 transition-all">
+                            Scopri di più <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+</div>
+</div>
+<!-- Service Card 3 -->
+<div class="group p-8 rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/10 transition-all duration-500 hover:-translate-y-2">
+<div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">developer_board</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-4">Soluzioni Hardware</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">
+                            Progettazione hardware su misura e integrazione IoT per trasformare il mondo fisico attraverso la tecnologia digitale.
+                        </p>
+<div class="flex items-center text-primary font-bold cursor-pointer group-hover:gap-2 transition-all">
+                            Scopri di più <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us Section -->
+<section class="py-32 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div>
+<span class="text-primary font-headline font-bold tracking-widest uppercase text-sm">Valore Aggiunto</span>
+<h2 class="font-headline text-4xl md:text-5xl font-bold mt-4 mb-8 text-on-surface">Perché scegliere DS Consulting?</h2>
+<div class="space-y-8">
+<div class="flex gap-6">
+<div class="shrink-0 w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div>
+<h4 class="font-bold text-xl mb-2">Analisi Profonda</h4>
+<p class="text-on-surface-variant">Studiamo il tuo business per trovare la soluzione tecnologica più efficace.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="shrink-0 w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary">bolt</span>
+</div>
+<div>
+<h4 class="font-bold text-xl mb-2">Sviluppo Agile</h4>
+<p class="text-on-surface-variant">Metodologie iterative per rilasci rapidi e feedback costanti.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="shrink-0 w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary">support_agent</span>
+</div>
+<div>
+<h4 class="font-bold text-xl mb-2">Supporto Continuo</h4>
+<p class="text-on-surface-variant">Non ti abbandoniamo mai: manutenzione e assistenza garantite.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6 relative">
+<div class="absolute -z-10 inset-0 bg-primary/5 blur-[100px] rounded-full"></div>
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col items-center justify-center text-center">
+<span class="font-headline text-5xl font-bold text-primary mb-2">10+</span>
+<span class="text-on-surface-variant font-medium">Anni di esperienza</span>
+</div>
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col items-center justify-center text-center mt-12">
+<span class="font-headline text-5xl font-bold text-primary mb-2">50+</span>
+<span class="text-on-surface-variant font-medium">Progetti completati</span>
+</div>
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col items-center justify-center text-center -mt-12">
+<span class="font-headline text-4xl font-bold text-primary mb-2">100%</span>
+<span class="text-on-surface-variant font-medium">Clienti soddisfatti</span>
+</div>
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col items-center justify-center text-center">
+<span class="font-headline text-5xl font-bold text-primary mb-2">24/7</span>
+<span class="text-on-surface-variant font-medium">Supporto Tecnico</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Banner -->
+<section class="py-24 px-8">
+<div class="max-w-7xl mx-auto rounded-3xl overflow-hidden relative bg-surface-container-high border border-outline-variant/20">
+<div class="absolute inset-0 z-0">
+<img alt="Team Meeting" class="w-full h-full object-cover opacity-20" data-alt="Professional meeting in a modern glass-walled conference room with dark ambient lighting and soft orange highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN-iuySfswKERrhmvJnY7S7hAhMVBxSy7Tqz85XzvzQ5sD3KEvLMVXrwwV4_N7eRG5bSRcDJqOR62mVJRgEUOqTkp3i016mPGP3Z58E9shszYIpdNrtX8Ganp5x7V7SCcl7lerYTSI8JK15YAAYxktWMmNPgMcq1PrAX-9SJ8GLmjQ6yixqT6HQAh6K0J-hUzqTPQ0_9x1FkhS2IS9WWEz20kMbuhekse9f6lNlbDx7tiPVRJWB7OXUSGMg7N2U7Y7YiKkHTeF1bjp"/>
+</div>
+<div class="relative z-10 px-8 md:px-20 py-20 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="max-w-2xl">
+<h2 class="font-headline text-3xl md:text-5xl font-bold text-on-surface mb-4">Pronto a iniziare il tuo progetto?</h2>
+<p class="text-on-surface-variant text-lg">Parliamo della tua visione e trasformiamola in una realtà tecnologica di successo.</p>
+</div>
+<button class="shrink-0 px-10 py-5 bg-gradient-to-br from-primary-container to-primary text-on-primary-container rounded-xl font-bold text-lg shadow-2xl shadow-primary/20 hover:brightness-110 active:scale-95 transition-all duration-300 flex items-center gap-3">
+                        Parliamone Insieme <span class="material-symbols-outlined">chat</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#131b2e] dark:bg-[#131b2e] w-full">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-7xl mx-auto">
+<div class="space-y-6">
+<div class="text-xl font-bold text-slate-100 font-['Space_Grotesk']">
+                    DSC Italy
+                </div>
+<p class="text-slate-500 font-['Inter'] text-sm leading-relaxed max-w-xs">
+                    Curating digital excellence and innovative hardware solutions since 2014. Professional consulting for ambitious brands.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-500 hover:text-orange-500 cursor-pointer transition-colors">public</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-orange-500 cursor-pointer transition-colors">diversity_3</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-orange-500 cursor-pointer transition-colors">terminal</span>
+</div>
+</div>
+<div>
+<h4 class="text-on-surface font-bold mb-6 font-headline">Servizi</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Web Development</a></li>
+<li><a class="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Mobile Apps</a></li>
+<li><a class="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Hardware IoT</a></li>
+<li><a class="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Digital Consulting</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-surface font-bold mb-6 font-headline">Link Rapidi</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Portfolio</a></li>
+<li><a class="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Chi Siamo</a></li>
+<li><a class="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-surface font-bold mb-6 font-headline">Contatti</h4>
+<p class="text-slate-500 text-sm mb-4">info@dscitaly.com</p>
+<p class="text-slate-500 text-sm mb-6">+39 012 345 6789</p>
+<div class="flex items-center gap-4 text-orange-500 font-semibold text-sm">
+                    LinkedIn <span class="material-symbols-outlined text-xs">open_in_new</span>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 py-8 border-t border-outline-variant/10 text-center">
+<p class="text-slate-500 font-['Inter'] text-sm">
+                © 2024 DSC Italy. Curating Digital Innovation.
+            </p>
+</div>
+</footer>
+</body></html>

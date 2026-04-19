@@ -1,7 +1,6 @@
 import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Shield } from 'lucide-react';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -9,7 +8,6 @@ const Login = () => {
 
     const handleSuccess = async (credentialResponse: CredentialResponse) => {
         try {
-            // Send credential to backend for verification
             const response = await fetch('/api/auth/google', {
                 method: 'POST',
                 headers: {
@@ -23,7 +21,6 @@ const Login = () => {
             const data = await response.json();
 
             if (response.ok && data.token) {
-                // Store token and user info
                 login(data.token, data.user);
                 navigate('/admin');
             } else {
@@ -41,23 +38,27 @@ const Login = () => {
     };
 
     return (
-        <main className="pt-20 min-h-screen bg-gradient-to-br from-gray-50 to-orange-50">
-            <div className="container py-20">
-                <div className="max-w-md mx-auto">
-                    <div className="bg-white rounded-2xl shadow-custom-lg p-8 md:p-12">
+        <main className="min-h-screen pt-20 flex items-center justify-center bg-[#0b1326] relative overflow-hidden">
+            {/* Background Decorations */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+            
+            <div className="w-full max-w-md px-8 relative z-10">
+                <div className="p-1 rounded-3xl bg-gradient-to-br from-primary/30 to-secondary/30">
+                    <div className="bg-[#131b2e] p-10 md:p-12 rounded-[inherit] shadow-2xl border border-white/5 backdrop-blur-xl">
                         {/* Header */}
-                        <div className="text-center mb-8">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-accent to-secondary rounded-full mb-4">
-                                <Shield size={32} className="text-white" />
+                        <div className="text-center mb-10">
+                            <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-primary/20">
+                                <span className="material-symbols-outlined text-primary text-4xl">admin_panel_settings</span>
                             </div>
-                            <h1 className="text-3xl font-bold text-primary mb-2">Area Admin</h1>
-                            <p className="text-gray-600">
-                                Accedi con il tuo account Google autorizzato
+                            <h1 className="text-3xl font-headline font-bold text-slate-100 mb-3 tracking-tight">Area Riservata</h1>
+                            <p className="text-slate-400 text-sm leading-relaxed">
+                                Benvenuto nel centro di comando. Accedi con il tuo account autorizzato.
                             </p>
                         </div>
 
                         {/* Google Login Button */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-center mb-10 overflow-hidden rounded-lg">
                             <GoogleLogin
                                 onSuccess={handleSuccess}
                                 onError={handleError}
@@ -69,18 +70,31 @@ const Login = () => {
                             />
                         </div>
 
-                        {/* Info */}
-                        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                            <p className="text-sm text-blue-800">
-                                <strong>Nota:</strong> Solo gli account email autorizzati possono accedere
-                                all'area admin.
+                        {/* Info Note */}
+                        <div className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 flex gap-3">
+                            <span className="material-symbols-outlined text-primary text-xl shrink-0">info</span>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                <strong>Accrediti:</strong> L'accesso è limitato esclusivamente ai membri del team DSC Italy con email verificata.
                             </p>
                         </div>
                     </div>
+                </div>
+                
+                {/* Back Link */}
+                <div className="mt-8 text-center">
+                    <button 
+                        onClick={() => navigate('/')}
+                        className="text-slate-500 hover:text-slate-200 text-sm font-medium transition-colors flex items-center justify-center gap-2 mx-auto"
+                    >
+                        <span className="material-symbols-outlined text-sm">arrow_back</span>
+                        Torna alla Home
+                    </button>
                 </div>
             </div>
         </main>
     );
 };
+
+export default Login;
 
 export default Login;
