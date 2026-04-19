@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Github, Twitter, Users } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -23,166 +22,70 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-gradient-to-br from-primary to-primary-dark text-white">
-      <div className="container py-16">
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand Section */}
-          <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2 group">
-              <span className="text-3xl font-bold group-hover:text-accent transition-colors duration-300">
-                DS
-              </span>
-              <span className="text-xl font-normal text-gray-300">Consulting</span>
-            </Link>
-            <p className="text-gray-300 leading-relaxed">
-              Soluzioni software innovative per far crescere il tuo business.
-              Sviluppo web, mobile e hardware su misura.
-            </p>
-            {/* Social Media */}
-            <div className="flex gap-4 pt-2">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 bg-white/10 rounded-lg hover:bg-accent hover:scale-110 transition-all duration-300"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 bg-white/10 rounded-lg hover:bg-accent hover:scale-110 transition-all duration-300"
-                aria-label="GitHub"
-              >
-                <Github size={20} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 bg-white/10 rounded-lg hover:bg-accent hover:scale-110 transition-all duration-300"
-                aria-label="Twitter"
-              >
-                <Twitter size={20} />
-              </a>
-            </div>
+    <footer className="bg-[#131b2e] w-full">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-7xl mx-auto">
+        {/* Brand Column */}
+        <div className="space-y-6">
+          <div className="text-xl font-bold text-slate-100 font-headline">
+            DSC Italy
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-bold mb-4 text-white">Link Rapidi</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  to="/"
-                  className="text-gray-300 hover:text-accent transition-colors duration-300 inline-block"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/servizi"
-                  className="text-gray-300 hover:text-accent transition-colors duration-300 inline-block"
-                >
-                  Servizi
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/chi-siamo"
-                  className="text-gray-300 hover:text-accent transition-colors duration-300 inline-block"
-                >
-                  Chi Siamo
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contatti"
-                  className="text-gray-300 hover:text-accent transition-colors duration-300 inline-block"
-                >
-                  Contatti
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="text-lg font-bold mb-4 text-white">Servizi</h4>
-            <ul className="space-y-3 text-gray-300">
-              <li>Sviluppo Web</li>
-              <li>App Mobile</li>
-              <li>Soluzioni Hardware</li>
-              <li>Consulenza IT</li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-bold mb-4 text-white">Contatti</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-gray-300">
-                <Mail size={18} className="mt-1 flex-shrink-0" />
-                <span className="break-words">dsconsulting.italy@gmail.com</span>
-              </li>
-              <li className="flex items-start gap-3 text-gray-300">
-                <Phone size={18} className="mt-1 flex-shrink-0" />
-                <span>+39 352 015 0489</span>
-              </li>
-              <li className="flex items-start gap-3 text-gray-300">
-                <MapPin size={18} className="mt-1 flex-shrink-0" />
-                <span>Via Carlo Arturo Jemolo, 283, Roma</span>
-              </li>
-            </ul>
+          <p className="text-slate-500 font-body text-sm leading-relaxed max-w-xs">
+            Curating digital excellence and innovative hardware solutions since 2014. Professional consulting for ambitious brands.
+          </p>
+          <div className="flex gap-4">
+            <span className="material-symbols-outlined text-slate-500 hover:text-orange-500 cursor-pointer transition-colors">public</span>
+            <span className="material-symbols-outlined text-slate-500 hover:text-orange-500 cursor-pointer transition-colors">diversity_3</span>
+            <span className="material-symbols-outlined text-slate-500 hover:text-orange-500 cursor-pointer transition-colors">terminal</span>
           </div>
         </div>
 
-        {/* Newsletter Section */}
-        <div className="mt-12 pt-8 border-t border-white/10">
-          <div className="max-w-md mx-auto text-center">
-            <h4 className="text-lg font-bold mb-3 text-white">Resta Aggiornato</h4>
-            <p className="text-gray-300 mb-4 text-sm">
-              Iscriviti alla newsletter per ricevere aggiornamenti e novità
-            </p>
-            <form className="flex gap-2">
-              <input
-                type="email"
-                placeholder="La tua email"
-                className="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors duration-300"
-              />
-              <button
-                type="submit"
-                className="px-6 py-2 bg-accent hover:bg-accent-light rounded-lg font-bold transition-colors duration-300"
-              >
-                Iscriviti
-              </button>
-            </form>
-          </div>
+        {/* Services Column */}
+        <div>
+          <h4 className="text-on-surface font-bold mb-6 font-headline text-slate-100">Services</h4>
+          <ul className="space-y-4">
+            <li><Link className="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" to="/servizi">Web Development</Link></li>
+            <li><Link className="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" to="/servizi">Mobile Apps</Link></li>
+            <li><Link className="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" to="/servizi">Hardware IoT</Link></li>
+            <li><Link className="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" to="/servizi">Digital Consulting</Link></li>
+          </ul>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-sm">
-          <p>&copy; {currentYear} DS Consulting. Tutti i diritti riservati.</p>
+        {/* Quick Links Column */}
+        <div>
+          <h4 className="text-on-surface font-bold mb-6 font-headline text-slate-100">Quick Links</h4>
+          <ul className="space-y-4">
+            <li><Link className="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" to="/progetti">Portfolio</Link></li>
+            <li><Link className="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" to="/chi-siamo">About Us</Link></li>
+            <li><Link className="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" to="/contatti">Contact</Link></li>
+            <li><Link className="text-slate-500 hover:text-slate-200 text-sm hover:translate-x-1 transition-transform duration-200 inline-block" to="/login">Login</Link></li>
+          </ul>
+        </div>
 
+        {/* Contact Column */}
+        <div>
+          <h4 className="text-on-surface font-bold mb-6 font-headline text-slate-100">Contact</h4>
+          <p className="text-slate-500 text-sm mb-4">info@dscitaly.com</p>
+          <p className="text-slate-500 text-sm mb-6">+39 352 015 0489</p>
+          <div className="flex items-center gap-4 text-orange-500 font-semibold text-sm">
+            LinkedIn <span className="material-symbols-outlined text-xs">open_in_new</span>
+          </div>
           {visitorCount !== null && (
-            <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm group hover:bg-white/10 transition-all duration-300">
-              <div className="relative">
-                <Users size={16} className="text-accent" />
-                <span className="absolute inset-0 bg-accent/20 rounded-full animate-ping scale-150 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-              </div>
-              <span className="text-gray-300">
-                Visitatori unici oggi: <span className="text-white font-bold">{visitorCount}</span>
-              </span>
+            <div className="mt-8 text-slate-500 text-xs">
+              Visitors today: <span className="text-slate-300 font-bold">{visitorCount}</span>
             </div>
           )}
         </div>
       </div>
+
+      <div className="max-w-7xl mx-auto px-8 py-8 border-t border-slate-800/50 text-center">
+        <p className="text-slate-500 font-body text-sm">
+          © {currentYear} DSC Italy. Curating Digital Innovation.
+        </p>
+      </div>
     </footer>
   );
 };
+
+export default Footer;
 
 export default Footer;

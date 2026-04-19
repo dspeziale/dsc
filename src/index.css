@@ -8,53 +8,62 @@
   }
 
   body {
-    @apply font-sans text-lg leading-relaxed text-gray-800;
+    @apply font-body bg-surface text-on-surface selection:bg-primary/30;
   }
 }
 
 @layer components {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    @apply align-middle;
+  }
+
+  .glass-panel {
+    background: rgba(45, 52, 73, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .hero-gradient {
+    background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.1) 0%, rgba(11, 19, 38, 0) 70%);
+  }
+
   .container {
     @apply max-w-7xl mx-auto px-6;
   }
 
   .section {
-    @apply py-20;
+    @apply py-24;
   }
 
   .section-title {
-    @apply text-4xl md:text-5xl font-bold text-primary text-center mb-4 tracking-tight;
+    @apply font-headline text-4xl md:text-5xl font-bold text-on-surface mb-4 tracking-tight;
   }
 
   .section-subtitle {
-    @apply text-xl text-gray-600 text-center max-w-2xl mx-auto mb-12;
+    @apply text-lg text-on-surface-variant max-w-2xl mx-auto mb-12;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-8 py-3.5 font-bold rounded-lg border-none cursor-pointer transition-all duration-300 uppercase tracking-wide text-base;
+    @apply inline-flex items-center justify-center gap-2 px-8 py-3.5 font-bold rounded-lg cursor-pointer transition-all duration-300 uppercase tracking-wide text-base active:scale-95;
   }
 
   .btn-primary {
-    @apply bg-gradient-to-br from-accent to-accent-dark text-white hover:from-accent-light hover:to-accent hover:-translate-y-1 hover:shadow-accent;
+    @apply bg-gradient-to-br from-primary-container to-primary text-on-primary-container shadow-xl shadow-primary/20 hover:brightness-110;
   }
 
   .btn-secondary {
-    @apply bg-transparent text-primary border-2 border-primary hover:bg-primary hover:text-white hover:-translate-y-1;
+    @apply bg-surface-container border border-outline-variant/30 text-on-surface hover:bg-surface-container-high;
   }
 
   .card {
-    @apply bg-white rounded-2xl p-8 shadow-custom transition-all duration-300 border border-transparent hover:-translate-y-2 hover:shadow-custom-lg hover:border-accent/20;
-  }
-
-  /* Accent underline for titles */
-  .section-title::after {
-    content: '';
-    @apply block w-16 h-1 bg-gradient-to-r from-accent to-secondary mx-auto mt-4 rounded-full;
+    @apply bg-surface-container p-8 rounded-xl border border-outline-variant/10 transition-all duration-500 hover:bg-surface-container-high hover:-translate-y-2;
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary to-orange-400 bg-clip-text text-transparent;
   }
 }
 
