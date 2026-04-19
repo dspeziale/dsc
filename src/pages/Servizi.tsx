@@ -128,5 +128,3 @@ const Servizi = () => {
 };
 
 export default Servizi;
-
-export default Servizi;
