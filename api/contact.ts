@@ -54,8 +54,16 @@ export default async function handler(
       || req.socket.remoteAddress
       || 'unknown';
 
+    // Check if database is configured
+    if (!process.env.DATABASE_URL) {
+      console.warn('DATABASE_URL is not defined. Contact form cannot be saved.');
+      return res.status(503).json({
+        error: 'Il servizio di contatto non è al momento configurato (Database mancante). Riprova più tardi.'
+      });
+    }
+
     // Connect to Neon database
-    const sql = neon(process.env.DATABASE_URL!);
+    const sql = neon(process.env.DATABASE_URL);
 
     // Insert contact message into database
     const result = await sql`

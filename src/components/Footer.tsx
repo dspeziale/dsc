@@ -1,25 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [visitorCount, setVisitorCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchVisitorCount = async () => {
-      try {
-        const response = await fetch('/api/visitor-count');
-        const data = await response.json();
-        if (response.ok) {
-          setVisitorCount(data.count);
-        }
-      } catch (error) {
-        console.debug('Failed to fetch visitor count:', error);
-      }
-    };
-
-    fetchVisitorCount();
-  }, []);
 
   return (
     <footer className="bg-[#0f172a] w-full border-t border-emerald-500/10">
@@ -70,11 +52,6 @@ const Footer = () => {
           <div className="flex items-center gap-4 text-emerald-400 font-semibold text-sm hover:text-emerald-300 cursor-pointer">
             LinkedIn <span className="material-symbols-outlined text-xs">open_in_new</span>
           </div>
-          {visitorCount !== null && (
-            <div className="mt-8 text-slate-500 text-[10px] uppercase tracking-wider">
-              Network Pulse: <span className="text-emerald-400 font-bold">{visitorCount}</span> active units
-            </div>
-          )}
         </div>
       </div>
 
