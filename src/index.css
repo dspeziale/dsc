@@ -5,6 +5,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-size: 18px;
   }
 
   body {
@@ -19,13 +20,13 @@
   }
 
   .glass-panel {
-    background: rgba(45, 52, 73, 0.6);
+    background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
 
   .hero-gradient {
-    background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.1) 0%, rgba(11, 19, 38, 0) 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
   }
 
   .container {
@@ -49,7 +50,7 @@
   }
 
   .btn-primary {
-    @apply bg-gradient-to-br from-primary-container to-primary text-on-primary-container shadow-xl shadow-primary/20 hover:brightness-110;
+    @apply bg-gradient-to-br from-primary-container to-primary text-on-primary shadow-xl shadow-primary/20 hover:brightness-110;
   }
 
   .btn-secondary {
@@ -63,7 +64,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-primary to-orange-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
 }
 

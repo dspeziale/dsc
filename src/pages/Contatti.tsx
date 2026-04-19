@@ -63,177 +63,187 @@ const Contatti = () => {
     }
   };
 
-  return (
-    <main className="pt-20">
+  return (    <main className="pt-20 bg-[#0f172a] text-white">
       {/* Header */}
-      <section className="bg-surface py-24 border-b border-outline-variant/10">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 mb-6">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            <span className="text-xs font-bold uppercase tracking-widest text-primary">Inizia la Conversazione</span>
+      <section className="py-24 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-[100px]"></div>
+        <div className="max-w-7xl mx-auto px-8 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 mb-6 border border-emerald-500/20">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Inizia la Conversazione</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-headline font-bold text-on-surface tracking-tighter leading-tight mb-6">
+          <h1 className="text-5xl md:text-8xl font-headline font-bold text-white tracking-tighter leading-[0.9] mb-8">
             Pronto a <span className="text-gradient">Collaborare?</span>
           </h1>
-          <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed">
+          <p className="text-slate-400 text-xl md:text-2xl max-w-2xl leading-relaxed font-light">
             Siamo pronti ad ascoltare le tue sfide e trasformarle in successi tecnologici. Contattaci oggi stesso.
           </p>
         </div>
       </section>
 
       {/* Contact Content */}
-      <section className="py-24 bg-surface-container-low">
-        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20">
+      <section className="py-32 bg-[#0f172a]">
+        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-24">
           
           {/* Form */}
-          <div className="p-1 w-full bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 rounded-3xl">
-             <div className="bg-surface p-8 md:p-12 rounded-[inherit] border border-outline-variant/10 shadow-2xl">
-                <h2 className="text-3xl font-headline font-bold text-on-surface mb-8">Inviaci un Messaggio</h2>
+          <div className="relative group">
+             <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500 to-primary rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+             <div className="relative bg-slate-900 p-10 md:p-16 rounded-[2.5rem] border border-white/5 shadow-2xl">
+                <h2 className="text-4xl font-headline font-bold text-white mb-10 tracking-tight">Inviaci un Messaggio</h2>
                 
                 {submitStatus === 'success' && (
-                  <div className="mb-8 p-4 bg-green-500/10 border border-green-500/20 rounded-xl flex items-center gap-3 text-green-600 font-bold">
-                    <span className="material-symbols-outlined">check_circle</span>
-                    Messaggio inviato con successo!
-                  </div>
+                   <div className="mb-10 p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-center gap-4 text-emerald-400 font-bold">
+                     <span className="material-symbols-outlined text-3xl">check_circle</span>
+                     <div>
+                       <div className="text-lg">Messaggio inviato!</div>
+                       <div className="text-sm font-normal opacity-70">Ti ricontatteremo entro 24 ore.</div>
+                     </div>
+                   </div>
                 )}
                 
                 {submitStatus === 'error' && (
-                  <div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-600 font-bold">
-                    <span className="material-symbols-outlined">error</span>
-                    {errorMessage}
-                  </div>
+                   <div className="mb-10 p-6 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center gap-4 text-red-400 font-bold">
+                     <span className="material-symbols-outlined text-3xl">error</span>
+                     <div>
+                       <div className="text-lg">Errore nell'invio</div>
+                       <div className="text-sm font-normal opacity-70">{errorMessage}</div>
+                     </div>
+                   </div>
                 )}
 
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Nome</label>
+                <form className="space-y-8" onSubmit={handleSubmit}>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-3">
+                         <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">Nome Completo</label>
                          <input 
                            type="text" 
                            name="nome"
                            value={formData.nome}
                            onChange={handleChange}
                            required
-                           className="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-5 py-4 text-on-surface focus:outline-none focus:border-primary transition-colors" 
+                           className="w-full bg-slate-800/50 border border-white/5 rounded-2xl px-6 py-5 text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500/50 focus:bg-slate-800 transition-all font-light" 
                            placeholder="John Doe" 
                          />
                       </div>
-                      <div className="space-y-2">
-                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Email</label>
+                      <div className="space-y-3">
+                         <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">Email Business</label>
                          <input 
                            type="email" 
                            name="email"
                            value={formData.email}
                            onChange={handleChange}
                            required
-                           className="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-5 py-4 text-on-surface focus:outline-none focus:border-primary transition-colors" 
-                           placeholder="john@example.com" 
+                           className="w-full bg-slate-800/50 border border-white/5 rounded-2xl px-6 py-5 text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500/50 focus:bg-slate-800 transition-all font-light" 
+                           placeholder="john@company.com" 
                          />
                       </div>
                    </div>
 
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Società</label>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-3">
+                         <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">Ragione Sociale</label>
                          <input 
                            type="text" 
                            name="azienda"
                            value={formData.azienda}
                            onChange={handleChange}
-                           className="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-5 py-4 text-on-surface focus:outline-none focus:border-primary transition-colors" 
-                           placeholder="Company S.p.A." 
+                           className="w-full bg-slate-800/50 border border-white/5 rounded-2xl px-6 py-5 text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500/50 focus:bg-slate-800 transition-all font-light" 
+                           placeholder="Digital Corp S.p.A." 
                          />
                       </div>
-                      <div className="space-y-2">
-                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Servizio</label>
-                         <select 
-                           name="servizio"
-                           value={formData.servizio}
-                           onChange={handleChange}
-                           className="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-5 py-4 text-on-surface focus:outline-none focus:border-primary transition-colors appearance-none"
-                         >
-                            <option value="">Seleziona...</option>
-                            <option value="web">Web Development</option>
-                            <option value="mobile">Mobile Apps</option>
-                            <option value="hardware">Hardware / IoT</option>
-                            <option value="ai">AI Solutions</option>
-                         </select>
+                      <div className="space-y-3">
+                         <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">Servizio di Interesse</label>
+                         <div className="relative">
+                            <select 
+                              name="servizio"
+                              value={formData.servizio}
+                              onChange={handleChange}
+                              className="w-full bg-slate-800/50 border border-white/5 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-emerald-500/50 focus:bg-slate-800 transition-all appearance-none font-light cursor-pointer"
+                            >
+                               <option value="" className="bg-slate-900">Seleziona...</option>
+                               <option value="web" className="bg-slate-900">Web & Cloud Systems</option>
+                               <option value="mobile" className="bg-slate-900">Mobile Ecosystems</option>
+                               <option value="hardware" className="bg-slate-900">IoT & Hardware Logic</option>
+                               <option value="ai" className="bg-slate-900">Agentic AI Solutions</option>
+                            </select>
+                            <span className="material-symbols-outlined absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">expand_more</span>
+                         </div>
                       </div>
                    </div>
 
-                   <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Messaggio</label>
+                   <div className="space-y-3">
+                      <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">Dettagli del Progetto</label>
                       <textarea 
                         name="messaggio"
                         value={formData.messaggio}
                         onChange={handleChange}
                         required
-                        className="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-5 py-4 text-on-surface focus:outline-none focus:border-primary transition-colors min-h-[150px] resize-none" 
-                        placeholder="Parlaci del tuo progetto..."
+                        className="w-full bg-slate-800/50 border border-white/5 rounded-2xl px-6 py-5 text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500/50 focus:bg-slate-800 transition-all min-h-[180px] resize-none font-light leading-relaxed" 
+                        placeholder="Descrivi brevemente i tuoi obiettivi tecnologici..."
                       ></textarea>
                    </div>
 
                    <button 
                      type="submit" 
                      disabled={isSubmitting}
-                     className="w-full bg-gradient-to-r from-primary-container to-primary text-on-primary-container font-headline font-bold text-lg py-5 rounded-xl shadow-xl shadow-primary/20 hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                     className="w-full bg-emerald-500 text-slate-900 font-headline font-bold text-xl py-6 rounded-2xl shadow-2xl shadow-emerald-500/20 hover:bg-emerald-400 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4"
                    >
-                      {isSubmitting ? 'Invio in corso...' : 'Invia Richiesta'}
-                      {!isSubmitting && <span className="material-symbols-outlined">send</span>}
+                      {isSubmitting ? 'Processing Network...' : 'Invia Briefing Progetto'}
+                      {!isSubmitting && <span className="material-symbols-outlined text-2xl">send</span>}
                    </button>
                 </form>
              </div>
           </div>
 
           {/* Contact Details */}
-          <div className="flex flex-col justify-center gap-12">
-             <div className="space-y-8">
-                <div className="flex gap-6 items-start">
-                   <div className="w-14 h-14 rounded-2xl bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-primary text-3xl">mail</span>
+          <div className="flex flex-col justify-center gap-16">
+             <div className="space-y-12">
+                <div className="flex gap-8 items-start group">
+                   <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 transition-all duration-500">
+                      <span className="material-symbols-outlined text-emerald-400 text-3xl group-hover:text-slate-900">mail</span>
                    </div>
                    <div>
-                      <h4 className="font-headline font-bold text-xl mb-1">Scrivici</h4>
-                      <p className="text-on-surface-variant">info@dscitaly.com</p>
-                      <p className="text-on-surface-variant text-sm mt-1 opacity-70">Rispondiamo mediamente entro 24 ore.</p>
+                      <h4 className="font-headline font-bold text-2xl mb-2 text-white">Scrivici</h4>
+                      <p className="text-slate-400 text-lg">info@dscitaly.com</p>
+                      <p className="text-slate-500 text-sm mt-2 font-light italic">Response SLA: 24 ore</p>
                    </div>
                 </div>
 
-                <div className="flex gap-6 items-start">
-                   <div className="w-14 h-14 rounded-2xl bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-primary text-3xl">call</span>
+                <div className="flex gap-8 items-start group">
+                   <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 transition-all duration-500">
+                      <span className="material-symbols-outlined text-emerald-400 text-3xl group-hover:text-slate-900">call</span>
                    </div>
                    <div>
-                      <h4 className="font-headline font-bold text-xl mb-1">Chiamaci</h4>
-                      <p className="text-on-surface-variant">+39 352 015 0489</p>
-                      <p className="text-on-surface-variant text-sm mt-1 opacity-70">Disponibili Lun-Ven, 9:00 - 18:00.</p>
+                      <h4 className="font-headline font-bold text-2xl mb-2 text-white">Chiamaci</h4>
+                      <p className="text-slate-400 text-lg">+39 352 015 0489</p>
+                      <p className="text-slate-500 text-sm mt-2 font-light italic">Operativi Lun-Ven, 9:00 - 18:00</p>
                    </div>
                 </div>
 
-                <div className="flex gap-6 items-start">
-                   <div className="w-14 h-14 rounded-2xl bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-primary text-3xl">location_on</span>
+                <div className="flex gap-8 items-start group">
+                   <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 transition-all duration-500">
+                      <span className="material-symbols-outlined text-emerald-400 text-3xl group-hover:text-slate-900">location_on</span>
                    </div>
                    <div>
-                      <h4 className="font-headline font-bold text-xl mb-1">Ufficio</h4>
-                      <p className="text-on-surface-variant">Via Carlo Arturo Jemolo, 283</p>
-                      <p className="text-on-surface-variant">Roma, Italia</p>
+                      <h4 className="font-headline font-bold text-2xl mb-2 text-white">Headquarters</h4>
+                      <p className="text-slate-400 text-lg leading-relaxed">Via Carlo Arturo Jemolo, 283<br/>Roma, Italia</p>
                    </div>
                 </div>
              </div>
 
-             <div className="p-8 bg-surface-container-low border border-outline-variant/10 rounded-3xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700"></div>
-                <h4 className="font-headline font-bold text-xl mb-4 relative z-10">Consulenza Diretta</h4>
-                <p className="text-on-surface-variant text-sm leading-relaxed mb-6 relative z-10">Hai un'urgenza o un progetto complesso che richiede un'analisi immediata? Prenota una sessione di 15 minuti con un nostro Lead Engineer.</p>
-                <Link to="/contatti" className="text-primary font-bold inline-flex items-center gap-2 group/link relative z-10">
-                   Scegli uno Slot <span className="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+             <div className="p-10 bg-slate-900 border border-white/5 rounded-[2.5rem] relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000"></div>
+                <h4 className="font-headline font-bold text-2xl mb-4 relative z-10 text-white">AI Strategy Audit</h4>
+                <p className="text-slate-400 text-base leading-relaxed mb-8 relative z-10 font-light">Hai bisogno di un'analisi immediata per integrare architetture agentiche o LLM? Prenota un technical audit di 15 minuti.</p>
+                <Link to="/contatti" className="text-emerald-400 font-bold inline-flex items-center gap-3 group/link relative z-10 text-lg hover:text-emerald-300">
+                   Scegli uno Slot <span className="material-symbols-outlined text-xl group-hover/link:translate-x-2 transition-transform">arrow_forward</span>
                 </Link>
              </div>
           </div>
 
         </div>
       </section>
+>
     </main>
   );
 };

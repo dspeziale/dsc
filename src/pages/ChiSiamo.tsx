@@ -51,63 +51,63 @@ const ChiSiamo = () => {
     },
   ];
 
-  return (
-    <main className="pt-20">
+  retur    <main className="pt-20 bg-[#0f172a] text-white">
       {/* Hero / Header Section */}
-      <section className="bg-surface py-24 border-b border-outline-variant/10">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 mb-6">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            <span className="text-xs font-bold uppercase tracking-widest text-primary">Il Nostro DNA</span>
+      <section className="py-24 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-[100px]"></div>
+        <div className="max-w-7xl mx-auto px-8 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 mb-6 border border-emerald-500/20">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Il Nostro DNA</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-headline font-bold text-on-surface tracking-tighter leading-tight mb-6">
+          <h1 className="text-5xl md:text-8xl font-headline font-bold text-white tracking-tighter leading-[0.9] mb-8">
             Chi <span className="text-gradient">Siamo</span>
           </h1>
-          <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed">
-            Un collettivo di menti creative e ingegneri visionari dedicati alla costruzione del futuro digitale.
+          <p className="text-slate-400 text-xl md:text-2xl max-w-2xl leading-relaxed font-light">
+            Un collettivo di menti creative e ingegneri visionari dedicati alla costruzione del futuro digitale e agentico.
           </p>
         </div>
       </section>
 
       {/* Story Section */}
-      <section className="py-24 bg-surface">
+      <section className="py-24 bg-[#0f172a]">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-on-surface mb-8">La Nostra Storia</h2>
-            <p className="text-on-surface-variant text-lg leading-relaxed">
-              DSC Italy nasce dalla fusione tra artigianato digitale e ingegneria d'avanguardia. Fondata con l'obiettivo di elevare lo standard delle soluzioni tecnologiche in Italia, siamo cresciuti trasformando sfide complesse in opportunità di business tangibili.
+            <h2 className="text-3xl md:text-5xl font-headline font-bold text-white mb-8 tracking-tight">La Nostra Storia</h2>
+            <p className="text-slate-400 text-lg leading-relaxed font-light">
+              DSC Italy nasce dalla fusione tra artigianato digitale e ingegneria d'avanguardia. Fondata con l'obiettivo di elevare lo standard delle soluzioni tecnologiche, siamo cresciuti trasformando sfide complesse in opportunità di business tangibili.
             </p>
-            <p className="text-on-surface-variant text-lg leading-relaxed">
-              La nostra evoluzione ci ha portato a specializzarci in settori critici come l'Intelligenza Artificiale Generativa e la Cybersecurity, mantenendo sempre un forte legame con lo sviluppo hardware e IoT che ha caratterizzato le nostre origini.
+            <p className="text-slate-400 text-lg leading-relaxed font-light">
+              Oggi, nell'era dell'Intelligenza Artificiale, la nostra missione si evolve: orchestriamo agenti autonomi e sistemi di cybersecurity per rendere ogni azienda un leader tecnologico.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             <div className="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/10 hover:shadow-xl transition-all">
-                <span className="material-symbols-outlined text-primary text-4xl mb-4">visibility</span>
-                <h3 className="font-headline font-bold text-xl mb-2">Vision</h3>
-                <p className="text-on-surface-variant text-sm">Essere l'acceleratore tecnologico preferito dalle aziende che puntano all'eccellenza globale.</p>
+             <div className="p-10 rounded-3xl bg-slate-900 border border-white/5 hover:border-emerald-500/30 transition-all group">
+                <span className="material-symbols-outlined text-emerald-400 text-5xl mb-6 group-hover:scale-110 transition-transform">visibility</span>
+                <h3 className="font-headline font-bold text-2xl mb-2 text-white">Vision</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">Essere l'acceleratore tecnologico preferito dalle aziende che puntano all'eccellenza globale e all'automazione cognitiva.</p>
              </div>
-             <div className="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/10 hover:shadow-xl transition-all">
-                <span className="material-symbols-outlined text-primary text-4xl mb-4">bolt</span>
-                <h3 className="font-headline font-bold text-xl mb-2">Mission</h3>
-                <p className="text-on-surface-variant text-sm">Progettare e costruire ecosistemi digitali sicuri, scalabili e orientati al futuro.</p>
+             <div className="p-10 rounded-3xl bg-slate-900 border border-white/5 hover:border-emerald-500/30 transition-all group">
+                <span className="material-symbols-outlined text-emerald-400 text-5xl mb-6 group-hover:scale-110 transition-transform">bolt</span>
+                <h3 className="font-headline font-bold text-2xl mb-2 text-white">Mission</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">Progettare e costruire ecosistemi digitali sicuri, scalabili e agentici, orientati a risultati misurabili.</p>
              </div>
           </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="py-24 bg-surface-container-low">
+      <section className="py-32 bg-slate-900/50 border-y border-white/5">
         <div className="max-w-7xl mx-auto px-8 text-center">
-          <h2 className="font-headline text-4xl font-bold text-on-surface mb-16">I Nostri Valori</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <h2 className="font-headline text-4xl md:text-6xl font-bold text-white mb-20 tracking-tight">I Nostri Valori</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             {values.map((v, i) => (
-              <div key={i} className="group p-8 bg-surface rounded-xl border border-outline-variant/10 transition-all hover:-translate-y-2">
-                <div className="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/10">
-                  <span className="material-symbols-outlined text-primary text-3xl">{v.icon}</span>
+              <div key={i} className="group">
+                <div className="w-20 h-20 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-8 border border-emerald-500/20 group-hover:bg-emerald-500 transition-all duration-500">
+                  <span className="material-symbols-outlined text-emerald-400 text-4xl group-hover:text-slate-900">{v.icon}</span>
                 </div>
-                <h4 className="font-headline font-bold text-xl mb-3">{v.title}</h4>
-                <p className="text-on-surface-variant text-sm leading-relaxed">{v.description}</p>
+                <h4 className="font-headline font-bold text-2xl mb-4 text-white tracking-tight">{v.title}</h4>
+                <p className="text-slate-400 text-base leading-relaxed font-light">{v.description}</p>
               </div>
             ))}
           </div>
@@ -115,21 +115,21 @@ const ChiSiamo = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-32 bg-surface">
+      <section className="py-32 bg-[#0f172a]">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center mb-20">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold text-on-surface">Main Contributors</h2>
-            <p className="text-on-surface-variant text-lg mt-4">Il cuore pulsante di ogni nostra innovazione.</p>
+          <div className="text-center md:text-left mb-24">
+            <h2 className="font-headline text-4xl md:text-7xl font-bold text-white tracking-tighter">Main Contributors</h2>
+            <p className="text-slate-400 text-xl mt-6 font-light">Il cuore pulsante di ogni nostra innovazione tecnologica.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, i) => (
-              <div key={i} className="group relative bg-surface-container-low rounded-2xl p-8 border border-outline-variant/10 hover:border-primary/30 transition-all duration-300">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-container to-primary flex items-center justify-center text-on-primary-container font-headline text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+              <div key={i} className="group relative bg-slate-900 rounded-[2rem] p-10 border border-white/5 hover:border-emerald-500/30 transition-all duration-500">
+                <div className="w-24 h-24 rounded-[1.5rem] bg-gradient-to-br from-emerald-400 to-primary flex items-center justify-center text-slate-900 font-headline text-3xl font-bold mb-8 group-hover:scale-110 transition-transform">
                   {member.initials}
                 </div>
-                <h3 className="text-xl font-headline font-bold text-on-surface mb-1">{member.name}</h3>
-                <p className="text-primary font-bold text-xs uppercase tracking-widest mb-4">{member.role}</p>
-                <p className="text-on-surface-variant text-sm leading-relaxed">{member.bio}</p>
+                <h3 className="text-2xl font-headline font-bold text-white mb-2 tracking-tight">{member.name}</h3>
+                <p className="text-emerald-400 font-bold text-xs uppercase tracking-[0.2em] mb-6">{member.role}</p>
+                <p className="text-slate-400 text-base leading-relaxed font-light">{member.bio}</p>
               </div>
             ))}
           </div>
@@ -137,17 +137,18 @@ const ChiSiamo = () => {
       </section>
 
       {/* Experience / Tech Stack Banner */}
-      <section className="py-24 bg-on-surface text-surface">
-        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-12">
-           <div className="max-w-xl">
-              <h2 className="text-3xl md:text-4xl font-headline font-bold mb-6">Oltre la Consulenza: Partnership Strategica</h2>
-              <p className="text-surface-variant text-lg opacity-80">Non siamo solo fornitori di codice. Siamo ingegneri che si sporcano le mani con l'hardware e sognano con l'IA per dare a ogni cliente un vantaggio competitivo reale.</p>
+      <section className="py-32 bg-slate-50 text-slate-900">
+        <div className="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row items-center justify-between gap-16">
+           <div className="max-w-2xl">
+              <h2 className="text-4xl md:text-6xl font-headline font-bold mb-8 tracking-tight">Oltre la Consulenza: <br/><span className="text-emerald-600">Partnership Strategica</span></h2>
+              <p className="text-slate-600 text-xl leading-relaxed font-light">Non siamo solo sviluppatori. Siamo ingegneri che fondono hardware, cloud e agenti autonomi per dare a ogni cliente un vantaggio competitivo reale.</p>
            </div>
-           <Link to="/contatti" className="px-10 py-5 bg-primary text-on-primary rounded-xl font-bold hover:brightness-110 transition-all shadow-xl shadow-primary/20">
+           <Link to="/contatti" className="px-12 py-6 bg-emerald-500 text-slate-900 rounded-2xl font-bold text-xl hover:bg-emerald-400 transition-all shadow-2xl shadow-emerald-500/30 active:scale-95">
               Lavora con Noi
            </Link>
         </div>
       </section>
+ion>
     </main>
   );
 };

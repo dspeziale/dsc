@@ -57,24 +57,23 @@ const Servizi = () => {
           </p>
         </div>
       </section>
-
       {/* Services Grid */}
-      <section className="py-24 bg-surface-container-low">
+      <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="group p-8 rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/10 transition-all duration-500 hover:-translate-y-2">
-                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                  <span className="material-symbols-outlined text-primary text-3xl">{service.icon}</span>
+              <div key={index} className="group p-10 rounded-3xl bg-white hover:bg-emerald-50 border border-slate-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10">
+                <div className="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center mb-8 group-hover:bg-emerald-500 transition-all">
+                  <span className="material-symbols-outlined text-emerald-600 text-4xl group-hover:text-white transition-colors">{service.icon}</span>
                 </div>
-                <h3 className="font-headline text-2xl font-bold text-on-surface mb-4">{service.title}</h3>
-                <p className="text-on-surface-variant leading-relaxed mb-8">
+                <h3 className="font-headline text-3xl font-bold text-slate-900 mb-6">{service.title}</h3>
+                <p className="text-slate-600 leading-relaxed mb-10 text-lg">
                   {service.description}
                 </p>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {service.details.map((detail, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-on-surface-variant font-medium">
-                      <span className="material-symbols-outlined text-primary text-xs">check_circle</span>
+                    <div key={i} className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                      <span className="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
                       {detail}
                     </div>
                   ))}
@@ -86,23 +85,23 @@ const Servizi = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-32 bg-surface">
+      <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="mb-20">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold text-on-surface mb-4">Il Nostro Metodo</h2>
-            <p className="text-on-surface-variant text-lg max-w-xl">Un approccio strutturato e iterativo per garantire il successo di ogni progetto.</p>
+          <div className="mb-20 text-center md:text-left">
+            <h2 className="font-headline text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight">Agentic Workflow</h2>
+            <p className="text-slate-600 text-xl max-w-xl font-light">Come integriamo l'intelligenza autonoma nei tuoi processi core.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {[
-              { step: '01', title: 'Analisi', desc: 'Studiamo il tuo business per trovare la soluzione tecnologica più efficace.' },
-              { step: '02', title: 'Design', desc: 'Progettiamo l\'esperienza utente e l\'architettura tecnica dettagliata.' },
-              { step: '03', title: 'Sviluppo', desc: 'Implementiamo la soluzione con metodologie agili e feedback costanti.' },
-              { step: '04', title: 'Supporto', desc: 'Garantiamo manutenzione e assistenza continua post-lancio.' },
+              { step: '01', title: 'Discovery', desc: 'Identifichiamo i task cognitivi automatizzabili tramite LLM avanzati.' },
+              { step: '02', title: 'Orchestration', desc: 'Progettiamo la logica degli agenti (Claude/GPT) e i tool a loro disposizione.' },
+              { step: '03', title: 'Deployment', desc: 'Distribuiamo su infrastrutture ad alta velocità ottimizzate Groq/LLaMA.' },
+              { step: '04', title: 'Optimization', desc: 'Monitoraggio costante e fine-tuning dei prompt per precisione totale.' },
             ].map((p, index) => (
-              <div key={index} className="relative p-8 rounded-xl bg-surface-container-low border border-outline-variant/10">
-                <span className="text-6xl font-black text-primary/5 absolute top-4 right-4">{p.step}</span>
-                <h3 className="font-headline text-xl font-bold text-on-surface mb-3">{p.title}</h3>
-                <p className="text-on-surface-variant text-sm leading-relaxed">{p.desc}</p>
+              <div key={index} className="relative p-10 rounded-3xl bg-slate-50 border border-slate-100">
+                <span className="text-8xl font-black text-emerald-500/10 absolute top-4 right-4 select-none">{p.step}</span>
+                <h3 className="font-headline text-2xl font-bold text-slate-900 mb-4 relative z-10">{p.title}</h3>
+                <p className="text-slate-600 text-base leading-relaxed relative z-10">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -110,19 +109,20 @@ const Servizi = () => {
       </section>
 
       {/* CTA Banner */}
-      <section className="py-24 px-8">
-        <div className="max-w-7xl mx-auto rounded-3xl overflow-hidden relative bg-surface-container-high border border-outline-variant/20">
-          <div className="relative z-10 px-8 md:px-20 py-20 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
+      <section className="py-24 px-8 bg-white">
+        <div className="max-w-7xl mx-auto rounded-[3rem] overflow-hidden relative bg-[#0f172a] shadow-2xl">
+          <div className="relative z-10 px-8 md:px-20 py-24 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="max-w-2xl">
-              <h2 className="font-headline text-3xl md:text-5xl font-bold text-on-surface mb-4">Hai un'idea innovativa?</h2>
-              <p className="text-on-surface-variant text-lg">Mettiamo a tua disposizione la nostra expertise tecnica per trasformarla in realtà.</p>
+              <h2 className="font-headline text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">Scalabilità <br/><span className="text-emerald-400">Automatizzata.</span></h2>
+              <p className="text-slate-400 text-xl font-light">Trasforma la tua azienda con agenti AI di classe mondiale.</p>
             </div>
-            <Link to="/contatti" className="shrink-0 px-10 py-5 bg-gradient-to-br from-primary-container to-primary text-on-primary-container rounded-xl font-bold text-lg shadow-2xl shadow-primary/20 hover:brightness-110 active:scale-95 transition-all duration-300 flex items-center gap-3">
-              Inizia Ora <span className="material-symbols-outlined">rocket_launch</span>
+            <Link to="/contatti" className="shrink-0 px-12 py-6 bg-emerald-500 text-slate-900 rounded-2xl font-bold text-xl shadow-2xl shadow-emerald-500/30 hover:bg-emerald-400 active:scale-95 transition-all duration-300 flex items-center gap-4">
+              Inizia Ora <span className="material-symbols-outlined text-2xl">rocket_launch</span>
             </Link>
           </div>
         </div>
       </section>
+n>
     </main>
   );
 };
