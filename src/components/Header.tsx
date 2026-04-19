@@ -46,7 +46,7 @@ const Header = () => {
       <div className="flex justify-between items-center px-8 py-4 w-full max-w-7xl mx-auto">
         <Link to="/" className="text-2xl font-black text-white tracking-tighter font-headline flex items-center gap-2">
           <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-primary flex items-center justify-center text-xs">DSC</span>
-          DSC Italy
+          DS Consulting
         </Link>
 
         {/* Desktop Navigation */}

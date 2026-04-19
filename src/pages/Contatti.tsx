@@ -204,7 +204,7 @@ const Contatti = () => {
                    </div>
                    <div>
                       <h4 className="font-headline font-bold text-2xl mb-2 text-white">Scrivici</h4>
-                      <p className="text-slate-400 text-lg">info@dscitaly.com</p>
+                      <p className="text-slate-400 text-lg">dsconsulting.italy@gmail.com</p>
                       <p className="text-slate-500 text-sm mt-2 font-light italic">Response SLA: 24 ore</p>
                    </div>
                 </div>

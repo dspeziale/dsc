@@ -76,7 +76,7 @@ const ChiSiamo = () => {
           <div className="space-y-6">
             <h2 className="text-3xl md:text-5xl font-headline font-bold text-white mb-8 tracking-tight">La Nostra Storia</h2>
             <p className="text-slate-400 text-lg leading-relaxed font-light">
-              DSC Italy nasce dalla fusione tra artigianato digitale e ingegneria d'avanguardia. Fondata con l'obiettivo di elevare lo standard delle soluzioni tecnologiche, siamo cresciuti trasformando sfide complesse in opportunità di business tangibili.
+              DS Consulting nasce dalla fusione tra artigianato digitale e ingegneria d'avanguardia. Fondata con l'obiettivo di elevare lo standard delle soluzioni tecnologiche, siamo cresciuti trasformando sfide complesse in opportunità di business tangibili.
             </p>
             <p className="text-slate-400 text-lg leading-relaxed font-light">
               Oggi, nell'era dell'Intelligenza Artificiale, la nostra missione si evolve: orchestriamo agenti autonomi e sistemi di cybersecurity per rendere ogni azienda un leader tecnologico.

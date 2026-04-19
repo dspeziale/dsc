@@ -28,7 +28,7 @@ const Footer = () => {
         <div className="space-y-6">
           <div className="text-xl font-bold text-white font-headline flex items-center gap-2">
             <span className="w-6 h-6 rounded bg-emerald-500 flex items-center justify-center text-[10px]">DSC</span>
-            DSC Italy
+            DS Consulting
           </div>
           <p className="text-slate-400 font-body text-sm leading-relaxed max-w-xs">
             Curating digital excellence and innovative hardware solutions since 2014. Professional consulting for ambitious brands.
@@ -65,7 +65,7 @@ const Footer = () => {
         {/* Contact Column */}
         <div>
           <h4 className="font-bold mb-6 font-headline text-emerald-400 uppercase text-xs tracking-widest">Contact</h4>
-          <p className="text-slate-400 text-sm mb-2">info@dscitaly.com</p>
+          <p className="text-slate-400 text-sm mb-2">dsconsulting.italy@gmail.com</p>
           <p className="text-slate-400 text-sm mb-6">+39 352 015 0489</p>
           <div className="flex items-center gap-4 text-emerald-400 font-semibold text-sm hover:text-emerald-300 cursor-pointer">
             LinkedIn <span className="material-symbols-outlined text-xs">open_in_new</span>
@@ -80,7 +80,7 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto px-8 py-8 border-t border-slate-800/50 text-center">
         <p className="text-slate-500 font-body text-xs">
-          © {currentYear} DSC Italy. Curating Digital Innovation for the Agentic Era.
+          © 2023-{currentYear} DS Consulting. Curating Digital Innovation for the Agentic Era.
         </p>
       </div>
     </footer>

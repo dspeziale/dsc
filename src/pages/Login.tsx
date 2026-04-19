@@ -75,7 +75,7 @@ const Login = () => {
                         <div className="p-6 bg-slate-800/40 rounded-2xl border border-white/5 flex gap-4">
                             <span className="material-symbols-outlined text-emerald-400 text-2xl shrink-0">info</span>
                             <p className="text-[11px] text-slate-500 leading-relaxed font-medium uppercase tracking-wider">
-                                <strong>Security Protocol:</strong> L'accesso è limitato esclusivamente ai membri del team DSC Italy con email verificata dal sistema.
+                                <strong>Security Protocol:</strong> L'accesso è limitato esclusivamente ai membri del team DS Consulting con email verificata dal sistema.
                             </p>
                         </div>
                     </div>
