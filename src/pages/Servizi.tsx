@@ -122,7 +122,6 @@ const Servizi = () => {
           </div>
         </div>
       </section>
-n>
     </main>
   );
 };

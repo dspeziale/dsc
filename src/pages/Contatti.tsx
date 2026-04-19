@@ -243,7 +243,6 @@ const Contatti = () => {
 
         </div>
       </section>
->
     </main>
   );
 };

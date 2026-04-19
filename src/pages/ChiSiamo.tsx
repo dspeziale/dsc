@@ -51,7 +51,8 @@ const ChiSiamo = () => {
     },
   ];
 
-  retur    <main className="pt-20 bg-[#0f172a] text-white">
+  return (
+    <main className="pt-20 bg-[#0f172a] text-white">
       {/* Hero / Header Section */}
       <section className="py-24 border-b border-white/5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-[100px]"></div>
@@ -148,7 +149,6 @@ const ChiSiamo = () => {
            </Link>
         </div>
       </section>
-ion>
     </main>
   );
 };
