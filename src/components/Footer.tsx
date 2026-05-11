@@ -57,7 +57,7 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto px-8 py-8 border-t border-slate-800/50 text-center">
         <p className="text-slate-500 font-body text-xs">
-          © 2023-{currentYear} DS Consulting. IT15196471005.
+          © 2023-{currentYear} DS Consulting. IT15196471005. All rights reserved.
         </p>
       </div>
     </footer>
