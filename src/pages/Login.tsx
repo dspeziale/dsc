@@ -38,43 +38,44 @@ const Login = () => {
     };
 
     return (
-        <main className="min-h-screen pt-20 flex items-center justify-center bg-[#0f172a] relative overflow-hidden">
+        <main className="min-h-screen pt-20 flex items-center justify-center relative overflow-hidden">
             {/* Background Decorations */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute inset-0 z-0 pointer-events-none bg-blueprint opacity-30"></div>
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
             
             <div className="w-full max-w-md px-8 relative z-10">
                 <div className="relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500 to-primary rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                    <div className="relative bg-slate-900 p-10 md:p-14 rounded-[2.5rem] shadow-2xl border border-white/5 backdrop-blur-xl">
+                    <div className="absolute -inset-1 bg-primary/10 rounded blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                    <div className="relative bg-surface/50 backdrop-blur-xl p-10 md:p-14 rounded border border-outline-variant shadow-2xl">
                         {/* Header */}
                         <div className="text-center mb-12">
-                            <div className="w-24 h-24 bg-emerald-500/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-emerald-500/20 group-hover:bg-emerald-500 transition-all duration-700">
-                                <span className="material-symbols-outlined text-emerald-400 text-5xl group-hover:text-slate-900">admin_panel_settings</span>
+                            <div className="w-24 h-24 bg-primary/10 rounded flex items-center justify-center mx-auto mb-8 border border-primary/20 group-hover:bg-primary transition-all duration-700">
+                                <span className="material-symbols-outlined text-primary text-5xl group-hover:text-on-primary">admin_panel_settings</span>
                             </div>
-                            <h1 className="text-4xl font-headline font-bold text-white mb-4 tracking-tight">Area Riservata</h1>
-                            <p className="text-slate-400 text-base leading-relaxed font-light">
+                            <h1 className="font-display-lg text-display-lg text-on-surface mb-4 tracking-tight">Area Riservata</h1>
+                            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                                 Authenticate via secure node. <br/>Accesso limitato al core team.
                             </p>
                         </div>
 
                         {/* Google Login Button */}
-                        <div className="flex justify-center mb-12 overflow-hidden rounded-2xl border border-white/10 p-2 bg-white/5">
+                        <div className="flex justify-center mb-12 overflow-hidden rounded border border-outline-variant p-2 bg-surface-container/50">
                             <GoogleLogin
                                 onSuccess={handleSuccess}
                                 onError={handleError}
                                 useOneTap
-                                theme="filled_blue"
+                                theme="filled_black"
                                 size="large"
                                 text="signin_with"
-                                shape="pill"
+                                shape="square"
                             />
                         </div>
 
                         {/* Info Note */}
-                        <div className="p-6 bg-slate-800/40 rounded-2xl border border-white/5 flex gap-4">
-                            <span className="material-symbols-outlined text-emerald-400 text-2xl shrink-0">info</span>
-                            <p className="text-[11px] text-slate-500 leading-relaxed font-medium uppercase tracking-wider">
+                        <div className="p-6 bg-surface-container/30 rounded border border-outline-variant/30 flex gap-4">
+                            <span className="material-symbols-outlined text-primary text-2xl shrink-0">info</span>
+                            <p className="font-label-mono text-[10px] text-on-surface-variant leading-relaxed font-medium uppercase tracking-wider">
                                 <strong>Security Protocol:</strong> L'accesso è limitato esclusivamente ai membri del team DS Consulting con email verificata dal sistema.
                             </p>
                         </div>
@@ -85,7 +86,7 @@ const Login = () => {
                 <div className="mt-10 text-center">
                     <button 
                         onClick={() => navigate('/')}
-                        className="text-slate-500 hover:text-emerald-400 text-sm font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-3 mx-auto"
+                        className="text-on-surface-variant hover:text-primary font-label-mono text-label-mono uppercase tracking-widest transition-all flex items-center justify-center gap-3 mx-auto"
                     >
                         <span className="material-symbols-outlined text-base">arrow_back</span>
                         Torna alla Home
@@ -97,3 +98,4 @@ const Login = () => {
 };
 
 export default Login;
+

@@ -57,32 +57,37 @@ const Progetti = () => {
 
     const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
 
-    return (        <main className="pt-32 pb-24 bg-[#0f172a] text-white">
+    return (
+        <main className="relative pt-32 pb-section-gap overflow-hidden">
+            {/* Subtle Background Elements */}
+            <div className="absolute inset-0 z-0 pointer-events-none bg-blueprint opacity-50"></div>
+            <div className="absolute top-0 right-0 w-3/4 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+
             {/* Page Header */}
-            <header className="max-w-7xl mx-auto px-8 mb-20 text-center md:text-left relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 mb-8 border border-emerald-500/20">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Portfolio Eccellenza</span>
+            <header className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-20 text-center md:text-left">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 mb-8 border border-primary/20">
+                    <span className="w-2 h-2 rounded-full bg-primary pulse-indicator"></span>
+                    <span className="font-label-mono text-label-mono text-primary uppercase tracking-widest">Portfolio Eccellenza</span>
                 </div>
-                <h1 className="text-6xl md:text-9xl font-headline font-bold text-white tracking-tighter leading-[0.85] mb-8">
-                    I Nostri <br/><span className="text-gradient">Progetti</span>
+                <h1 className="font-display-lg text-display-lg text-on-surface mb-8">
+                    I Nostri <br /><span className="text-primary">Progetti</span>
                 </h1>
-                <p className="text-slate-400 text-xl md:text-2xl max-w-2xl leading-relaxed font-light">
+                <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl border-l-2 border-outline-variant pl-4">
                     Esplora come abbiamo trasformato visioni audaci in ecosistemi digitali ad alto impatto. Curiamo ogni dettaglio, dalla logica hardware all'intelligenza agentica.
                 </p>
             </header>
 
             {/* Filter Bar */}
-            <section className="max-w-7xl mx-auto px-8 mb-16 relative z-10">
-                <div className="flex flex-wrap items-center gap-4 py-4 border-y border-white/5">
+            <section className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-16">
+                <div className="flex flex-wrap items-center gap-4 py-4 border-y border-outline-variant/30">
                     {['All', 'Web', 'Mobile', 'Hardware', 'AI / Security'].map((cat) => (
                         <button
                             key={cat}
                             onClick={() => setFilter(cat)}
-                            className={`px-8 py-2.5 rounded-xl font-bold font-headline text-sm uppercase tracking-widest transition-all duration-300 ${
-                                filter === cat 
-                                  ? 'bg-emerald-500 text-slate-900 shadow-lg shadow-emerald-500/20' 
-                                  : 'hover:bg-white/5 text-slate-400 border border-transparent hover:border-white/10'
+                            className={`px-8 py-2.5 rounded font-label-mono text-label-mono uppercase tracking-widest transition-all duration-300 ${
+                                filter === cat
+                                    ? 'bg-primary text-on-primary shadow-lg shadow-primary/20'
+                                    : 'hover:bg-primary/5 text-on-surface-variant border border-transparent hover:border-primary/20'
                             }`}
                         >
                             {cat}
@@ -92,10 +97,10 @@ const Progetti = () => {
             </section>
 
             {/* Project Grid */}
-            <section className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
+            <section className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                 {filteredProjects.map((project, index) => (
-                    <div key={index} className="group relative flex flex-col bg-slate-900 rounded-3xl overflow-hidden border border-white/5 transition-all duration-500 hover:-translate-y-2 hover:border-emerald-500/30 shadow-2xl">
-                        <div className="aspect-[16/10] overflow-hidden bg-slate-800">
+                    <div key={index} className="group relative flex flex-col bg-surface/50 backdrop-blur-xl rounded border border-outline-variant overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 shadow-2xl">
+                        <div className="aspect-[16/10] overflow-hidden bg-surface-container">
                             <img
                                 className="w-full h-full object-cover grayscale brightness-75 transition-all duration-1000 group-hover:scale-110 group-hover:grayscale-0 group-hover:brightness-100"
                                 src={project.image}
@@ -103,19 +108,19 @@ const Progetti = () => {
                             />
                         </div>
                         <div className="p-10">
-                            <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em] mb-3 block">{project.category}</span>
-                            <h3 className="text-3xl font-headline font-bold text-white mb-4 tracking-tight">{project.title}</h3>
-                            <p className="text-slate-400 text-base font-light line-clamp-2 mb-8 leading-relaxed">
+                            <span className="font-label-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-3 block">{project.category}</span>
+                            <h3 className="font-headline-lg text-headline-lg text-on-surface mb-4 tracking-tight leading-none">{project.title}</h3>
+                            <p className="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-8 leading-relaxed">
                                 {project.description}
                             </p>
                             <div className="flex flex-wrap gap-2.5 mb-8">
                                 {project.tags.map((tag, i) => (
-                                    <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 text-[9px] font-bold uppercase tracking-wider rounded-lg text-slate-400">
+                                    <span key={i} className="px-3 py-1 bg-surface-container border border-outline-variant/50 text-[9px] font-label-mono uppercase tracking-wider rounded text-on-surface-variant">
                                         {tag}
                                     </span>
                                 ))}
                             </div>
-                            <a href={project.url} target={project.url.startsWith('h') ? '_blank' : '_self'} className="inline-flex items-center gap-3 text-emerald-400 font-bold group/link text-sm hover:text-emerald-300 transition-colors">
+                            <a href={project.url} target={project.url.startsWith('h') ? '_blank' : '_self'} className="inline-flex items-center gap-3 text-primary font-bold group/link text-sm hover:text-primary-fixed-dim transition-colors">
                                 View Case Study
                                 <span className="material-symbols-outlined text-lg transition-transform duration-300 group-hover/link:translate-x-2">arrow_forward</span>
                             </a>
@@ -125,22 +130,22 @@ const Progetti = () => {
             </section>
 
             {/* Case Study Section */}
-            <section className="max-w-7xl mx-auto px-8 mt-40 relative z-10">
-                <div className="group relative flex flex-col lg:flex-row bg-slate-900 rounded-[3rem] overflow-hidden border border-white/5 transition-all duration-500 hover:border-emerald-500/20">
-                    <div className="lg:w-1/2 overflow-hidden h-80 lg:h-auto border-b lg:border-b-0 lg:border-r border-white/5">
+            <section className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mt-40">
+                <div className="group relative flex flex-col lg:flex-row bg-surface/50 backdrop-blur-xl rounded border border-outline-variant overflow-hidden transition-all duration-500 hover:border-primary/50 shadow-2xl">
+                    <div className="lg:w-1/2 overflow-hidden h-80 lg:h-auto border-b lg:border-b-0 lg:border-r border-outline-variant">
                         <img
-                            className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 group-hover:brightness-110"
+                            className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 group-hover:brightness-110 grayscale brightness-75 group-hover:grayscale-0"
                             alt="Cloud Infrastructure"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlanJ1sD9jWr_fZyv4LlbrD7gnW33inqb9zQLvIe4rxOkt3jO9cwvmBcxnZdQIMWWXpqPrtM8xQ8DNVQdaHR6dm3i3UgQ-dBRRrW89fGO-JMJ8Owojoqpn8WcdIn3UeQ65Dcqlg4WuzziO2ukdpyXohOVY9C6wWTqxrNNtKTdJlswiJyw8JsICLCRG5NKF90A2ogBGl7V-bpTZ5YdEOMsqiAkCoGtq-m3iTL79capE5yCb6QNonmjGkjklBuLi-_whnPpN04eqWZye"
                         />
                     </div>
                     <div className="lg:w-1/2 p-12 lg:p-20 flex flex-col justify-center">
-                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em] mb-4 block">Enterprise Scaling</span>
-                        <h3 className="text-4xl lg:text-6xl font-headline font-bold text-white mb-6 tracking-tighter leading-none">Enterprise <br/>Cloud Shield</h3>
-                        <p className="text-slate-400 text-lg lg:text-xl mb-10 leading-relaxed font-light">
+                        <span className="font-label-mono text-[10px] text-primary uppercase tracking-[0.2em] mb-4 block">Enterprise Scaling</span>
+                        <h3 className="font-display-lg text-display-lg text-on-surface mb-6 leading-none">Enterprise <br />Cloud Shield</h3>
+                        <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 leading-relaxed">
                             Un'infrastruttura cloud resiliente progettata per supportare ecosistemi agentici critici. Sicurezza totale, latenza minima e scalabilità infinita.
                         </p>
-                        <Link to="/contatti" className="inline-flex items-center gap-4 text-emerald-400 font-bold group/link text-xl hover:text-emerald-300">
+                        <Link to="/contatti" className="inline-flex items-center gap-4 text-primary font-bold group/link text-xl hover:text-primary-fixed-dim font-label-mono uppercase tracking-widest">
                             Request Strategic Analysis
                             <span className="material-symbols-outlined text-2xl transition-transform duration-300 group-hover/link:translate-x-2">arrow_forward</span>
                         </Link>
@@ -149,22 +154,21 @@ const Progetti = () => {
             </section>
 
             {/* CTA Final */}
-            <section className="py-40 px-8 relative z-10">
-                <div className="max-w-5xl mx-auto p-16 md:p-24 bg-gradient-to-br from-emerald-500 to-primary text-slate-900 rounded-[3rem] text-center shadow-3xl shadow-emerald-500/20 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                    <h2 className="text-4xl md:text-6xl font-headline font-bold mb-10 relative z-10 leading-tight">Costruiamo il tuo prossimo<br/>successo digitale.</h2>
-                    <p className="text-slate-900/70 text-xl max-w-2xl mx-auto mb-12 relative z-10 font-bold">Dalla prototipazione rapida al deployment globale.</p>
+            <section className="relative z-10 py-40 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+                <div className="p-16 md:p-24 bg-surface border border-outline-variant rounded-xl text-center shadow-3xl relative overflow-hidden group hover:border-primary/50 transition-colors">
+                    <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/10 transition-colors"></div>
+                    <h2 className="font-display-lg text-display-lg text-on-surface mb-10 relative z-10 leading-tight">Costruiamo il tuo prossimo<br />successo digitale.</h2>
+                    <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12 relative z-10 font-bold">Dalla prototipazione rapida al deployment globale.</p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-                        <Link to="/contatti" className="px-12 py-5 bg-slate-900 text-white rounded-2xl font-bold text-xl hover:scale-105 active:scale-95 transition-all shadow-2xl">
+                        <Link to="/contatti" className="px-12 py-5 bg-primary text-on-primary rounded font-label-mono text-label-mono uppercase tracking-widest hover:bg-primary-container transition-all shadow-2xl">
                             Inizia ora
                         </Link>
-                        <Link to="/servizi" className="px-12 py-5 border-2 border-slate-900/20 text-slate-900 font-bold text-xl hover:bg-slate-900/5 transition-all rounded-2xl">
+                        <Link to="/servizi" className="px-12 py-5 border border-outline-variant text-on-surface font-label-mono text-label-mono uppercase tracking-widest hover:bg-surface-container-high transition-all rounded">
                             Esplora Servizi
                         </Link>
                     </div>
                 </div>
             </section>
-
         </main>
     );
 };

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daniele Speziale - Principal AI Architect</title>
+<!-- Tailwind Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e0e3e5",
+                        "tertiary-fixed-dim": "#c3c6d6",
+                        "surface-container": "#1d2022",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-container": "#4b4e5b",
+                        "surface-tint": "#2fd9f4",
+                        "on-primary-fixed": "#001f25",
+                        "outline-variant": "#3c494c",
+                        "surface-container-low": "#191c1e",
+                        "surface-container-lowest": "#0b0f10",
+                        "tertiary": "#d9dcec",
+                        "inverse-on-surface": "#2d3133",
+                        "surface-bright": "#363a3b",
+                        "on-secondary-fixed": "#111c2d",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "on-tertiary": "#2c303c",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "background": "#101415",
+                        "secondary": "#bcc7de",
+                        "error": "#ffb4ab",
+                        "on-surface": "#e0e3e5",
+                        "on-tertiary-fixed": "#171b27",
+                        "tertiary-container": "#bdc0d0",
+                        "primary-fixed": "#a2eeff",
+                        "surface": "#101415",
+                        "error-container": "#93000a",
+                        "surface-dim": "#101415",
+                        "surface-variant": "#323537",
+                        "on-tertiary-fixed-variant": "#434653",
+                        "on-primary": "#00363e",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "tertiary-fixed": "#dfe2f2",
+                        "on-secondary": "#263143",
+                        "on-surface-variant": "#bbc9cd",
+                        "surface-container-high": "#272a2c",
+                        "primary-container": "#22d3ee",
+                        "on-primary-container": "#005763",
+                        "outline": "#859397",
+                        "on-error": "#690005",
+                        "secondary-container": "#3e495d",
+                        "inverse-surface": "#e0e3e5",
+                        "primary": "#8aebff",
+                        "inverse-primary": "#006877",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "on-secondary-container": "#aeb9d0",
+                        "surface-container-highest": "#323537"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "section-gap": "80px",
+                        "container-max": "1440px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Geist", "sans-serif"],
+                        "body-md": ["Geist", "sans-serif"],
+                        "headline-lg-mobile": ["Geist", "sans-serif"],
+                        "title-md": ["Geist", "sans-serif"],
+                        "display-lg": ["Geist", "sans-serif"],
+                        "headline-lg": ["Geist", "sans-serif"],
+                        "label-mono": ["JetBrains Mono", "monospace"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "1.5", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Grid Overlay for Dark Tech Blueprint feel */
+        .bg-tech-grid {
+            background-image: linear-gradient(to right, rgba(133, 147, 151, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(133, 147, 151, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/50 backdrop-blur-xl border-b border-white/10 flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-lg text-headline-lg font-semibold tracking-tight text-on-surface">
+            Daniele Speziale
+        </div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-title-md text-title-md hover:text-primary transition-all duration-300 active:scale-95" href="#">Home</a>
+<a class="text-on-surface-variant font-medium font-title-md text-title-md hover:text-primary transition-all duration-300 active:scale-95" href="#">Solutions</a>
+<a class="text-on-surface-variant font-medium font-title-md text-title-md hover:text-primary transition-all duration-300 active:scale-95" href="#">Projects</a>
+<a class="text-on-surface-variant font-medium font-title-md text-title-md hover:text-primary transition-all duration-300 active:scale-95" href="#">Advisory</a>
+</div>
+<div class="hidden md:block">
+<button class="bg-primary text-on-primary px-6 py-2 rounded font-label-mono text-label-mono hover:bg-primary-container transition-colors active:scale-95">
+                Contact
+            </button>
+</div>
+<!-- Mobile Menu Toggle (Visual Only) -->
+<div class="md:hidden text-primary">
+<span class="material-symbols-outlined text-[32px]">menu</span>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="relative pt-32 pb-section-gap">
+<!-- Subtle Background Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none bg-tech-grid"></div>
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<!-- Hero Section -->
+<section class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
+<div class="flex flex-col items-start gap-stack-lg max-w-4xl">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-mono text-label-mono text-primary uppercase tracking-widest">System Architecture Status: Optimal</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface">
+                    Daniele Speziale. <br/>
+<span class="text-primary">Principal AI Architect</span> &amp; Tech Lead.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl border-l-2 border-outline-variant pl-4">
+                    35+ years of engineering. Building production-grade AI: Scalable GenAI, Advanced RAG, Multi-Agent Systems.
+                </p>
+<div class="flex flex-wrap gap-stack-md pt-stack-md">
+<a class="bg-primary text-on-primary font-label-mono text-label-mono px-8 py-3 rounded hover:bg-primary-container transition-colors shadow-[0_0_15px_rgba(138,235,255,0.2)]" href="#contact">
+                        Initiate Protocol: Contact
+                    </a>
+<a class="border border-outline text-on-surface font-label-mono text-label-mono px-8 py-3 rounded hover:border-primary hover:text-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(138,235,255,0.1)]" href="#expertise">
+                        View Architecture
+                    </a>
+</div>
+</div>
+</section>
+<!-- Data Density / Stats Section -->
+<section class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Stat Card 1 -->
+<div class="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded p-stack-lg flex flex-col justify-center items-center hover:border-primary/50 transition-colors group">
+<div class="font-display-lg text-display-lg text-on-surface group-hover:text-primary transition-colors">35+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mt-stack-sm text-center">Years Eng</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded p-stack-lg flex flex-col justify-center items-center hover:border-primary/50 transition-colors group">
+<div class="font-display-lg text-display-lg text-on-surface group-hover:text-primary transition-colors">4</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mt-stack-sm text-center">LLMs in Prod</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded p-stack-lg flex flex-col justify-center items-center hover:border-primary/50 transition-colors group">
+<div class="font-display-lg text-display-lg text-on-surface group-hover:text-primary transition-colors">10+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mt-stack-sm text-center">AI Agents</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded p-stack-lg flex flex-col justify-center items-center hover:border-primary/50 transition-colors group">
+<div class="font-display-lg text-display-lg text-on-surface group-hover:text-primary transition-colors">3</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mt-stack-sm text-center">Years GenAI</div>
+</div>
+</div>
+</section>
+<!-- Core Focus Area -->
+<section class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap" id="expertise">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-5 flex flex-col gap-stack-md">
+<h2 class="font-label-mono text-label-mono text-primary uppercase tracking-widest border-b border-white/10 pb-2 w-fit">
+                        Architectural Oversight
+                    </h2>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">
+                        Translating Complexity into Concrete Strategy.
+                    </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Focusing on the critical translation of high-level business requirements into scalable, production-grade architectural decisions.
+                    </p>
+<ul class="flex flex-col gap-unit mt-stack-sm">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">check_box</span>
+<span class="font-body-md text-body-md text-on-surface">Build vs Buy Analysis</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">check_box</span>
+<span class="font-body-md text-body-md text-on-surface">Cost &amp; Latency Optimization</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">check_box</span>
+<span class="font-body-md text-body-md text-on-surface">AI Governance &amp; Security</span>
+</li>
+</ul>
+</div>
+<div class="lg:col-span-7 h-full min-h-[400px] relative rounded border border-outline-variant bg-surface/50 backdrop-blur-xl overflow-hidden group">
+<!-- Abstract Tech Visual -->
+<div class="absolute inset-0 bg-cover bg-center opacity-40 transition-opacity group-hover:opacity-60" data-alt="A highly detailed, abstract visualization of a neural network architecture in a dark, deep-tech aesthetic. Intricate lines of glowing cyan light connect nodes against a deep slate gray and black background, resembling a complex digital blueprint. The lighting is moody and precise, emphasizing the complexity and scale of the system. The overall feel is modern, analytical, and highly technical." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZ_i_RM34101fuVdXY2T_gwW0YIn5DeaP1sgCiA9uVrylJX0JeodeE0Epb5dx3NqhOK2xQm0FsCd91MUZBIwDY-pAhsnYWA6qklmJOMyvT05rg6FxNIEdJO3aZx1Zp7Lr5Bv6vKQmAPzYpaHeINQvA3AqCBGRjsUBnT3P6PyQ-yl6KgfQpxrh7F82KjCo1t9G6qwPn_iSwjlVfhFNIiqmnboXP4m9swkj4v9s0GlYMiDMdFEsZjCWkh17LCBFjrwg_lc-b8jlj_R4');">
+</div>
+<!-- Blueprint Overlay -->
+<div class="absolute inset-0 bg-tech-grid opacity-50 mix-blend-overlay"></div>
+<div class="absolute bottom-4 left-4 font-label-mono text-label-mono text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">schema</span>
+                        Topology Diagram / L2 Abstraction
+                    </div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg bg-surface-container-lowest border-t border-outline-variant mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="col-span-1 lg:col-span-2">
+<div class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">
+                    Daniele Speziale
+                </div>
+<div class="font-body-md text-body-md text-on-surface-variant">
+                    © 2024 Daniele Speziale. Principal AI Architect.
+                </div>
+</div>
+<div class="flex flex-col gap-unit">
+<div class="font-label-mono text-label-mono text-primary uppercase tracking-widest mb-2">Connect</div>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">GitHub</a>
+</div>
+<div class="flex flex-col gap-unit">
+<div class="font-label-mono text-label-mono text-primary uppercase tracking-widest mb-2">Engage</div>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Expertise</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

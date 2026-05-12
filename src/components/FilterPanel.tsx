@@ -36,88 +36,88 @@ const FilterPanel = ({
         filters.networkType || filters.ipSearch || filters.searchText;
 
     return (
-        <div className="bg-white rounded-lg shadow-md mb-6">
-            <div className="p-4 border-b border-gray-200">
+        <div className="bg-surface/30 backdrop-blur-xl border border-outline-variant rounded-lg overflow-hidden">
+            <div className="p-4 border-b border-outline-variant/30">
                 <div className="flex items-center justify-between">
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="flex items-center gap-2 text-primary font-semibold hover:text-accent transition-colors"
+                        className="flex items-center gap-3 text-on-surface font-label-mono text-label-mono uppercase tracking-widest hover:text-primary transition-colors"
                     >
-                        <Filter size={20} />
-                        <span>Filtri</span>
+                        <Filter size={18} />
+                        <span>Filtri Ricerca</span>
                         {hasActiveFilters && (
-                            <span className="bg-accent text-white text-xs px-2 py-1 rounded-full">
-                                Attivi
+                            <span className="bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded uppercase font-bold">
+                                Active
                             </span>
                         )}
                     </button>
                     {hasActiveFilters && (
                         <button
                             onClick={onResetFilters}
-                            className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                            className="flex items-center gap-2 text-[10px] font-label-mono uppercase tracking-widest text-on-surface-variant hover:text-error transition-colors"
                         >
-                            <X size={16} />
-                            <span>Resetta</span>
+                            <X size={14} />
+                            <span>Reset</span>
                         </button>
                     )}
                 </div>
             </div>
 
             {isExpanded && (
-                <div className="p-4">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <div className="p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         {/* Date Range */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <Calendar size={16} className="inline mr-1" />
+                        <div className="space-y-2">
+                            <label className="block font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">
+                                <Calendar size={12} className="inline mr-2 text-primary" />
                                 Data Inizio
                             </label>
                             <input
                                 type="date"
                                 value={filters.startDate}
                                 onChange={(e) => handleChange('startDate', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+                                className="w-full bg-surface-container/50 border border-outline-variant/30 rounded px-4 py-2 text-on-surface focus:outline-none focus:border-primary/50 transition-all font-body-md"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <Calendar size={16} className="inline mr-1" />
+                        <div className="space-y-2">
+                            <label className="block font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">
+                                <Calendar size={12} className="inline mr-2 text-primary" />
                                 Data Fine
                             </label>
                             <input
                                 type="date"
                                 value={filters.endDate}
                                 onChange={(e) => handleChange('endDate', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+                                className="w-full bg-surface-container/50 border border-outline-variant/30 rounded px-4 py-2 text-on-surface focus:outline-none focus:border-primary/50 transition-all font-body-md"
                             />
                         </div>
 
                         {/* Network Type Filter */}
                         {showNetworkFilter && (
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <div className="space-y-2">
+                                <label className="block font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">
                                     Tipo di Rete
                                 </label>
                                 <select
                                     value={filters.networkType}
                                     onChange={(e) => handleChange('networkType', e.target.value)}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+                                    className="w-full bg-surface-container/50 border border-outline-variant/30 rounded px-4 py-2 text-on-surface focus:outline-none focus:border-primary/50 transition-all font-body-md appearance-none"
                                 >
-                                    <option value="">Tutte le Reti</option>
-                                    <option value="private">Reti Private</option>
-                                    <option value="public">Reti Pubbliche</option>
-                                    <option value="italian">Provider Italiani</option>
-                                    <option value="european">Provider Europei</option>
+                                    <option value="" className="bg-surface">Tutte le Reti</option>
+                                    <option value="private" className="bg-surface">Reti Private</option>
+                                    <option value="public" className="bg-surface">Reti Pubbliche</option>
+                                    <option value="italian" className="bg-surface">Provider Italiani</option>
+                                    <option value="european" className="bg-surface">Provider Europei</option>
                                 </select>
                             </div>
                         )}
 
                         {/* IP Search */}
                         {showIpFilter && (
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    <Search size={16} className="inline mr-1" />
+                            <div className="space-y-2">
+                                <label className="block font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">
+                                    <Search size={12} className="inline mr-2 text-primary" />
                                     Cerca IP
                                 </label>
                                 <input
@@ -125,15 +125,15 @@ const FilterPanel = ({
                                     value={filters.ipSearch}
                                     onChange={(e) => handleChange('ipSearch', e.target.value)}
                                     placeholder="es. 192.168"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+                                    className="w-full bg-surface-container/50 border border-outline-variant/30 rounded px-4 py-2 text-on-surface placeholder:text-on-surface-variant/30 focus:outline-none focus:border-primary/50 transition-all font-body-md"
                                 />
                             </div>
                         )}
 
                         {/* Text Search */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <Search size={16} className="inline mr-1" />
+                        <div className="space-y-2">
+                            <label className="block font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">
+                                <Search size={12} className="inline mr-2 text-primary" />
                                 Ricerca Testo
                             </label>
                             <input
@@ -141,7 +141,7 @@ const FilterPanel = ({
                                 value={filters.searchText}
                                 onChange={(e) => handleChange('searchText', e.target.value)}
                                 placeholder="Nome, email, azienda..."
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+                                className="w-full bg-surface-container/50 border border-outline-variant/30 rounded px-4 py-2 text-on-surface placeholder:text-on-surface-variant/30 focus:outline-none focus:border-primary/50 transition-all font-body-md"
                             />
                         </div>
                     </div>
@@ -149,9 +149,9 @@ const FilterPanel = ({
                     <div className="flex justify-end">
                         <button
                             onClick={onApplyFilters}
-                            className="px-6 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors font-semibold"
+                            className="px-8 py-2.5 bg-primary text-on-primary rounded font-label-mono text-[10px] uppercase tracking-[0.2em] hover:bg-primary-container transition-all"
                         >
-                            Applica Filtri
+                            Execute Filter
                         </button>
                     </div>
                 </div>
@@ -161,3 +161,4 @@ const FilterPanel = ({
 };
 
 export default FilterPanel;
+

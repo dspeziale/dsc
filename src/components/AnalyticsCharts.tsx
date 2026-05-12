@@ -28,7 +28,7 @@ interface AnalyticsChartsProps {
     ipStats: IpStat[];
 }
 
-const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2'];
+const COLORS = ['#8aebff', '#1e292b', '#1c2426', '#3b4c50', '#8aebff80', '#567176', '#728c92', '#8db3b9'];
 
 const AnalyticsCharts = ({ dailyStats, ipStats }: AnalyticsChartsProps) => {
     // Prepare data for network type distribution
@@ -52,60 +52,96 @@ const AnalyticsCharts = ({ dailyStats, ipStats }: AnalyticsChartsProps) => {
     }));
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-gutter">
             {/* Visits Over Time */}
-            <div className="bg-white rounded-xl p-6 shadow-md">
-                <h3 className="text-xl font-bold text-primary mb-4">Visite nel Tempo</h3>
-                <ResponsiveContainer width="100%" height={300}>
+            <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant p-10 rounded glass-card-hover">
+                <h3 className="font-headline-lg text-headline-lg text-on-surface mb-8 flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary">timeline</span>
+                    Visite nel Tempo
+                </h3>
+                <ResponsiveContainer width="100%" height={350}>
                     <LineChart data={formattedDailyStats}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e292b" />
+                        <XAxis 
+                            dataKey="date" 
+                            tick={{ fill: '#3b4c50', fontSize: 10, fontFamily: 'Geist Mono' }}
+                            axisLine={false}
+                            tickLine={false}
+                        />
+                        <YAxis 
+                            tick={{ fill: '#3b4c50', fontSize: 10, fontFamily: 'Geist Mono' }}
+                            axisLine={false}
+                            tickLine={false}
+                        />
+                        <Tooltip 
+                            contentStyle={{ backgroundColor: '#0b0f10', borderRadius: '4px', border: '1px solid #1e292b' }}
+                            labelStyle={{ color: '#8aebff', fontFamily: 'Geist Mono', marginBottom: '8px' }}
+                            itemStyle={{ fontSize: '12px', fontFamily: 'Geist' }}
+                        />
+                        <Legend 
+                            formatter={(value) => <span className="font-label-mono text-[10px] text-on-surface-variant uppercase ml-2">{value}</span>}
+                        />
                         <Line
                             type="monotone"
                             dataKey="visits"
-                            stroke="#FF6B6B"
+                            stroke="#8aebff"
                             strokeWidth={2}
                             name="Visite Totali"
+                            dot={{ fill: '#8aebff', strokeWidth: 0, r: 4 }}
+                            activeDot={{ r: 6, strokeWidth: 0 }}
                         />
                         <Line
                             type="monotone"
                             dataKey="unique_visitors"
-                            stroke="#4ECDC4"
+                            stroke="#3b4c50"
                             strokeWidth={2}
                             name="Visitatori Unici"
+                            dot={{ fill: '#3b4c50', strokeWidth: 0, r: 4 }}
+                            activeDot={{ r: 6, strokeWidth: 0 }}
                         />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-gutter">
                 {/* Top Network Owners Bar Chart */}
-                <div className="bg-white rounded-xl p-6 shadow-md">
-                    <h3 className="text-xl font-bold text-primary mb-4">Top 10 Intestatari Rete</h3>
-                    <ResponsiveContainer width="100%" height={300}>
+                <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant p-10 rounded glass-card-hover">
+                    <h3 className="font-headline-lg text-headline-lg text-on-surface mb-8 flex items-center gap-3">
+                        <span className="material-symbols-outlined text-primary">analytics</span>
+                        Top 10 Intestatari Rete
+                    </h3>
+                    <ResponsiveContainer width="100%" height={350}>
                         <BarChart data={topIps}>
-                            <CartesianGrid strokeDasharray="3 3" />
+                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e292b" />
                             <XAxis
                                 dataKey="network_description"
                                 angle={-45}
                                 textAnchor="end"
                                 height={100}
-                                fontSize={12}
+                                tick={{ fill: '#3b4c50', fontSize: 10, fontFamily: 'Geist Mono' }}
+                                axisLine={false}
+                                tickLine={false}
                             />
-                            <YAxis />
-                            <Tooltip />
-                            <Bar dataKey="visits" fill="#FF6B6B" name="Visite" />
+                            <YAxis 
+                                tick={{ fill: '#3b4c50', fontSize: 10, fontFamily: 'Geist Mono' }}
+                                axisLine={false}
+                                tickLine={false}
+                            />
+                            <Tooltip 
+                                contentStyle={{ backgroundColor: '#0b0f10', borderRadius: '4px', border: '1px solid #1e292b' }}
+                            />
+                            <Bar dataKey="visits" fill="#8aebff" name="Visite" radius={[4, 4, 0, 0]} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
 
                 {/* Network Type Distribution */}
-                <div className="bg-white rounded-xl p-6 shadow-md">
-                    <h3 className="text-xl font-bold text-primary mb-4">Distribuzione Tipo di Rete</h3>
-                    <ResponsiveContainer width="100%" height={300}>
+                <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant p-10 rounded glass-card-hover">
+                    <h3 className="font-headline-lg text-headline-lg text-on-surface mb-8 flex items-center gap-3">
+                        <span className="material-symbols-outlined text-primary">pie_chart</span>
+                        Distribuzione Rete
+                    </h3>
+                    <ResponsiveContainer width="100%" height={350}>
                         <PieChart>
                             <Pie
                                 data={networkTypeData}
@@ -114,14 +150,17 @@ const AnalyticsCharts = ({ dailyStats, ipStats }: AnalyticsChartsProps) => {
                                 labelLine={false}
                                 label={({ name, percent }) => `${name}: ${((percent || 0) * 100).toFixed(0)}%`}
                                 outerRadius={80}
-                                fill="#8884d8"
+                                fill="#8aebff"
                                 dataKey="value"
+                                stroke="none"
                             >
                                 {networkTypeData.map((_item, index) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
                             </Pie>
-                            <Tooltip />
+                            <Tooltip 
+                                contentStyle={{ backgroundColor: '#0b0f10', borderRadius: '4px', border: '1px solid #1e292b' }}
+                            />
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
@@ -131,3 +170,4 @@ const AnalyticsCharts = ({ dailyStats, ipStats }: AnalyticsChartsProps) => {
 };
 
 export default AnalyticsCharts;
+

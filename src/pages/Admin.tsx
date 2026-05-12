@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {
     Mail, Phone, Building2, Calendar, MapPin, LogOut,
-    Users, Eye, FileText, TrendingUp, Download, BarChart3, RefreshCw
+    Users, Eye, FileText, TrendingUp, Download, BarChart3, RefreshCw, LayoutDashboard
 } from 'lucide-react';
 import FilterPanel from '../components/FilterPanel';
 import type { FilterState } from '../components/FilterPanel';
@@ -105,37 +105,28 @@ const Admin = () => {
             if (filters.searchText) queryParams.append('searchText', filters.searchText);
 
             // Fetch contacts
-            console.log('Fetching contacts...');
             const contactsRes = await fetch(`/api/admin/contacts?${queryParams.toString()}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            console.log('Contacts response:', contactsRes.status);
             const contactsData = await contactsRes.json();
             if (contactsRes.ok) {
-                console.log('Contacts received:', contactsData.contacts?.length || 0);
                 setContacts(contactsData.contacts || []);
-            } else {
-                console.error('Contacts error:', contactsData);
             }
 
             // Fetch analytics
-            console.log('Fetching visits...');
             const visitsRes = await fetch(`/api/admin/visits?${queryParams.toString()}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            console.log('Visits response:', visitsRes.status);
             const visitsData = await visitsRes.json();
             if (visitsRes.ok) {
-                console.log('Visits data received:', visitsData);
                 setStats(visitsData.stats || { total_visits: 0, unique_visitors: 0, pages_visited: 0 });
                 setIpStats(visitsData.ipStats || []);
                 setDailyStats(visitsData.dailyStats || []);
             } else {
-                console.error('Visits error:', visitsData);
                 setStats({ total_visits: 0, unique_visitors: 0, pages_visited: 0 });
                 setIpStats([]);
             }
@@ -161,7 +152,6 @@ const Admin = () => {
             ipSearch: '',
             searchText: ''
         });
-        // Fetch data will be triggered by useEffect when filters change
         setTimeout(() => fetchData(), 100);
     };
 
@@ -215,7 +205,6 @@ const Admin = () => {
             if (res.ok) {
                 const data = await res.json();
                 alert(`✓ Refresh completato!\n\nTotale IP: ${data.total}\nSuccesso: ${data.successful}\nFalliti: ${data.failed}`);
-                // Refresh data to show updated info
                 fetchData();
             } else {
                 alert('Errore durante il refresh degli IP');
@@ -248,7 +237,7 @@ const Admin = () => {
             const data = await response.json();
             if (response.ok) {
                 alert(data.message || 'Log eliminati con successo');
-                fetchData(); // Refresh data
+                fetchData();
             } else {
                 alert(data.error || 'Errore durante l\'eliminazione dei log');
             }
@@ -279,211 +268,188 @@ const Admin = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
-                <div className="text-center">
-                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
-                    <p className="mt-4 text-gray-600">Caricamento dati...</p>
+            <div className="min-h-screen flex items-center justify-center pt-20">
+                <div className="absolute inset-0 z-0 pointer-events-none bg-blueprint opacity-20"></div>
+                <div className="relative z-10 text-center">
+                    <div className="inline-block animate-spin rounded h-12 w-12 border-b-2 border-primary"></div>
+                    <p className="mt-4 text-on-surface-variant font-label-mono uppercase tracking-widest">Accessing Secure Node...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <main className="pt-20 min-h-screen bg-gray-50">
-            {/* Header */}
-            <div className="bg-gradient-to-br from-primary to-primary-dark text-white py-8">
-                <div className="container">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            {user?.picture && (
+        <main className="relative min-h-screen pt-32 pb-12 overflow-hidden">
+            <div className="absolute inset-0 z-0 pointer-events-none bg-tech-grid opacity-30"></div>
+            
+            {/* Header Section */}
+            <section className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-12">
+                <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant p-8 md:p-12 rounded flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div className="flex items-center gap-6">
+                        <div className="relative">
+                            <div className="absolute -inset-1 bg-primary/20 rounded-full blur animate-pulse"></div>
+                            {user?.picture ? (
                                 <img
                                     src={user.picture}
                                     alt={user.name}
-                                    className="w-12 h-12 rounded-full border-2 border-white"
+                                    className="relative w-20 h-20 rounded-full border-2 border-primary object-cover"
                                 />
+                            ) : (
+                                <div className="relative w-20 h-20 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+                                    <span className="material-symbols-outlined text-primary text-4xl">person</span>
+                                </div>
                             )}
-                            <div>
-                                <h1 className="text-3xl font-bold">Dashboard Admin</h1>
-                                <p className="opacity-90">Benvenuto, {user?.name}</p>
+                        </div>
+                        <div>
+                            <div className="flex items-center gap-2 mb-1">
+                                <span className="w-2 h-2 rounded-full bg-primary pulse-indicator"></span>
+                                <span className="font-label-mono text-[10px] uppercase tracking-[0.2em] text-primary">Access Level: Administrator</span>
                             </div>
+                            <h1 className="font-display-lg text-display-lg text-on-surface">Benvenuto, <span className="text-primary">{user?.name?.split(' ')[0]}</span></h1>
+                            <p className="font-body-md text-on-surface-variant/70">Ultima sincronizzazione: {new Date().toLocaleTimeString('it-IT')}</p>
                         </div>
-                        <div className="flex items-center gap-4">
-                            {token && <NotificationBadge token={token} />}
-                            <button
-                                onClick={handleLogout}
-                                className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-300"
-                            >
-                                <LogOut size={20} />
-                                <span>Logout</span>
-                            </button>
-                        </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-4">
+                        <button 
+                            onClick={() => navigate('/admin/dashboard')}
+                            className="flex items-center gap-2 px-6 py-3 bg-surface-container border border-outline-variant rounded font-label-mono text-label-mono uppercase tracking-widest text-on-surface hover:border-primary/50 transition-all"
+                        >
+                            <LayoutDashboard size={18} />
+                            Dashboard
+                        </button>
+                        {token && <NotificationBadge token={token} />}
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-2 px-6 py-3 bg-error/10 border border-error/20 rounded font-label-mono text-label-mono uppercase tracking-widest text-error hover:bg-error hover:text-on-error transition-all"
+                        >
+                            <LogOut size={18} />
+                            Logout
+                        </button>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {/* Filter Panel */}
-            <FilterPanel
-                filters={filters}
-                onFilterChange={setFilters}
-                onApplyFilters={handleApplyFilters}
-                onResetFilters={handleResetFilters}
-                showIpFilter={activeTab === 'analytics'}
-                showNetworkFilter={activeTab === 'analytics'}
-            />
-
-            {/* Stats Cards */}
-            <div className="container py-8">
-                <div className="grid md:grid-cols-4 gap-6 mb-8">
-                    <div className="bg-white rounded-xl p-6 shadow-md">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
-                                <FileText size={24} className="text-accent" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-600">Contatti</p>
-                                <p className="text-2xl font-bold text-primary">{contacts.length}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-white rounded-xl p-6 shadow-md">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <Eye size={24} className="text-blue-600" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-600">Visite Totali</p>
-                                <p className="text-2xl font-bold text-primary">{stats?.total_visits || 0}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-white rounded-xl p-6 shadow-md">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <Users size={24} className="text-green-600" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-600">Visitatori Unici</p>
-                                <p className="text-2xl font-bold text-primary">{stats?.unique_visitors || 0}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-white rounded-xl p-6 shadow-md">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <TrendingUp size={24} className="text-purple-600" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-600">IP Unici</p>
-                                <p className="text-2xl font-bold text-primary">{stats?.pages_visited || 0}</p>
-                            </div>
-                        </div>
-                    </div>
+            {/* Content Container */}
+            <div className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+                
+                {/* Filters */}
+                <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded mb-8 p-4">
+                    <FilterPanel
+                        filters={filters}
+                        onFilterChange={setFilters}
+                        onApplyFilters={handleApplyFilters}
+                        onResetFilters={handleResetFilters}
+                        showIpFilter={activeTab === 'analytics'}
+                        showNetworkFilter={activeTab === 'analytics'}
+                    />
                 </div>
 
-                {/* Tabs */}
-                <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                    <div className="border-b border-gray-200">
-                        <div className="flex">
-                            <button
-                                onClick={() => setActiveTab('contacts')}
-                                className={`flex-1 px-6 py-4 font-semibold transition-colors duration-300 ${activeTab === 'contacts'
-                                    ? 'bg-accent text-white'
-                                    : 'text-gray-600 hover:bg-gray-50'
-                                    }`}
-                            >
-                                <FileText size={20} className="inline mr-2" />
-                                Messaggi di Contatto ({contacts.length})
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('analytics')}
-                                className={`flex-1 px-6 py-4 font-semibold transition-colors duration-300 ${activeTab === 'analytics'
-                                    ? 'bg-accent text-white'
-                                    : 'text-gray-600 hover:bg-gray-50'
-                                    }`}
-                            >
-                                <TrendingUp size={20} className="inline mr-2" />
-                                Connessioni IP
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('charts')}
-                                className={`flex-1 px-6 py-4 font-semibold transition-colors duration-300 ${activeTab === 'charts'
-                                    ? 'bg-accent text-white'
-                                    : 'text-gray-600 hover:bg-gray-50'
-                                    }`}
-                            >
-                                <BarChart3 size={20} className="inline mr-2" />
-                                Grafici
-                            </button>
+                {/* Stats Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-12">
+                    {[
+                        { label: 'Messaggi', value: contacts.length, icon: FileText, color: 'primary' },
+                        { label: 'Visite Totali', value: stats?.total_visits || 0, icon: Eye, color: 'primary' },
+                        { label: 'Visitatori Unici', value: stats?.unique_visitors || 0, icon: Users, color: 'primary' },
+                        { label: 'IP Analizzati', value: stats?.pages_visited || 0, icon: TrendingUp, color: 'primary' }
+                    ].map((item, idx) => (
+                        <div key={idx} className="bg-surface/50 backdrop-blur-xl border border-outline-variant p-8 rounded glass-card-hover group">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="w-12 h-12 bg-primary/10 rounded border border-primary/20 flex items-center justify-center group-hover:bg-primary transition-all">
+                                    <item.icon size={20} className="text-primary group-hover:text-on-primary" />
+                                </div>
+                                <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant">Live</span>
+                            </div>
+                            <p className="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-1">{item.label}</p>
+                            <p className="font-display-lg text-headline-lg text-on-surface">{item.value}</p>
                         </div>
+                    ))}
+                </div>
+
+                {/* Tabs & Tab Content */}
+                <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded overflow-hidden">
+                    <div className="flex border-b border-outline-variant bg-surface-container/30">
+                        {[
+                            { id: 'contacts', label: `Messaggi (${contacts.length})`, icon: FileText },
+                            { id: 'analytics', label: 'Connessioni IP', icon: TrendingUp },
+                            { id: 'charts', label: 'System Analytics', icon: BarChart3 }
+                        ].map((tab) => (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id as any)}
+                                className={`flex-1 px-8 py-6 font-label-mono text-label-mono uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all ${activeTab === tab.id
+                                    ? 'bg-primary text-on-primary'
+                                    : 'text-on-surface-variant hover:bg-surface-container'
+                                    }`}
+                            >
+                                <tab.icon size={18} />
+                                <span className="hidden md:inline">{tab.label}</span>
+                            </button>
+                        ))}
                     </div>
 
-                    <div className="p-6">
+                    <div className="p-8 md:p-12">
                         {activeTab === 'contacts' && (
-                            <div className="space-y-4">
-                                <div className="flex justify-end mb-4">
+                            <div className="space-y-8">
+                                <div className="flex justify-end mb-6">
                                     <button
                                         onClick={() => handleExport('contacts')}
-                                        className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
+                                        className="flex items-center gap-2 px-6 py-2.5 bg-primary/10 border border-primary/20 text-primary rounded font-label-mono text-[10px] uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all"
                                     >
-                                        <Download size={18} />
-                                        Esporta CSV
+                                        <Download size={14} />
+                                        Export Briefings
                                     </button>
                                 </div>
                                 {contacts.length === 0 ? (
-                                    <p className="text-center text-gray-500 py-8">Nessun messaggio ricevuto</p>
+                                    <div className="py-24 text-center border-2 border-dashed border-outline-variant rounded">
+                                        <p className="font-label-mono text-on-surface-variant uppercase tracking-widest">Nessun segnale ricevuto</p>
+                                    </div>
                                 ) : (
                                     contacts.map((contact) => (
-                                        <div key={contact.id} className="border border-gray-200 rounded-lg p-6 hover:border-accent transition-colors duration-300">
-                                            <div className="flex items-start justify-between mb-4">
+                                        <div key={contact.id} className="bg-surface-container/30 border border-outline-variant rounded-lg p-8 hover:border-primary/50 transition-all group">
+                                            <div className="flex flex-col md:flex-row items-start justify-between gap-6 mb-8">
                                                 <div>
-                                                    <h3 className="text-xl font-bold text-primary">{contact.nome}</h3>
-                                                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
-                                                        <span className="flex items-center gap-1">
-                                                            <Calendar size={16} />
+                                                    <h3 className="font-headline-lg text-headline-lg text-on-surface mb-2">{contact.nome}</h3>
+                                                    <div className="flex flex-wrap items-center gap-6 font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant">
+                                                        <span className="flex items-center gap-2">
+                                                            <Calendar size={14} className="text-primary" />
                                                             {formatDate(contact.timestamp)}
                                                         </span>
-                                                        <span className="flex items-center gap-1">
-                                                            <MapPin size={16} />
+                                                        <span className="flex items-center gap-2">
+                                                            <MapPin size={14} className="text-primary" />
                                                             {contact.ip}
                                                         </span>
                                                     </div>
                                                 </div>
                                                 {contact.servizio && (
-                                                    <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-semibold">
+                                                    <span className="px-4 py-1 bg-primary/10 text-primary border border-primary/20 rounded font-label-mono text-[10px] uppercase tracking-widest">
                                                         {contact.servizio}
                                                     </span>
                                                 )}
                                             </div>
 
-                                            <div className="grid md:grid-cols-2 gap-4 mb-4">
-                                                <div className="flex items-center gap-2 text-gray-700">
-                                                    <Mail size={18} className="text-accent" />
-                                                    <a href={`mailto:${contact.email}`} className="hover:text-accent">
-                                                        {contact.email}
-                                                    </a>
-                                                </div>
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                                                <a href={`mailto:${contact.email}`} className="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors font-body-md">
+                                                    <Mail size={18} className="text-primary" />
+                                                    {contact.email}
+                                                </a>
                                                 {contact.telefono && (
-                                                    <div className="flex items-center gap-2 text-gray-700">
-                                                        <Phone size={18} className="text-accent" />
-                                                        <a href={`tel:${contact.telefono}`} className="hover:text-accent">
-                                                            {contact.telefono}
-                                                        </a>
-                                                    </div>
+                                                    <a href={`tel:${contact.telefono}`} className="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors font-body-md">
+                                                        <Phone size={18} className="text-primary" />
+                                                        {contact.telefono}
+                                                    </a>
                                                 )}
                                                 {contact.azienda && (
-                                                    <div className="flex items-center gap-2 text-gray-700">
-                                                        <Building2 size={18} className="text-accent" />
-                                                        <span>{contact.azienda}</span>
+                                                    <div className="flex items-center gap-3 text-on-surface-variant font-body-md">
+                                                        <Building2 size={18} className="text-primary" />
+                                                        {contact.azienda}
                                                     </div>
                                                 )}
                                             </div>
 
-                                            <div className="bg-gray-50 rounded-lg p-4">
-                                                <p className="text-sm font-semibold text-gray-700 mb-2">Messaggio:</p>
-                                                <p className="text-gray-800 whitespace-pre-wrap">{contact.messaggio}</p>
+                                            <div className="bg-surface/50 border border-outline-variant rounded p-6">
+                                                <p className="font-label-mono text-[10px] uppercase tracking-widest text-primary mb-3">Transmission Log:</p>
+                                                <p className="text-on-surface font-body-md leading-relaxed whitespace-pre-wrap">{contact.messaggio}</p>
                                             </div>
                                         </div>
                                     ))
@@ -492,111 +458,107 @@ const Admin = () => {
                         )}
 
                         {activeTab === 'analytics' && (
-                            <div className="space-y-6">
-                                <div className="flex flex-wrap items-center gap-4 mb-4">
-                                    <button
-                                        onClick={handleRefreshIps}
-                                        disabled={refreshingIps}
-                                        className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        <RefreshCw size={18} className={refreshingIps ? 'animate-spin' : ''} />
-                                        {refreshingIps ? 'Aggiornamento...' : 'Aggiorna Dati IP'}
-                                    </button>
-
-                                    <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-lg">
-                                        <span className="text-sm text-gray-600 px-2 font-medium">Conserva ultimi</span>
-                                        <input
-                                            type="number"
-                                            value={clearLogsDays}
-                                            onChange={(e) => setClearLogsDays(Number(e.target.value))}
-                                            min="0"
-                                            className="w-16 px-2 py-1 rounded border border-gray-300 text-center font-bold"
-                                        />
-                                        <span className="text-sm text-gray-600 px-1 font-medium">giorni</span>
+                            <div className="space-y-10">
+                                <div className="flex flex-wrap items-center justify-between gap-6">
+                                    <div className="flex items-center gap-4">
                                         <button
-                                            onClick={handleClearLogs}
-                                            disabled={clearingLogs}
-                                            className="px-4 py-1.5 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors disabled:opacity-50 text-sm font-bold ml-1"
+                                            onClick={handleRefreshIps}
+                                            disabled={refreshingIps}
+                                            className="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded font-label-mono text-[10px] uppercase tracking-widest hover:bg-primary-container transition-all disabled:opacity-50"
                                         >
-                                            {clearingLogs ? 'Eliminazione...' : 'Cancella Log'}
+                                            <RefreshCw size={14} className={refreshingIps ? 'animate-spin' : ''} />
+                                            {refreshingIps ? 'Syncing...' : 'Sync IP Registry'}
                                         </button>
-                                    </div>
 
-                                    <div className="flex-grow"></div>
+                                        <div className="flex items-center gap-2 bg-surface-container px-4 py-2 rounded border border-outline-variant">
+                                            <span className="font-label-mono text-[10px] text-on-surface-variant uppercase">Retention:</span>
+                                            <input
+                                                type="number"
+                                                value={clearLogsDays}
+                                                onChange={(e) => setClearLogsDays(Number(e.target.value))}
+                                                min="0"
+                                                className="w-12 bg-transparent text-center font-label-mono text-primary focus:outline-none"
+                                            />
+                                            <span className="font-label-mono text-[10px] text-on-surface-variant uppercase">Days</span>
+                                            <button
+                                                onClick={handleClearLogs}
+                                                disabled={clearingLogs}
+                                                className="ml-2 text-error hover:text-error/80 font-label-mono text-[10px] uppercase font-bold"
+                                            >
+                                                [ Purge ]
+                                            </button>
+                                        </div>
+                                    </div>
 
                                     <button
                                         onClick={() => handleExport('visits')}
-                                        className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
+                                        className="flex items-center gap-2 px-6 py-2.5 bg-primary/10 border border-primary/20 text-primary rounded font-label-mono text-[10px] uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all"
                                     >
-                                        <Download size={18} />
-                                        Esporta CSV
+                                        <Download size={14} />
+                                        Export Traffic CSV
                                     </button>
                                 </div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-primary mb-4">Connessioni per Intestatario Rete</h3>
-                                    {ipStats.length === 0 ? (
-                                        <p className="text-center text-gray-500 py-8">Nessuna connessione registrata</p>
-                                    ) : (
-                                        <div className="overflow-x-auto">
-                                            <table className="w-full">
-                                                <thead>
-                                                    <tr className="border-b-2 border-gray-200">
-                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Intestatario Rete</th>
-                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Paesi</th>
-                                                        <th className="text-center py-3 px-4 font-semibold text-gray-700">IP Unici</th>
-                                                        <th className="text-center py-3 px-4 font-semibold text-gray-700">Visite</th>
-                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Prima Visita</th>
-                                                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Ultima Visita</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {ipStats.map((ipStat, index) => (
-                                                        <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                                            <td className="py-3 px-4">
-                                                                <div className="text-gray-700">
-                                                                    <div className="font-medium">{ipStat.network_description}</div>
-                                                                    {ipStat.ip_list && (
-                                                                        <div className="text-xs text-gray-400 mt-1" title={ipStat.ip_list}>
-                                                                            {ipStat.ip_list.length > 60
-                                                                                ? `${ipStat.ip_list.substring(0, 60)}...`
-                                                                                : ipStat.ip_list}
-                                                                        </div>
-                                                                    )}
-                                                                </div>
-                                                            </td>
-                                                            <td className="py-3 px-4">
-                                                                <div className="flex items-center gap-1">
-                                                                    {ipStat.country_codes && ipStat.country_codes.split(', ').map((code, idx) => (
-                                                                        <span key={idx} className="text-xl" title={ipStat.countries?.split(', ')[idx]}>
-                                                                            {getFlagEmoji(code)}
-                                                                        </span>
-                                                                    ))}
-                                                                </div>
-                                                            </td>
-                                                            <td className="py-3 px-4 text-center">
-                                                                <span className="inline-block bg-blue-100 text-blue-700 font-medium px-3 py-1 rounded-full text-sm">
-                                                                    {ipStat.unique_ips}
+
+                                <div className="overflow-x-auto">
+                                    <table className="w-full">
+                                        <thead>
+                                            <tr className="border-b border-outline-variant">
+                                                <th className="text-left py-6 px-4 font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Network Provider</th>
+                                                <th className="text-left py-6 px-4 font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Region</th>
+                                                <th className="text-center py-6 px-4 font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Nodes</th>
+                                                <th className="text-center py-6 px-4 font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Hits</th>
+                                                <th className="text-left py-6 px-4 font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Activity Range</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-outline-variant/10">
+                                            {ipStats.map((ipStat, index) => (
+                                                <tr key={index} className="group hover:bg-primary/5 transition-colors">
+                                                    <td className="py-6 px-4">
+                                                        <div className="font-bold text-on-surface text-body-md mb-1">{ipStat.network_description}</div>
+                                                        {ipStat.ip_list && (
+                                                            <div className="font-label-mono text-[9px] text-on-surface-variant/40" title={ipStat.ip_list}>
+                                                                {ipStat.ip_list.length > 50 ? `${ipStat.ip_list.substring(0, 50)}...` : ipStat.ip_list}
+                                                            </div>
+                                                        )}
+                                                    </td>
+                                                    <td className="py-6 px-4">
+                                                        <div className="flex items-center gap-2">
+                                                            {ipStat.country_codes && ipStat.country_codes.split(', ').map((code, idx) => (
+                                                                <span key={idx} className="text-xl" title={ipStat.countries?.split(', ')[idx]}>
+                                                                    {getFlagEmoji(code)}
                                                                 </span>
-                                                            </td>
-                                                            <td className="py-3 px-4 text-center">
-                                                                <span className="inline-block bg-accent/10 text-accent font-bold px-3 py-1 rounded-full">
-                                                                    {ipStat.visits}
-                                                                </span>
-                                                            </td>
-                                                            <td className="py-3 px-4 text-sm text-gray-600">{formatDate(ipStat.first_visit)}</td>
-                                                            <td className="py-3 px-4 text-sm text-gray-600">{formatDate(ipStat.last_visit)}</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    )}
+                                                            ))}
+                                                        </div>
+                                                    </td>
+                                                    <td className="py-6 px-4 text-center">
+                                                        <span className="font-label-mono text-label-mono text-primary bg-primary/10 px-3 py-1 rounded">
+                                                            {ipStat.unique_ips}
+                                                        </span>
+                                                    </td>
+                                                    <td className="py-6 px-4 text-center">
+                                                        <span className="font-display-lg text-title-md text-on-surface">
+                                                            {ipStat.visits}
+                                                        </span>
+                                                    </td>
+                                                    <td className="py-6 px-4">
+                                                        <div className="font-label-mono text-[9px] uppercase text-on-surface-variant/60">
+                                                            {formatDate(ipStat.first_visit)}
+                                                            <span className="mx-2">→</span>
+                                                            {formatDate(ipStat.last_visit)}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         )}
 
                         {activeTab === 'charts' && (
-                            <AnalyticsCharts dailyStats={dailyStats} ipStats={ipStats} />
+                            <div className="pt-6">
+                                <AnalyticsCharts dailyStats={dailyStats} ipStats={ipStats} />
+                            </div>
                         )}
                     </div>
                 </div>
@@ -606,3 +568,4 @@ const Admin = () => {
 };
 
 export default Admin;
+

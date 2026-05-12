@@ -24,25 +24,25 @@ const AiSecurity = () => {
             name: 'Claude 3.5 Sonnet',
             vendor: 'Anthropic',
             bestFor: 'Coding & Reasoning',
-            color: 'bg-[#f5f5f7] text-[#1d1d1f]'
+            color: 'bg-surface/50 border-outline-variant/30 text-on-surface'
         },
         {
             name: 'Gemini 1.5 Pro',
             vendor: 'Google',
             bestFor: 'Massive Context (2M tokens)',
-            color: 'bg-primary text-white'
+            color: 'bg-primary/10 border-primary/30 text-primary'
         },
         {
             name: 'LLaMA 3.3 70B',
             vendor: 'Meta via Groq',
             bestFor: 'Open-Source Performance',
-            color: 'bg-emerald-500 text-slate-900'
+            color: 'bg-surface/50 border-outline-variant/30 text-on-surface'
         },
         {
             name: 'GPT-4o',
             vendor: 'OpenAI',
             bestFor: 'Versatility & Vision',
-            color: 'bg-slate-800 text-white'
+            color: 'bg-surface/50 border-outline-variant/30 text-on-surface'
         }
     ];
 
@@ -62,33 +62,37 @@ const AiSecurity = () => {
     ];
 
     return (
-        <main className="pt-20 bg-[#0f172a] text-white min-h-screen">
+        <main className="relative pt-32 pb-section-gap">
+            {/* Subtle Background Elements */}
+            <div className="absolute inset-0 z-0 pointer-events-none bg-tech-grid opacity-50"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+
             {/* Hero Section */}
-            <header className="py-24 px-8 max-w-7xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 mb-8 border border-emerald-500/20">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Agentic Intelligence Squad</span>
+            <header className="relative z-10 py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 mb-8 border border-primary/20">
+                    <span className="w-2 h-2 rounded-full bg-primary pulse-indicator"></span>
+                    <span className="font-label-mono text-label-mono text-primary uppercase tracking-widest">Agentic Intelligence Squad</span>
                 </div>
-                <h1 className="text-6xl md:text-9xl font-headline font-bold leading-[0.85] mb-8 tracking-tighter">
-                   Agentic <br/><span className="text-gradient">Orchestration</span>
+                <h1 className="font-display-lg text-display-lg text-on-surface mb-8">
+                    Agentic <br /><span className="text-primary">Orchestration</span>
                 </h1>
-                <p className="text-slate-400 text-xl md:text-2xl max-w-2xl leading-relaxed font-light">
-                    Sviluppiamo la prossima generazione di assistenti autonomi integrando i modelli più avanzati di <span className="text-emerald-400 font-bold">Anthropic</span>, <span className="text-emerald-400 font-bold">Google</span> e <span className="text-emerald-400 font-bold">Meta</span>.
+                <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl border-l-2 border-outline-variant pl-4">
+                    Sviluppiamo la prossima generazione di assistenti autonomi integrando i modelli più avanzati di <span className="text-primary font-bold">Anthropic</span>, <span className="text-primary font-bold">Google</span> e <span className="text-primary font-bold">Meta</span>.
                 </p>
             </header>
 
             {/* Model Stack Marquee/Grid */}
-            <section className="py-24 border-y border-white/5 bg-slate-900/50">
-                <div className="max-w-7xl mx-auto px-8">
-                    <h2 className="text-xs font-bold text-emerald-500 uppercase tracking-[0.3em] mb-12 text-center">Inference & Reasoning Stack</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <section className="relative z-10 py-24 border-y border-white/5 bg-surface/30 backdrop-blur-xl">
+                <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                    <h2 className="font-label-mono text-label-mono text-primary uppercase tracking-[0.3em] mb-12 text-center">Inference & Reasoning Stack</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter">
                         {modelStack.map((m, i) => (
-                            <div key={i} className={`p-8 rounded-2xl ${m.color} flex flex-col justify-between h-48 transition-transform hover:-translate-y-2`}>
+                            <div key={i} className={`p-8 rounded border glass-card-hover ${m.color} flex flex-col justify-between h-48`}>
                                 <div>
-                                    <span className="text-[10px] font-bold uppercase opacity-60 tracking-widest">{m.vendor}</span>
-                                    <h3 className="text-2xl font-bold font-headline mt-1 tracking-tight">{m.name}</h3>
+                                    <span className="font-label-mono text-[10px] uppercase opacity-60 tracking-widest">{m.vendor}</span>
+                                    <h3 className="font-headline-lg text-headline-lg mt-1 tracking-tight">{m.name}</h3>
                                 </div>
-                                <div className="text-xs font-bold">Best for: {m.bestFor}</div>
+                                <div className="font-label-mono text-[10px] uppercase tracking-widest">Best for: {m.bestFor}</div>
                             </div>
                         ))}
                     </div>
@@ -96,49 +100,49 @@ const AiSecurity = () => {
             </section>
 
             {/* Core Capabilities */}
-            <section className="py-32 px-8 max-w-7xl mx-auto">
+            <section className="relative z-10 py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
                     {coreCapabilities.map((cap, i) => (
                         <div key={i} className="group">
-                            <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-8 border border-emerald-500/20 group-hover:bg-emerald-500 transition-all duration-500">
-                                <span className="material-symbols-outlined text-emerald-400 text-4xl group-hover:text-slate-900">{cap.icon}</span>
+                            <div className="w-16 h-16 rounded bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:bg-primary group-hover:text-on-primary transition-all duration-500">
+                                <span className="material-symbols-outlined text-primary text-4xl group-hover:text-on-primary">{cap.icon}</span>
                             </div>
-                            <h3 className="text-3xl font-headline font-bold mb-4 tracking-tight">{cap.title}</h3>
-                            <p className="text-slate-400 leading-relaxed text-lg">{cap.description}</p>
+                            <h3 className="font-headline-lg text-headline-lg text-on-surface mb-4 tracking-tight">{cap.title}</h3>
+                            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{cap.description}</p>
                         </div>
                     ))}
                 </div>
             </section>
 
             {/* Selected Projects Showcase */}
-            <section className="py-32 px-8 max-w-7xl mx-auto border-t border-white/5">
+            <section className="relative z-10 py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto border-t border-white/5">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
                     <div>
-                        <h2 className="text-4xl md:text-6xl font-headline font-bold mb-4 tracking-tighter">AI Focus</h2>
-                        <p className="text-slate-400 max-w-md text-lg">Integrazioni reali di modelli allo stato dell'arte in architetture agentiche complesse.</p>
+                        <h2 className="font-display-lg text-display-lg text-on-surface mb-4">AI Focus</h2>
+                        <p className="font-body-md text-body-md text-on-surface-variant max-w-md">Integrazioni reali di modelli allo stato dell'arte in architetture agentiche complesse.</p>
                     </div>
                 </div>
 
                 <div className="space-y-40">
                     {projects.map((project, i) => (
                         <article key={i} className={`flex flex-col ${i % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 md:gap-24 items-center group`}>
-                            <div className="w-full md:w-1/2 relative overflow-hidden rounded-3xl bg-slate-800 shadow-2xl">
-                                <img 
-                                    className="w-full h-[500px] object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000 scale-105 group-hover:scale-100" 
-                                    src={project.image} 
-                                    alt={project.title} 
+                            <div className="w-full md:w-1/2 relative overflow-hidden rounded border border-outline-variant bg-surface/50 backdrop-blur-xl shadow-2xl">
+                                <img
+                                    className="w-full h-[500px] object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000 scale-105 group-hover:scale-100"
+                                    src={project.image}
+                                    alt={project.title}
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-60"></div>
                             </div>
                             <div className="w-full md:w-1/2 space-y-8">
                                 <div className="flex flex-wrap gap-3">
                                     {project.tags.map((tag, idx) => (
-                                        <span key={idx} className="px-4 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-[0.2em]">{tag}</span>
+                                        <span key={idx} className="px-4 py-1 rounded font-label-mono text-[10px] bg-primary/10 text-primary uppercase tracking-[0.2em] border border-primary/20">{tag}</span>
                                     ))}
                                 </div>
-                                <h3 className="text-4xl md:text-5xl font-headline font-bold tracking-tight">{project.title}</h3>
-                                <p className="text-slate-400 text-xl leading-relaxed font-light">{project.description}</p>
-                                <button className="inline-flex items-center gap-4 text-emerald-400 font-bold hover:text-emerald-300 transition-all text-lg group/btn">
+                                <h3 className="font-headline-lg text-display-lg text-on-surface tracking-tight leading-none">{project.title}</h3>
+                                <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">{project.description}</p>
+                                <button className="inline-flex items-center gap-4 font-label-mono text-primary font-bold hover:text-primary-fixed-dim transition-all group/btn">
                                     Technical Specs <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
                                 </button>
                             </div>
@@ -148,12 +152,12 @@ const AiSecurity = () => {
             </section>
 
             {/* CTA Final */}
-            <section className="py-40 px-8">
-                <div className="max-w-5xl mx-auto p-16 md:p-24 bg-gradient-to-br from-emerald-500 to-primary text-white rounded-[3rem] text-center shadow-3xl shadow-emerald-500/20 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                    <h2 className="text-4xl md:text-6xl font-headline font-bold mb-10 relative z-10 leading-tight">Porta l'Intelligenza <br/>Agentica nella tua Azienda.</h2>
-                    <p className="text-white/80 text-xl max-w-2xl mx-auto mb-12 relative z-10 font-light">Dall'inferenza ultra-rapida su Groq all'analisi multimodale con Gemini 1.5 Pro.</p>
-                    <Link to="/contatti" className="inline-block px-12 py-5 bg-white text-slate-900 rounded-2xl font-bold text-xl hover:scale-105 active:scale-95 transition-all relative z-10 shadow-2xl">
+            <section className="relative z-10 py-40 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+                <div className="p-16 md:p-24 bg-surface border border-outline-variant rounded-xl text-center shadow-3xl relative overflow-hidden group hover:border-primary/50 transition-colors">
+                    <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/10 transition-colors"></div>
+                    <h2 className="font-display-lg text-display-lg text-on-surface mb-10 relative z-10">Porta l'Intelligenza <br />Agentica nella tua Azienda.</h2>
+                    <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12 relative z-10 font-light">Dall'inferenza ultra-rapida su Groq all'analisi multimodale con Gemini 1.5 Pro.</p>
+                    <Link to="/contatti" className="inline-block px-12 py-5 bg-primary text-on-primary rounded font-label-mono text-label-mono uppercase tracking-widest hover:bg-primary-container transition-all relative z-10 shadow-2xl">
                         Schedule AI Audit
                     </Link>
                 </div>
@@ -163,3 +167,4 @@ const AiSecurity = () => {
 };
 
 export default AiSecurity;
+

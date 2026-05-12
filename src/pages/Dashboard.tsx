@@ -84,14 +84,15 @@ const Dashboard = () => {
         return () => clearInterval(interval);
     }, [token]);
 
-    const COLORS = ['#f97316', '#3b82f6', '#10b981', '#6366f1', '#8b5cf6', '#ec4899'];
+    const COLORS = ['#8aebff', '#1e292b', '#1c2426', '#3b4c50', '#8aebff80', '#ec4899'];
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
-                <div className="text-center">
-                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
-                    <p className="mt-4 text-gray-600 font-medium">Caricamento dashboard...</p>
+            <div className="min-h-screen flex items-center justify-center pt-20">
+                <div className="absolute inset-0 z-0 pointer-events-none bg-blueprint opacity-20"></div>
+                <div className="relative z-10 text-center">
+                    <div className="inline-block animate-spin rounded h-12 w-12 border-b-2 border-primary"></div>
+                    <p className="mt-4 text-on-surface-variant font-label-mono uppercase tracking-widest">Inizializzazione Sistemi...</p>
                 </div>
             </div>
         );
@@ -104,49 +105,51 @@ const Dashboard = () => {
     };
 
     return (
-        <main className="min-h-screen bg-[#f8fafc] pt-24 pb-12">
-            <div className="container">
+        <main className="relative min-h-screen pt-32 pb-12 overflow-hidden">
+            <div className="absolute inset-0 z-0 pointer-events-none bg-tech-grid opacity-30"></div>
+            
+            <div className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                     <div>
-                        <div className="flex items-center gap-2 text-accent font-bold mb-1">
-                            <LayoutDashboard size={20} />
-                            <span className="uppercase tracking-wider text-xs">Analytics Real-time</span>
+                        <div className="flex items-center gap-2 text-primary font-label-mono mb-2">
+                            <LayoutDashboard size={16} />
+                            <span className="uppercase tracking-[0.2em] text-[10px]">Analytics Real-time</span>
                         </div>
-                        <h1 className="text-4xl font-black text-primary"> Dashboard</h1>
+                        <h1 className="font-display-lg text-display-lg text-on-surface">System <span className="text-primary">Dashboard</span></h1>
                     </div>
 
                     <div className="flex items-center gap-4">
                         <Link
                             to="/admin"
-                            className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-primary transition-colors font-bold"
+                            className="flex items-center gap-2 px-6 py-2.5 text-on-surface-variant hover:text-primary transition-all font-label-mono text-label-mono uppercase tracking-widest border border-outline-variant rounded hover:border-primary/50"
                         >
-                            <ArrowLeft size={20} />
-                            Torna a Gestione
+                            <ArrowLeft size={16} />
+                            Gestione
                         </Link>
                         <button
                             onClick={() => { setRefreshing(true); fetchData(); }}
                             disabled={refreshing}
-                            className="flex items-center gap-2 bg-white px-5 py-2.5 rounded-xl shadow-sm border border-gray-200 hover:border-accent hover:text-accent transition-all font-bold group"
+                            className="flex items-center gap-2 bg-primary px-6 py-2.5 rounded font-label-mono text-label-mono uppercase tracking-widest text-on-primary hover:bg-primary-container transition-all disabled:opacity-50"
                         >
-                            <RefreshCw size={18} className={`${refreshing ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
-                            {refreshing ? 'Sincronizzazione...' : 'Aggiorna Ora'}
+                            <RefreshCw size={16} className={`${refreshing ? 'animate-spin' : ''}`} />
+                            {refreshing ? 'Sync...' : 'Refresh'}
                         </button>
                     </div>
                 </div>
 
                 {/* Main Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
 
                     {/* Traffic Area Chart - 2/3 width */}
-                    <div className="lg:col-span-2 bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-                        <div className="flex items-center justify-between mb-8">
+                    <div className="lg:col-span-2 bg-surface/50 backdrop-blur-xl rounded border border-outline-variant p-10 glass-card-hover">
+                        <div className="flex items-center justify-between mb-10">
                             <div>
-                                <h3 className="text-xl font-bold text-primary flex items-center gap-2">
-                                    <TrendingUp size={22} className="text-accent" />
+                                <h3 className="font-headline-lg text-headline-lg text-on-surface flex items-center gap-3">
+                                    <TrendingUp size={20} className="text-primary" />
                                     Traffico Ultime 24 Ore
                                 </h3>
-                                <p className="text-gray-500 text-sm mt-1">Visite e visitatori unici raggruppati per ora</p>
+                                <p className="text-on-surface-variant text-body-md mt-2">Monitoraggio analitico delle interazioni agentiche</p>
                             </div>
                         </div>
 
@@ -155,37 +158,39 @@ const Dashboard = () => {
                                 <AreaChart data={data?.hourlyStats}>
                                     <defs>
                                         <linearGradient id="colorVisits" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#f97316" stopOpacity={0.1} />
-                                            <stop offset="95%" stopColor="#f97316" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#8aebff" stopOpacity={0.1} />
+                                            <stop offset="95%" stopColor="#8aebff" stopOpacity={0} />
                                         </linearGradient>
                                         <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.1} />
-                                            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#8aebff" stopOpacity={0.05} />
+                                            <stop offset="95%" stopColor="#8aebff" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e292b" />
                                     <XAxis
                                         dataKey="hour"
                                         tickFormatter={formatHour}
-                                        tick={{ fill: '#94a3b8', fontSize: 12 }}
+                                        tick={{ fill: '#3b4c50', fontSize: 10, fontFamily: 'Geist Mono' }}
                                         axisLine={false}
                                         tickLine={false}
                                     />
                                     <YAxis
-                                        tick={{ fill: '#94a3b8', fontSize: 12 }}
+                                        tick={{ fill: '#3b4c50', fontSize: 10, fontFamily: 'Geist Mono' }}
                                         axisLine={false}
                                         tickLine={false}
                                     />
                                     <Tooltip
-                                        contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                                        contentStyle={{ backgroundColor: '#0b0f10', borderRadius: '4px', border: '1px solid #1e292b', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.5)' }}
+                                        labelStyle={{ color: '#8aebff', fontFamily: 'Geist Mono', marginBottom: '8px' }}
+                                        itemStyle={{ fontSize: '12px', fontFamily: 'Geist' }}
                                         labelFormatter={(label: any) => formatHour(label)}
                                     />
                                     <Area
                                         type="monotone"
                                         dataKey="visits"
                                         name="Visite Totali"
-                                        stroke="#f97316"
-                                        strokeWidth={3}
+                                        stroke="#8aebff"
+                                        strokeWidth={2}
                                         fillOpacity={1}
                                         fill="url(#colorVisits)"
                                     />
@@ -193,8 +198,8 @@ const Dashboard = () => {
                                         type="monotone"
                                         dataKey="unique_visitors"
                                         name="Visitatori Unici"
-                                        stroke="#3b82f6"
-                                        strokeWidth={3}
+                                        stroke="#8aebff80"
+                                        strokeWidth={2}
                                         fillOpacity={1}
                                         fill="url(#colorUsers)"
                                     />
@@ -204,12 +209,12 @@ const Dashboard = () => {
                     </div>
 
                     {/* Browser Donut Chart */}
-                    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-                        <h3 className="text-xl font-bold text-primary flex items-center gap-2 mb-6">
-                            <Monitor size={22} className="text-accent" />
+                    <div className="bg-surface/50 backdrop-blur-xl rounded border border-outline-variant p-10 glass-card-hover flex flex-col">
+                        <h3 className="font-headline-lg text-headline-lg text-on-surface flex items-center gap-3 mb-8">
+                            <Monitor size={20} className="text-primary" />
                             Tecnologia
                         </h3>
-                        <div className="h-[200px] w-full">
+                        <div className="h-[200px] w-full flex-grow">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
@@ -220,27 +225,30 @@ const Dashboard = () => {
                                         outerRadius={70}
                                         paddingAngle={5}
                                         dataKey="value"
+                                        stroke="none"
                                     >
                                         {(data?.browserStats || []).map((_, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <Tooltip />
+                                    <Tooltip
+                                      contentStyle={{ backgroundColor: '#0b0f10', borderRadius: '4px', border: '1px solid #1e292b' }}
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
-                        <div className="mt-4 pt-4 border-t border-gray-50">
-                            <div className="flex justify-between items-center mb-1">
-                                <span className="text-sm font-medium text-gray-500">Browser Dominante</span>
-                                <span className="text-sm font-bold text-primary">{data?.browserStats?.[0]?.name || 'N/A'}</span>
+                        <div className="mt-8 pt-8 border-t border-outline-variant/30">
+                            <div className="flex justify-between items-center">
+                                <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant">Browser Dominante</span>
+                                <span className="font-label-mono text-label-mono text-primary">{data?.browserStats?.[0]?.name || 'N/A'}</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Network Type Distribution */}
-                    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-                        <h3 className="text-xl font-bold text-primary flex items-center gap-2 mb-6">
-                            <Shield size={22} className="text-accent" />
+                    <div className="bg-surface/50 backdrop-blur-xl rounded border border-outline-variant p-10 glass-card-hover">
+                        <h3 className="font-headline-lg text-headline-lg text-on-surface flex items-center gap-3 mb-8">
+                            <Shield size={20} className="text-primary" />
                             Tipo di Rete
                         </h3>
                         <div className="h-[200px] w-full">
@@ -254,13 +262,21 @@ const Dashboard = () => {
                                         outerRadius={70}
                                         paddingAngle={5}
                                         dataKey="value"
+                                        stroke="none"
                                     >
                                         {(data?.networkStats || []).map((_, index) => (
                                             <Cell key={`cell-net-${index}`} fill={COLORS[(index + 2) % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <Tooltip />
-                                    <Legend verticalAlign="bottom" height={36} />
+                                    <Tooltip
+                                      contentStyle={{ backgroundColor: '#0b0f10', borderRadius: '4px', border: '1px solid #1e292b' }}
+                                    />
+                                    <Legend 
+                                      verticalAlign="bottom" 
+                                      height={36} 
+                                      iconType="rect"
+                                      formatter={(value) => <span className="font-label-mono text-[10px] text-on-surface-variant uppercase ml-2">{value}</span>}
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
@@ -268,21 +284,21 @@ const Dashboard = () => {
 
 
                     {/* Geographic Bar Chart */}
-                    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-                        <h3 className="text-xl font-bold text-primary flex items-center gap-2 mb-6">
-                            <Globe size={22} className="text-accent" />
+                    <div className="bg-surface/50 backdrop-blur-xl rounded border border-outline-variant p-10 glass-card-hover">
+                        <h3 className="font-headline-lg text-headline-lg text-on-surface flex items-center gap-3 mb-8">
+                            <Globe size={20} className="text-primary" />
                             Top Paesi
                         </h3>
-                        <div className="space-y-4">
+                        <div className="space-y-6">
                             {(data?.countryStats || []).slice(0, 5).map((country, idx) => (
                                 <div key={country.code || idx}>
-                                    <div className="flex justify-between mb-1 text-sm">
+                                    <div className="flex justify-between mb-2 font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant">
                                         <span className="flex items-center gap-2">
                                             {getFlagEmoji(country.code)} {country.name}
                                         </span>
-                                        <span className="font-bold">{country.value} visitatori</span>
+                                        <span className="text-primary font-bold">{country.value} visitatori</span>
                                     </div>
-                                    <div className="w-full bg-gray-50 rounded-full h-2 overflow-hidden">
+                                    <div className="w-full bg-surface-container rounded h-1 overflow-hidden">
                                         <div
                                             className="bg-primary h-full transition-all duration-1000"
                                             style={{ width: `${(country.value / (data?.countryStats?.[0]?.value || 1)) * 100}%` }}
@@ -294,41 +310,41 @@ const Dashboard = () => {
                     </div>
 
                     {/* Recent Activity Feed */}
-                    <div className="lg:col-span-2 bg-white rounded-3xl shadow-sm border border-gray-100 p-8 overflow-hidden">
-                        <h3 className="text-xl font-bold text-primary flex items-center gap-2 mb-6">
-                            <Activity size={22} className="text-accent" />
+                    <div className="lg:col-span-2 bg-surface/50 backdrop-blur-xl rounded border border-outline-variant p-10 glass-card-hover overflow-hidden">
+                        <h3 className="font-headline-lg text-headline-lg text-on-surface flex items-center gap-3 mb-10">
+                            <Activity size={20} className="text-primary" />
                             Attività Recente
-                            <span className="ml-2 flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                            <span className="ml-2 flex h-2 w-2 rounded-full bg-primary pulse-indicator"></span>
                         </h3>
                         <div className="overflow-x-auto">
                             <table className="w-full">
-                                <thead className="text-left border-b border-gray-50">
+                                <thead className="text-left border-b border-outline-variant/30">
                                     <tr>
-                                        <th className="pb-4 text-xs uppercase text-gray-400 font-bold">Utente / ISP</th>
-                                        <th className="pb-4 text-xs uppercase text-gray-400 font-bold">Pagina</th>
-                                        <th className="pb-4 text-xs uppercase text-gray-400 font-bold">Orario</th>
+                                        <th className="pb-4 font-label-mono text-[10px] uppercase text-on-surface-variant tracking-[0.2em]">Utente / ISP</th>
+                                        <th className="pb-4 font-label-mono text-[10px] uppercase text-on-surface-variant tracking-[0.2em]">Pagina</th>
+                                        <th className="pb-4 font-label-mono text-[10px] uppercase text-on-surface-variant tracking-[0.2em]">Orario</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gray-50">
+                                <tbody className="divide-y divide-outline-variant/10">
                                     {(data?.recentActivity || []).map((activity) => (
-                                        <tr key={activity.id} className="group hover:bg-gray-50/50 transition-colors">
-                                            <td className="py-4">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xs">
+                                        <tr key={activity.id} className="group hover:bg-primary/5 transition-colors">
+                                            <td className="py-5">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary font-label-mono text-[10px] border border-primary/20">
                                                         {activity.country_code || '??'}
                                                     </div>
                                                     <div>
-                                                        <div className="font-bold text-primary text-sm">{activity.isp}</div>
-                                                        <div className="text-xs text-gray-400 font-medium">{activity.ip}</div>
+                                                        <div className="font-bold text-on-surface text-body-md">{activity.isp}</div>
+                                                        <div className="font-label-mono text-[10px] text-on-surface-variant/50">{activity.ip}</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="py-4">
-                                                <span className="px-3 py-1 bg-gray-100 rounded-full text-[11px] font-bold text-gray-600">
+                                            <td className="py-5">
+                                                <span className="px-3 py-1 bg-surface-container border border-outline-variant/50 rounded text-[10px] font-label-mono text-on-surface-variant uppercase">
                                                     {activity.page}
                                                 </span>
                                             </td>
-                                            <td className="py-4 text-xs text-gray-500 font-medium italic">
+                                            <td className="py-5 font-label-mono text-[10px] text-on-surface-variant uppercase italic">
                                                 {new Date(activity.timestamp).toLocaleTimeString('it-IT')}
                                             </td>
                                         </tr>
@@ -345,3 +361,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

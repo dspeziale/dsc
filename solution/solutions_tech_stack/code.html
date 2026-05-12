@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Solutions &amp; Tech Stack | Daniele Speziale</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e0e3e5",
+                        "tertiary-fixed-dim": "#c3c6d6",
+                        "surface-container": "#1d2022",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-container": "#4b4e5b",
+                        "surface-tint": "#2fd9f4",
+                        "on-primary-fixed": "#001f25",
+                        "outline-variant": "#3c494c",
+                        "surface-container-low": "#191c1e",
+                        "surface-container-lowest": "#0b0f10",
+                        "tertiary": "#d9dcec",
+                        "inverse-on-surface": "#2d3133",
+                        "surface-bright": "#363a3b",
+                        "on-secondary-fixed": "#111c2d",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "on-tertiary": "#2c303c",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "background": "#101415",
+                        "secondary": "#bcc7de",
+                        "error": "#ffb4ab",
+                        "on-surface": "#e0e3e5",
+                        "on-tertiary-fixed": "#171b27",
+                        "tertiary-container": "#bdc0d0",
+                        "primary-fixed": "#a2eeff",
+                        "surface": "#101415",
+                        "error-container": "#93000a",
+                        "surface-dim": "#101415",
+                        "surface-variant": "#323537",
+                        "on-tertiary-fixed-variant": "#434653",
+                        "on-primary": "#00363e",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "tertiary-fixed": "#dfe2f2",
+                        "on-secondary": "#263143",
+                        "on-surface-variant": "#bbc9cd",
+                        "surface-container-high": "#272a2c",
+                        "primary-container": "#22d3ee",
+                        "on-primary-container": "#005763",
+                        "outline": "#859397",
+                        "on-error": "#690005",
+                        "secondary-container": "#3e495d",
+                        "inverse-surface": "#e0e3e5",
+                        "primary": "#8aebff",
+                        "inverse-primary": "#006877",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "on-secondary-container": "#aeb9d0",
+                        "surface-container-highest": "#323537"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "section-gap": "80px",
+                        "container-max": "1440px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Geist"],
+                        "body-md": ["Geist"],
+                        "headline-lg-mobile": ["Geist"],
+                        "title-md": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "1.5", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles mapped to typography scale */
+        body { @apply bg-surface-container-lowest text-on-surface font-body-md text-body-md antialiased; }
+        
+        /* Subtle grid background for the Deep Tech blueprint feel */
+        .bg-blueprint {
+            background-image: 
+                linear-gradient(to right, rgba(133, 147, 151, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(133, 147, 151, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Glassmorphism Hover Glow Effect */
+        .glass-card-hover:hover {
+            box-shadow: 0 0 20px rgba(138, 235, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-blueprint flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/50 backdrop-blur-xl border-b border-white/10">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Brand -->
+<a class="font-headline-lg text-headline-lg font-semibold tracking-tight text-on-surface hover:text-primary transition-all duration-300" href="#">
+                Daniele Speziale
+            </a>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 active:scale-95 transition-transform" href="#">Home</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 active:scale-95 transition-transform" href="#">Solutions</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 active:scale-95 transition-transform" href="#">Projects</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 active:scale-95 transition-transform" href="#">Advisory</a>
+</nav>
+<!-- Trailing Action -->
+<div class="hidden md:flex">
+<button class="bg-primary text-on-primary font-label-mono text-label-mono px-6 py-2 rounded uppercase tracking-widest hover:bg-primary-container transition-colors duration-300">
+                    Contact
+                </button>
+</div>
+<!-- Mobile Menu Toggle (Visual Only) -->
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Header Section -->
+<div class="max-w-3xl mb-section-gap">
+<span class="font-label-mono text-label-mono text-primary uppercase tracking-widest block mb-stack-md">Architecture Overview</span>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-stack-md">Enterprise Intelligence Systems</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                Deploying robust, scalable, and secure AI technology stacks. Emphasizing precision in multi-agent orchestration, advanced retrieval mechanisms, and rigorous compliance governance.
+            </p>
+</div>
+<!-- Bento Grid: Solutions & Tech Stack -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Section 1: Agentic AI Design -->
+<div class="bg-surface/50 backdrop-blur-xl border border-outline-variant/50 rounded-xl p-8 glass-card-hover hover:border-primary/50 transition-all duration-500 group relative">
+<div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'FILL' 0;">hub</span>
+</div>
+<div class="border-b border-white/10 pb-4 mb-stack-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">account_tree</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Agentic AI Design</h2>
+</div>
+<ul class="space-y-stack-md font-body-md text-body-md text-on-surface-variant relative z-10">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1" style="font-variation-settings: 'FILL' 1;">circle</span>
+<div>
+<strong class="text-on-surface block mb-1">Multi-Agent Tool Use</strong>
+                            Designing autonomous systems capable of executing complex, multi-step reasoning pathways using specialized toolsets.
+                        </div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1" style="font-variation-settings: 'FILL' 1;">circle</span>
+<div>
+<strong class="text-on-surface block mb-1">RAG Orchestration</strong>
+                            Architecting coordination layers that dictate when and how agents retrieve, synthesize, and validate external knowledge bases.
+                        </div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1" style="font-variation-settings: 'FILL' 1;">circle</span>
+<div>
+<strong class="text-on-surface block mb-1">State Management</strong>
+                            Implementing persistent memory frameworks to maintain context continuity across long-running agentic interactions.
+                        </div>
+</li>
+</ul>
+</div>
+<!-- Section 2: Advanced RAG & Retrieval -->
+<div class="bg-surface/50 backdrop-blur-xl border border-outline-variant/50 rounded-xl p-8 glass-card-hover hover:border-primary/50 transition-all duration-500 group relative">
+<div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'FILL' 0;">database</span>
+</div>
+<div class="border-b border-white/10 pb-4 mb-stack-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">plumbing</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Advanced Retrieval</h2>
+</div>
+<ul class="space-y-stack-md font-body-md text-body-md text-on-surface-variant relative z-10">
+<li class="flex items-start gap-3">
+<span class="font-label-mono text-label-mono text-primary mt-1">01.</span>
+<div>
+<strong class="text-on-surface block mb-1">Hybrid Search Pipelines</strong>
+                            Combining dense vector similarity with sparse keyword retrieval (BM25) to maximize recall and precision in domain-specific corpora.
+                        </div>
+</li>
+<li class="flex items-start gap-3">
+<span class="font-label-mono text-label-mono text-primary mt-1">02.</span>
+<div>
+<strong class="text-on-surface block mb-1">Embedding Optimization</strong>
+                            Selecting and fine-tuning embedding models tailored to specialized vocabularies and specific enterprise semantic requirements.
+                        </div>
+</li>
+<li class="flex items-start gap-3">
+<span class="font-label-mono text-label-mono text-primary mt-1">03.</span>
+<div>
+<strong class="text-on-surface block mb-1">Vector Store Infrastructure</strong>
+                            Deploying high-performance, scalable vector databases optimized for low-latency similarity queries at scale.
+                        </div>
+</li>
+</ul>
+</div>
+<!-- Section 3: LLM Stack in Production -->
+<div class="bg-surface/50 backdrop-blur-xl border border-outline-variant/50 rounded-xl p-8 glass-card-hover hover:border-primary/50 transition-all duration-500 group relative">
+<div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'FILL' 0;">memory</span>
+</div>
+<div class="border-b border-white/10 pb-4 mb-stack-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">model_training</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Production LLM Stack</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 relative z-10">
+                    Agnostic model integration strategy prioritizing the right cognitive engine for specific workload requirements, balancing cost, latency, and reasoning capability.
+                </p>
+<div class="grid grid-cols-2 gap-4 relative z-10">
+<div class="border border-outline-variant/30 rounded p-4 flex items-center gap-3 hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">neurology</span>
+<span class="font-title-md text-title-md text-on-surface">Claude 3.5</span>
+</div>
+<div class="border border-outline-variant/30 rounded p-4 flex items-center gap-3 hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">neurology</span>
+<span class="font-title-md text-title-md text-on-surface">Gemini Pro</span>
+</div>
+<div class="border border-outline-variant/30 rounded p-4 flex items-center gap-3 hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">neurology</span>
+<span class="font-title-md text-title-md text-on-surface">LLaMA 3.3</span>
+</div>
+<div class="border border-outline-variant/30 rounded p-4 flex items-center gap-3 hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">neurology</span>
+<span class="font-title-md text-title-md text-on-surface">GPT-4o</span>
+</div>
+</div>
+</div>
+<!-- Section 4: Security & Governance -->
+<div class="bg-surface/50 backdrop-blur-xl border border-outline-variant/50 rounded-xl p-8 glass-card-hover hover:border-primary/50 transition-all duration-500 group relative">
+<div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'FILL' 0;">shield_lock</span>
+</div>
+<div class="border-b border-white/10 pb-4 mb-stack-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">gavel</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Security &amp; Governance</h2>
+</div>
+<div class="space-y-4 font-body-md text-body-md text-on-surface-variant relative z-10">
+<div class="flex items-center gap-4 bg-surface-container/50 p-3 rounded border border-outline-variant/20">
+<div class="w-2 h-2 rounded-full bg-primary pulse-indicator"></div>
+<span class="font-title-md text-title-md text-on-surface w-24">NIS2</span>
+<span class="text-sm">Critical infrastructure resilience and reporting.</span>
+</div>
+<div class="flex items-center gap-4 bg-surface-container/50 p-3 rounded border border-outline-variant/20">
+<div class="w-2 h-2 rounded-full bg-primary pulse-indicator"></div>
+<span class="font-title-md text-title-md text-on-surface w-24">GDPR</span>
+<span class="text-sm">Data anonymization and privacy preservation in models.</span>
+</div>
+<div class="flex items-center gap-4 bg-surface-container/50 p-3 rounded border border-outline-variant/20">
+<div class="w-2 h-2 rounded-full bg-primary pulse-indicator"></div>
+<span class="font-title-md text-title-md text-on-surface w-24">AI Act</span>
+<span class="text-sm">Risk-tier assessment and transparency compliance.</span>
+</div>
+<div class="flex items-center gap-4 bg-surface-container/50 p-3 rounded border border-outline-variant/20">
+<div class="w-2 h-2 rounded-full bg-primary pulse-indicator"></div>
+<span class="font-title-md text-title-md text-on-surface w-24">Cybersec</span>
+<span class="text-sm">Prompt injection defense and adversarial testing.</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg bg-surface-container-lowest border-t border-outline-variant mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-2 lg:col-span-2">
+<p class="font-headline-lg text-headline-lg text-on-surface mb-stack-md">Daniele Speziale</p>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80">
+                    © 2024 Daniele Speziale. Principal AI Architect.
+                </p>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">GitHub</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Expertise</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

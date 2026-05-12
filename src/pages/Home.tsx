@@ -2,176 +2,103 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <main>
+    <main className="relative pt-32 pb-section-gap">
+      {/* Subtle Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-tech-grid"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#0f172a]">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 -right-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px]"></div>
-          <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px]"></div>
-        </div>
-        <div className="max-w-7xl mx-auto px-8 w-full relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-8">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">Agentic Era Orchestration</span>
-            </div>
-            <h1 className="font-headline text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] text-white mb-8">
-              Sviluppo <br/><span className="text-gradient">Agentico</span>
-            </h1>
-            <p className="text-slate-400 text-lg md:text-2xl leading-relaxed mb-12 max-w-2xl font-light">
-              Progettiamo ecosistemi autonomi sfruttando la potenza di <span className="text-white font-bold">Claude 3.5</span>, <span className="text-white font-bold">Gemini 1.5 Pro</span> e <span className="text-white font-bold">LLaMA 3.3</span> per scalabilità senza precedenti.
-            </p>
-            <div className="flex flex-wrap gap-6">
-              <Link to="/contatti" className="px-8 py-4 bg-emerald-500 text-slate-900 rounded-xl font-bold shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 active:scale-95 transition-all duration-300">
-                Avvia Progetto AI
-              </Link>
-              <Link to="/servizi" className="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-xl font-bold hover:bg-white/10 active:scale-95 transition-all duration-300 backdrop-blur-md">
-                Esplora Frameworks
-              </Link>
-            </div>
+      <section className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
+        <div className="flex flex-col items-start gap-stack-lg max-w-4xl">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary pulse-indicator"></span>
+            <span className="font-label-mono text-label-mono text-primary uppercase tracking-widest">System Architecture Status: Optimal</span>
           </div>
-        </div>
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-4/5 hidden lg:block opacity-20 mix-blend-screen pointer-events-none">
-          <img 
-            alt="AI Network" 
-            className="w-full h-full object-contain grayscale invert" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7NNBAYlxqqIouLIWHLeUqR-KB0XajJQyDx7Fpsb-NY79L1e55-kXZH9VK6a1D6Q45UlClj0d-ad6HA3Ns2HyN3vU-YPCJ3PJG7yjz5qkINR7ISVv7403BJu3wbbk79Z7Vhj2DhU1jlzPnQE9rFGWMacFxPoLmzl1eTyfwmU6QOmV-1AxB7oCAGFiyxpBEXecEl8YHHcHzm1KGKw6TD_cKaP3QrHIbGelCdHoMkVsfa9CnHap9_8ux3m8GWEjLoAOdFyh-rl_ilQvr"
-          />
-        </div>
-      </section>
-
-      {/* Models Section (New) */}
-      <section className="py-20 bg-[#0f172a] border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-8 flex flex-wrap justify-center items-center gap-16 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
-           <div className="text-white font-headline font-bold text-xl flex items-center gap-3">ANTHROPIC CLAUDE</div>
-           <div className="text-white font-headline font-bold text-xl flex items-center gap-3">GOOGLE GEMINI PRO</div>
-           <div className="text-white font-headline font-bold text-xl flex items-center gap-3">GROQ LLaMA 3.3</div>
-           <div className="text-white font-headline font-bold text-xl flex items-center gap-3">OPENAI GPT-4o</div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-32 bg-slate-50 relative">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="mb-20 text-center md:text-left">
-            <span className="text-emerald-600 font-headline font-bold tracking-widest uppercase text-xs">Core Tech</span>
-            <h2 className="font-headline text-4xl md:text-6xl font-bold mt-4 text-slate-900 tracking-tight">Soluzioni Verticali</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Service Card 1 */}
-            <div className="group p-8 rounded-2xl bg-white hover:bg-emerald-50 border border-slate-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10">
-              <div className="w-14 h-14 rounded-xl bg-emerald-100 flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors">
-                <span className="material-symbols-outlined text-emerald-600 text-3xl group-hover:text-white">hub</span>
-              </div>
-              <h3 className="font-headline text-2xl font-bold text-slate-900 mb-4">Sviluppo Agentico</h3>
-              <p className="text-slate-600 leading-relaxed mb-6">
-                Orchestrazione di agenti multi-modali per l'automazione di task complessi tramite RAG e Tool-Use.
-              </p>
-              <Link to="/ai-security" className="flex items-center text-emerald-600 font-bold cursor-pointer hover:gap-2 transition-all">
-                Dettagli Modelli <span className="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
-              </Link>
-            </div>
-            {/* Service Card 2 */}
-            <div className="group p-8 rounded-2xl bg-white hover:bg-emerald-50 border border-slate-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10">
-              <div className="w-14 h-14 rounded-xl bg-emerald-100 flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors">
-                <span className="material-symbols-outlined text-emerald-600 text-3xl group-hover:text-white">terminal</span>
-              </div>
-              <h3 className="font-headline text-2xl font-bold text-slate-900 mb-4">Sviluppo Web/Cloud</h3>
-              <p className="text-slate-600 leading-relaxed mb-6">
-                Piattaforme scalabili built-to-last con architetture serverless e database distribuiti ad alte performance.
-              </p>
-              <Link to="/servizi" className="flex items-center text-emerald-600 font-bold cursor-pointer hover:gap-2 transition-all">
-                Architetture <span className="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
-              </Link>
-            </div>
-            {/* Service Card 3 */}
-            <div className="group p-8 rounded-2xl bg-white hover:bg-emerald-50 border border-slate-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10">
-              <div className="w-14 h-14 rounded-xl bg-emerald-100 flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors">
-                <span className="material-symbols-outlined text-emerald-600 text-3xl group-hover:text-white">security</span>
-              </div>
-              <h3 className="font-headline text-2xl font-bold text-slate-900 mb-4">Cyber Orchestration</h3>
-              <p className="text-slate-600 leading-relaxed mb-6">
-                Sicurezza proattiva integrata con AI per il monitoraggio continuo e la risposta rapida alle minacce.
-              </p>
-              <Link to="/ai-security" className="flex items-center text-emerald-600 font-bold cursor-pointer hover:gap-2 transition-all">
-                Security Stack <span className="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <span className="text-emerald-600 font-headline font-bold tracking-widest uppercase text-xs">Standard di Eccellenza</span>
-              <h2 className="font-headline text-4xl md:text-6xl font-bold mt-4 mb-8 text-slate-900 tracking-tight">Perché DS Consulting?</h2>
-              <div className="space-y-8">
-                <div className="flex gap-6">
-                  <div className="shrink-0 w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center border border-emerald-100">
-                    <span className="material-symbols-outlined text-emerald-600">bolt</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-xl mb-2 text-slate-900">Velocità Inferenziale</h4>
-                    <p className="text-slate-600">Ottimizzazione tramite Groq e LLaMA 3.3 per risposte in millisecondi.</p>
-                  </div>
-                </div>
-                <div className="flex gap-6">
-                  <div className="shrink-0 w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center border border-emerald-100">
-                    <span className="material-symbols-outlined text-emerald-600">psychology</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-xl mb-2 text-slate-900">Agentic Orchestration</h4>
-                    <p className="text-slate-600">Uso avanzato di Claude e Gemini per task cognitivi complessi e multi-step.</p>
-                  </div>
-                </div>
-                <div className="flex gap-6">
-                  <div className="shrink-0 w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center border border-emerald-100">
-                    <span className="material-symbols-outlined text-emerald-600">verified_user</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-xl mb-2 text-slate-900">Security-First AI</h4>
-                    <p className="text-slate-600">Ogni integrazione AI è schermata da protocolli di sicurezza enterprise.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4 relative">
-              <div className="absolute -z-10 inset-0 bg-emerald-500/5 blur-[100px] rounded-full"></div>
-              <div className="bg-slate-50 p-8 rounded-3xl flex flex-col items-center justify-center text-center border border-slate-100">
-                <span className="font-headline text-5xl font-bold text-emerald-600 mb-2">10+</span>
-                <span className="text-slate-600 font-medium text-xs uppercase tracking-widest">Anni di expertise</span>
-              </div>
-              <div className="bg-slate-900 p-8 rounded-3xl flex flex-col items-center justify-center text-center mt-12">
-                <span className="font-headline text-5xl font-bold text-emerald-400 mb-2">50+</span>
-                <span className="text-emerald-100/50 font-medium text-xs uppercase tracking-widest">Sistemi AI Live</span>
-              </div>
-              <div className="bg-slate-900 p-8 rounded-3xl flex flex-col items-center justify-center text-center -mt-12">
-                <span className="font-headline text-4xl font-bold text-emerald-400 mb-2">100%</span>
-                <span className="text-emerald-100/50 font-medium text-xs uppercase tracking-widest">Sicurezza Garantita</span>
-              </div>
-              <div className="bg-slate-50 p-8 rounded-3xl flex flex-col items-center justify-center text-center border border-slate-100">
-                <span className="font-headline text-5xl font-bold text-emerald-600 mb-2">24/7</span>
-                <span className="text-slate-600 font-medium text-xs uppercase tracking-widest">AI Monitoring</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Banner */}
-      <section className="py-24 px-8 bg-slate-50">
-        <div className="max-w-7xl mx-auto rounded-[2rem] overflow-hidden relative bg-slate-900 shadow-2xl">
-          <div className="relative z-10 px-8 md:px-20 py-20 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
-            <div className="max-w-2xl">
-              <h2 className="font-headline text-4xl md:text-5xl font-bold text-white mb-6">Sei pronto per l'era <br/><span className="text-emerald-400">Agentica?</span></h2>
-              <p className="text-slate-400 text-lg">Integriamo i modelli più potenti al mondo nel tuo workflow aziendale.</p>
-            </div>
-            <Link to="/contatti" className="shrink-0 px-10 py-5 bg-emerald-500 text-slate-900 rounded-xl font-bold text-lg shadow-2xl shadow-emerald-500/30 hover:bg-emerald-400 active:scale-95 transition-all duration-300 flex items-center gap-3">
-              Inizia la Trasformazione <span className="material-symbols-outlined">rocket_launch</span>
+          <h1 className="font-display-lg text-display-lg text-on-surface">
+            Daniele Speziale. <br />
+            <span className="text-primary">Principal AI Architect</span> & Tech Lead.
+          </h1>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl border-l-2 border-outline-variant pl-4">
+            35+ years of engineering. Building production-grade AI: Scalable GenAI, Advanced RAG, Multi-Agent Systems.
+          </p>
+          <div className="flex flex-wrap gap-stack-md pt-stack-md">
+            <Link to="/contatti" className="bg-primary text-on-primary font-label-mono text-label-mono px-8 py-3 rounded hover:bg-primary-container transition-colors shadow-[0_0_15px_rgba(138,235,255,0.2)]">
+              Initiate Protocol: Contact
             </Link>
+            <Link to="/servizi" className="border border-outline text-on-surface font-label-mono text-label-mono px-8 py-3 rounded hover:border-primary hover:text-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(138,235,255,0.1)]">
+              View Architecture
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Data Density / Stats Section */}
+      <section className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+          {/* Stat Card 1 */}
+          <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded p-stack-lg flex flex-col justify-center items-center hover:border-primary/50 transition-colors group">
+            <div className="font-display-lg text-display-lg text-on-surface group-hover:text-primary transition-colors">35+</div>
+            <div className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mt-stack-sm text-center">Years Eng</div>
+          </div>
+          {/* Stat Card 2 */}
+          <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded p-stack-lg flex flex-col justify-center items-center hover:border-primary/50 transition-colors group">
+            <div className="font-display-lg text-display-lg text-on-surface group-hover:text-primary transition-colors">4</div>
+            <div className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mt-stack-sm text-center">LLMs in Prod</div>
+          </div>
+          {/* Stat Card 3 */}
+          <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded p-stack-lg flex flex-col justify-center items-center hover:border-primary/50 transition-colors group">
+            <div className="font-display-lg text-display-lg text-on-surface group-hover:text-primary transition-colors">10+</div>
+            <div className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mt-stack-sm text-center">AI Agents</div>
+          </div>
+          {/* Stat Card 4 */}
+          <div className="bg-surface/50 backdrop-blur-xl border border-outline-variant rounded p-stack-lg flex flex-col justify-center items-center hover:border-primary/50 transition-colors group">
+            <div className="font-display-lg text-display-lg text-on-surface group-hover:text-primary transition-colors">3</div>
+            <div className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mt-stack-sm text-center">Years GenAI</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Focus Area */}
+      <section className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap" id="expertise">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+          <div className="lg:col-span-5 flex flex-col gap-stack-md">
+            <h2 className="font-label-mono text-label-mono text-primary uppercase tracking-widest border-b border-white/10 pb-2 w-fit">
+              Architectural Oversight
+            </h2>
+            <h3 className="font-headline-lg text-headline-lg text-on-surface">
+              Translating Complexity into Concrete Strategy.
+            </h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">
+              Focusing on the critical translation of high-level business requirements into scalable, production-grade architectural decisions.
+            </p>
+            <ul className="flex flex-col gap-unit mt-stack-sm">
+              <li className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-[20px]">check_box</span>
+                <span className="font-body-md text-body-md text-on-surface">Build vs Buy Analysis</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-[20px]">check_box</span>
+                <span className="font-body-md text-body-md text-on-surface">Cost & Latency Optimization</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-[20px]">check_box</span>
+                <span className="font-body-md text-body-md text-on-surface">AI Governance & Security</span>
+              </li>
+            </ul>
+          </div>
+          <div className="lg:col-span-7 h-full min-h-[400px] relative rounded border border-outline-variant bg-surface/50 backdrop-blur-xl overflow-hidden group">
+            {/* Abstract Tech Visual */}
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-40 transition-opacity group-hover:opacity-60"
+              style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZ_i_RM34101fuVdXY2T_gwW0YIn5DeaP1sgCiA9uVrylJX0JeodeE0Epb5dx3NqhOK2xQm0FsCd91MUZBIwDY-pAhsnYWA6qklmJOMyvT05rg6FxNIEdJO3aZx1Zp7Lr5Bv6vKQmAPzYpaHeINQvA3AqCBGRjsUBnT3P6PyQ-yl6KgfQpxrh7F82KjCo1t9G6qwPn_iSwjlVfhFNIiqmnboXP4m9swkj4v9s0GlYMiDMdFEsZjCWkh17LCBFjrwg_lc-b8jlj_R4')" }}
+            >
+            </div>
+            {/* Blueprint Overlay */}
+            <div className="absolute inset-0 bg-tech-grid opacity-50 mix-blend-overlay"></div>
+            <div className="absolute bottom-4 left-4 font-label-mono text-label-mono text-on-surface-variant flex items-center gap-2">
+              <span className="material-symbols-outlined text-[16px]">schema</span>
+              Topology Diagram / L2 Abstraction
+            </div>
           </div>
         </div>
       </section>
@@ -180,3 +107,4 @@ const Home = () => {
 };
 
 export default Home;
+
