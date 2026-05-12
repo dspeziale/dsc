@@ -72,12 +72,12 @@ export default {
         "stack-lg": "32px"
       },
       fontFamily: {
-        "body-lg": ["Geist", "sans-serif"],
-        "body-md": ["Geist", "sans-serif"],
-        "headline-lg-mobile": ["Geist", "sans-serif"],
-        "title-md": ["Geist", "sans-serif"],
-        "display-lg": ["Geist", "sans-serif"],
-        "headline-lg": ["Geist", "sans-serif"],
+        "body-lg": ["PT Sans Narrow", "sans-serif"],
+        "body-md": ["PT Sans Narrow", "sans-serif"],
+        "headline-lg-mobile": ["PT Sans Narrow", "sans-serif"],
+        "title-md": ["PT Sans Narrow", "sans-serif"],
+        "display-lg": ["PT Sans Narrow", "sans-serif"],
+        "headline-lg": ["PT Sans Narrow", "sans-serif"],
         "label-mono": ["JetBrains Mono", "monospace"]
       },
       fontSize: {
