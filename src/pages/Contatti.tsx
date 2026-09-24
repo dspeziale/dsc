@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 
 const Contatti = () => {
   const [formData, setFormData] = useState({
@@ -236,7 +237,5 @@ const Contatti = () => {
     </main>
   );
 };
-
-export default Contatti;
 
 export default Contatti;

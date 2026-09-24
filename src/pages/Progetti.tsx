@@ -170,5 +170,3 @@ const Progetti = () => {
 };
 
 export default Progetti;
-
-export default Progetti;

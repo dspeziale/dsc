@@ -153,5 +153,3 @@ const ChiSiamo = () => {
 };
 
 export default ChiSiamo;
-
-export default ChiSiamo;
