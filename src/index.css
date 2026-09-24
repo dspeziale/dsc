@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-ink: #0b1020;
+  --color-ink-soft: #111a33;
+  --color-accent: #22d3ee;
+  --color-accent-2: #a78bfa;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink text-slate-200 font-sans antialiased;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glow-bg {
+  background:
+    radial-gradient(60% 50% at 20% 0%, rgba(34, 211, 238, 0.18), transparent 60%),
+    radial-gradient(50% 40% at 85% 10%, rgba(167, 139, 250, 0.18), transparent 60%);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.card {
+  @apply rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-accent/40 hover:bg-white/[0.05];
+}
+
+.btn-primary {
+  @apply inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-semibold text-ink transition hover:bg-cyan-300;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 font-semibold text-slate-100 transition hover:border-accent hover:text-accent;
+}
+
+.input {
+  @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-accent;
+}
